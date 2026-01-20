@@ -1,37 +1,25 @@
-// --- 1. EASTER EGG: PASSWORD CHECK ---
-function checkPassword() {
-    const input = document.getElementById('pass-input').value;
-    const errorMsg = document.getElementById('error-msg');
-    const overlay = document.getElementById('login-overlay');
-    const musicBtn = document.getElementById('music-control');
-    const bgMusic = document.getElementById('bg-music');
-
-    // PASSWORD: TANGGAL LAHIR DIA (13-02-2006)
-    const correctPassword = "13022006"; 
-
-    if (input === correctPassword) {
-        overlay.style.opacity = '0';
-        setTimeout(() => {
-            overlay.style.display = 'none';
-        }, 1000);
-
-        bgMusic.play().then(() => {
-            musicBtn.innerHTML = "🔊 Pause Music";
-        }).catch(err => {
-            console.log("Autoplay blocked");
-        });
-        
-        musicBtn.classList.remove('hidden');
-    } else {
-        errorMsg.classList.remove('hidden');
-        input.value = "";
-    }
-}
-
-// --- 2. MUSIC CONTROL ---
+// --- 1. MUSIC CONTROL ---
 const bgMusic = document.getElementById('bg-music');
 const musicBtn = document.getElementById('music-control');
-let isPlaying = true;
+let isPlaying = false;
+
+// Fungsi play music otomatis saat ada interaksi pertama
+function startMusic() {
+    bgMusic.play().then(() => {
+        isPlaying = true;
+        musicBtn.classList.remove('hidden');
+        musicBtn.innerHTML = "🔊 Pause Music";
+    }).catch(err => {
+        console.log("Autoplay blocked");
+        // Tampilkan tombol agar user bisa klik manual
+        musicBtn.classList.remove('hidden');
+        musicBtn.innerHTML = "🔇 Play Music";
+    });
+}
+
+// Event listener untuk memancing autoplay di browser
+document.body.addEventListener('click', () => { if(!isPlaying) startMusic(); }, { once: true });
+document.body.addEventListener('scroll', () => { if(!isPlaying) startMusic(); }, { once: true });
 
 function toggleMusic() {
     if (isPlaying) {
@@ -44,7 +32,7 @@ function toggleMusic() {
     isPlaying = !isPlaying;
 }
 
-// --- 3. SCROLL ANIMATION ---
+// --- 2. SCROLL ANIMATION ---
 const observerOptions = { root: null, rootMargin: '0px', threshold: 0.2 };
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -53,29 +41,10 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// --- 4. TYPEWRITER EFFECT (SURAT SPECIAL) ---
-// --- 4. OPEN LETTER & TYPEWRITER ---
-function openLetter() {
-    const envelope = document.getElementById('envelope-letter');
-    const instruction = document.querySelector('.instruction-click');
-    const closingQuote = document.getElementById('closing-quote');
-    
-    // Cek kalau amplop belum dibuka
-    if (!envelope.classList.contains('open')) {
-        envelope.classList.add('open');
-        instruction.style.display = 'none'; // Hilangkan teks instruksi
-        
-        // Mulai ngetik setelah animasi amplop selesai (1.5 detik)
-        setTimeout(() => {
-            typeWriter();
-            closingQuote.classList.remove('hidden');
-        }, 1500);
-    }
-}
-
+// --- 3. TYPEWRITER EFFECT (FIXED EMOJI) ---
 const textElement = document.getElementById('typing-text');
 
-// ISI SURAT UNTUK CRUSH (WARM & SUPPORTIVE)
+// Isi surat yang sudah diperbaiki (Emoji aman)
 const textContent = `Assalamu'alaikum, Ratu. ✨
 Barakallahu fii umrik! Happy 20th Birthday!
 
@@ -99,15 +68,23 @@ function typeWriter() {
     }
 }
 
-const messageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
+// --- 4. OPEN LETTER ---
+function openLetter() {
+    const envelope = document.getElementById('envelope-letter');
+    const instruction = document.querySelector('.instruction-click');
+    const closingQuote = document.getElementById('closing-quote');
+    
+    if (!envelope.classList.contains('open')) {
+        envelope.classList.add('open');
+        instruction.style.display = 'none';
+        
+        // Mulai ngetik setelah amplop terbuka
+        setTimeout(() => {
             typeWriter();
-            messageObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-document.querySelectorAll('#message').forEach(el => messageObserver.observe(el));
+            closingQuote.classList.remove('hidden');
+        }, 1500);
+    }
+}
 
 // --- 5. CONFETTI ---
 const wishSection = document.getElementById('wish');
@@ -168,38 +145,26 @@ function sendToWA() {
     const link = document.createElement('a');
     link.href = image; link.download = "Reaction-Birthday.png"; link.click();
     
-    // GANTI NOMOR DI SINI (Nomor WA Kamu)
+    // GANTI NOMOR WA KAMU DI SINI
     const phoneNumber = "628xxxxxxxxxx"; 
     const message = "Bg Nabil, makasih ya websitenya bagus banget! Ini pap reaksiku hehe ✨";
     const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     setTimeout(() => window.open(waUrl, '_blank'), 1000);
 }
 
-// --- 7. CURSOR SPARKLE EFFECT ---
-const sparkleColor = "#c5a059"; // Warna emas sesuai tema
-let sparkles = [];
-
+// --- 7. CURSOR SPARKLE ---
+const sparkleColor = "#c5a059"; 
 function createSparkle(x, y) {
     const el = document.createElement("div");
     el.classList.add("sparkle");
     el.style.left = x + "px";
     el.style.top = y + "px";
     document.body.appendChild(el);
-    
-    // Hapus sparkle setelah animasi selesai
-    setTimeout(() => {
-        el.remove();
-    }, 1000);
+    setTimeout(() => el.remove(), 1000);
 }
-
 document.addEventListener("mousemove", (e) => {
-    // Buat sparkle cuma kadang-kadang biar gak berat (1 dari 5 frame)
-    if (Math.random() < 0.2) {
-        createSparkle(e.clientX, e.clientY + window.scrollY);
-    }
+    if (Math.random() < 0.2) createSparkle(e.clientX, e.clientY + window.scrollY);
 });
-
-// Support Touch (buat HP)
 document.addEventListener("touchmove", (e) => {
     if (Math.random() < 0.2) {
         const touch = e.touches[0];
@@ -207,15 +172,12 @@ document.addEventListener("touchmove", (e) => {
     }
 });
 
-// --- 8. TILT EFFECT FOR CARDS ---
+// --- 8. TILT ---
 VanillaTilt.init(document.querySelectorAll(".collage-item img, .polaroid"), {
-    max: 15, // Maksimal kemiringan
-    speed: 400,
-    glare: true, // Efek kilap kaca
-    "max-glare": 0.5,
+    max: 15, speed: 400, glare: true, "max-glare": 0.5,
 });
 
-// --- 9. SCROLL PROGRESS BAR ---
+// --- 9. SCROLL BAR ---
 window.onscroll = function() {
     let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;

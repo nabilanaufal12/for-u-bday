@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Ratu! ✨</title>
     
+    <script>
+        // Jika belum login, tendang ke login.html
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            window.location.href = "login.html";
+        }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -14,25 +21,16 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
-<div class="progress-container">
-    <div class="progress-bar" id="myBar"></div>
-</div>
 <body>
 
-    <div id="login-overlay">
-        <div class="login-box">
-            <h2>Are You The One? 🔒</h2>
-            <p>Masukkan tanggal lahir kamu (DDMMYYYY) untuk membuka:</p>
-            <input type="password" id="pass-input" placeholder="13022006" maxlength="8">
-            <button onclick="checkPassword()">Buka Hadiah ✨</button>
-            <p id="error-msg" class="hidden">Password salah! Kamu bukan Ratu ya? 😤</p>
-        </div>
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
     </div>
 
     <audio id="bg-music" loop>
         <source src="backsound.mp3" type="audio/mpeg">
     </audio>
-    <button id="music-control" class="hidden" onclick="toggleMusic()">🔊 Pause Music</button>
+    <button id="music-control" class="hidden" onclick="toggleMusic()">🔊 Play Music</button>
 
     <section id="hero" class="parallax">
         <div class="hero-content fade-in">
