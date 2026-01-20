@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div id="virtual-cursor"></div>
+
+    <video class="input_video"></video>
+
+    <div id="start-screen">
+        <h1>Untuk Orang Spesial ❤️</h1>
+        <p>Izinkan akses kamera untuk pengalaman interaktif.</p>
+        <button onclick="startExperience()">Buka Hadiah</button>
+        <p class="fallback-note">Kamera bermasalah? <span onclick="enableFallback()">Klik di sini untuk mode manual</span></p>
+    </div>
+
+    <div id="intro-section" class="hidden">
+        <div class="instruction">Arahkan jari telunjuk & ibu jari seolah 'mencubit' amplop untuk membukanya.</div>
+        <div class="envelope-container" id="envelope">
+            <div class="envelope-body">
+                <div class="heart-seal">💌</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="gallery-section" class="hidden">
+        <div class="gallery-track" id="gallery-track">
+            <div class="card">
+                <img src="https://picsum.photos/400/600?random=1" alt="Foto Kita">
+                <h3>Happy Birthday!</h3>
+                <p>Selamat ulang tahun sayang...</p>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/400/600?random=2" alt="Foto Kita">
+                <h3>Memories</h3>
+                <p>Ingat waktu kita jalan-jalan kesini?</p>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/400/600?random=3" alt="Foto Kita">
+                <h3>Our Future</h3>
+                <p>Semoga tahun ini makin bahagia.</p>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/400/600?random=4" alt="Foto Kita">
+                <h3>Love You</h3>
+                <p>Selamanya bersamamu.</p>
+            </div>
+            <div class="card">
+                <img src="https://picsum.photos/400/600?random=5" alt="Foto Kita">
+                <h3>The End?</h3>
+                <p>No, just the beginning.</p>
+            </div>
+        </div>
+        <div class="scroll-instruction">Gerakkan jari ke kiri/kanan untuk geser foto</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
