@@ -18,15 +18,15 @@
     <div id="login-overlay">
         <div class="login-box">
             <h2>Are You The One? 🔒</h2>
-            <p>Masukkan kode rahasia (DDMMYY) untuk masuk:</p>
-            <input type="password" id="pass-input" placeholder="240226" maxlength="6">
+            <p>Masukkan kode rahasia (DD-MM-YYYY) untuk masuk:</p>
+            <input type="password" id="pass-input" placeholder="DD-MM-YYYY" maxlength="8">
             <button onclick="checkPassword()">Buka ❤️</button>
             <p id="error-msg" class="hidden">Salah password! 😤</p>
         </div>
     </div>
 
     <audio id="bg-music" loop>
-        <source src="lagu-romantis.mp3" type="audio/mpeg">
+        <source src="backsound.mp3" type="audio/mpeg">
     </audio>
     <button id="music-control" class="hidden" onclick="toggleMusic()">🔊 Pause Music</button>
 
@@ -87,14 +87,28 @@
         </div>
     </section>
 
-    <section id="achievement" class="parallax">
-        <div class="glass-box fade-in">
-            <h2>Rank #2 Through Consistency</h2>
-            <p>
-                "Jujur ini KEERENNNN! Selamat yaaw aku gak kaget sih soalnya kamu selalu konsisten.
-                Aku aja turun mulu tiap semester SEDANGKAN KAMU ENGGA!!
-                Fix kata mama ku kamu hebat karena bisa bertahan."
-            </p>
+    <section id="achievement">
+        <div class="container locker-layout">
+            <div class="locker-note fade-in">
+                <div class="tape"></div>
+                
+                <h2>Rank <span class="rank-number">2</span> <br> Through Consistency!!</h2>
+                <div class="note-content">
+                    <p>
+                        <strong>JUJUR INI KEERRREENNNN!!!</strong> 😭👏 <br><br>
+                        SELAMAAT YAAW... AKU GAK KAGET SIHHHH soalnya kamu selalu konsisten soal nilai.
+                        <strong>HEBAATT!!</strong> Aku aja turun mulu tiap semester 
+                        <span class="highlight-red">SEDANGKAN KAMU ENGGA!!!</span> 📉📈
+                        <br><br>
+                        <em>Fyi: Kata mamaku kamu hebat karna bisa bertahan.</em> ❤️
+                    </p>
+                </div>
+            </div>
+
+            <div class="locker-photo fade-in">
+                <div class="tape-corner"></div>
+                <img src="https://picsum.photos/id/64/400/400" alt="Shocked Reaction">
+            </div>
         </div>
     </section>
 
@@ -103,11 +117,30 @@
             <div class="message-text fade-in">
                 <h2>The First<br>On My Mind</h2>
                 <p id="typing-text"></p> 
+                <p class="italic" style="margin-top: 20px; font-weight: bold;">
+                    "Kamu nggak perlu jadi sempurna buat dicintai. Just be you, that's enough." ❤️
+                </p>
             </div>
+
             <div class="polaroid-stack fade-in">
-                <div class="polaroid"><img src="https://picsum.photos/id/104/300/300" alt="Us 1"></div>
-                <div class="polaroid"><img src="https://picsum.photos/id/106/300/300" alt="Us 2"></div>
-                <div class="polaroid"><img src="https://picsum.photos/id/109/300/300" alt="Us 3"></div>
+                <div class="polaroid">
+                    <img src="https://picsum.photos/id/1011/300/350" alt="Foto">
+                </div>
+                <div class="polaroid">
+                    <img src="https://picsum.photos/id/1025/300/350" alt="Foto">
+                </div>
+                <div class="polaroid">
+                    <img src="https://picsum.photos/id/1003/300/350" alt="Foto">
+                </div>
+                <div class="polaroid">
+                    <img src="https://picsum.photos/id/106/300/350" alt="Foto">
+                </div>
+                <div class="polaroid">
+                    <img src="https://picsum.photos/id/109/300/350" alt="Foto">
+                </div>
+                <div class="polaroid">
+                    <img src="https://picsum.photos/id/64/300/350" alt="Foto">
+                </div>
             </div>
         </div>
     </section>

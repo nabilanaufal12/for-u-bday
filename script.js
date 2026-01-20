@@ -7,7 +7,7 @@ function checkPassword() {
     const bgMusic = document.getElementById('bg-music');
 
     // GANTI PASSWORD DI SINI (Format bebas, contoh tanggal)
-    const correctPassword = "240226"; 
+    const correctPassword = "13022006"; 
 
     if (input === correctPassword) {
         // Jika Benar:

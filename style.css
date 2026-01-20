@@ -207,28 +207,261 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; }
     }
 }
 
-/* SECTION 3: ACHIEVEMENT */
-#achievement { background-image: url('https://picsum.photos/id/1015/1600/900'); }
-.glass-box {
-    background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 50px; max-width: 800px; color: white; text-align: center; border-radius: 2px;
+/* --- SECTION 3: ACHIEVEMENT (LOCKER STYLE) --- */
+#achievement {
+    position: relative;
+    /* Warna Biru Loker Sekolah */
+    background-color: #6a89cc; 
+    /* Pola Ventilasi Loker (Garis-garis tipis) */
+    background-image: repeating-linear-gradient(
+        transparent, 
+        transparent 20px, 
+        rgba(0,0,0,0.1) 20px, 
+        rgba(0,0,0,0.1) 22px
+    );
+    padding: 100px 0;
+    overflow: hidden;
+    border-top: 10px solid #4a69bd; /* Atap loker */
+    border-bottom: 10px solid #4a69bd; /* Lantai loker */
 }
-.glass-box h2 { font-size: 3rem; margin-bottom: 20px; }
-.glass-box p { font-size: 1.2rem; font-weight: 300; }
 
-/* SECTION 4: MESSAGE */
-#message { background: #fdfbf7; display: flex; align-items: center; min-height: 100vh; }
-.message-layout { display: flex; flex-wrap: wrap; align-items: center; gap: 50px; }
-.message-text { flex: 1; min-width: 300px; }
-.message-text h2 { font-size: 4rem; margin-bottom: 30px; line-height: 1.1; }
-.message-text p { font-size: 1.1rem; margin-bottom: 20px; text-align: justify; }
-.polaroid-stack { flex: 1; min-width: 300px; position: relative; height: 400px; }
-.polaroid { position: absolute; background: white; padding: 15px 15px 40px 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 250px; transform: rotate(-5deg); transition: transform 0.3s; }
-.polaroid:nth-child(2) { transform: rotate(5deg); top: 50px; left: 50px; z-index: 2; }
-.polaroid:nth-child(3) { transform: rotate(-2deg); top: 100px; left: 20px; z-index: 3; }
-.polaroid:hover { transform: scale(1.1) rotate(0); z-index: 10; }
-.polaroid img { width: 100%; display: block; }
+.locker-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+/* Kertas Catatan */
+.locker-note {
+    background: #f1f2f6; /* Warna Kertas Putih Abu */
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+    position: relative;
+    flex: 1;
+    transform: rotate(-2deg); /* Miring dikit biar natural */
+    font-family: 'Courier New', monospace; /* Font kayak ketikan */
+}
+
+/* Selotip di atas kertas */
+.tape {
+    position: absolute;
+    top: -15px;
+    left: 40%;
+    width: 100px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-left: 1px dashed rgba(0,0,0,0.1);
+    border-right: 1px dashed rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transform: rotate(-2deg);
+}
+
+.locker-note h2 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    line-height: 1.2;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    border-bottom: 2px dashed #ccc;
+    padding-bottom: 10px;
+}
+
+.rank-number {
+    font-size: 4rem;
+    color: #e55039; /* Merah Nilai */
+    font-style: italic;
+}
+
+.note-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.highlight-red {
+    background: #ffcccc;
+    padding: 0 5px;
+    font-weight: bold;
+}
+
+/* Foto Polaroid Ditempel */
+.locker-photo {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    transform: rotate(3deg);
+}
+
+.locker-photo img {
+    max-width: 300px;
+    border: 10px solid white; /* Frame putih */
+    border-bottom: 40px solid white; /* Bagian bawah polaroid lebih tebal */
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Selotip di pojok foto */
+.tape-corner {
+    position: absolute;
+    top: -10px;
+    right: 30%;
+    width: 80px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: rotate(45deg);
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* RESPONSIVE HP */
+@media (max-width: 768px) {
+    .locker-layout {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .locker-note {
+        width: 100%;
+        transform: rotate(0deg);
+    }
+    .locker-photo {
+        transform: rotate(0deg);
+    }
+    .locker-photo img {
+        max-width: 80%;
+    }
+}
+
+/* --- SECTION 4: MESSAGE (CHAOTIC STYLE) --- */
+#message {
+    background: #fdfbf7; /* Warna Kertas Krem */
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Biar foto gak keluar layar */
+}
+
+.message-layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 50px;
+}
+
+.message-text {
+    flex: 1;
+    min-width: 300px;
+    z-index: 10; /* Teks di atas foto */
+}
+
+.message-text h2 {
+    font-size: 4rem;
+    margin-bottom: 30px;
+    line-height: 1.1;
+    color: #2c3e50;
+}
+
+.message-text p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    text-align: justify;
+    line-height: 1.8;
+}
+
+/* Container Tumpukan Foto */
+.polaroid-stack {
+    flex: 1;
+    min-width: 350px;
+    position: relative;
+    height: 500px; /* Area tebar foto */
+}
+
+/* Gaya Dasar Polaroid */
+.polaroid {
+    position: absolute;
+    background: white;
+    padding: 10px 10px 35px 10px; /* Bawah lebih lebar ala polaroid */
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+    width: 220px;
+    transition: transform 0.3s ease, z-index 0.3s;
+    cursor: pointer;
+}
+
+.polaroid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: sepia(20%); /* Efek jadul dikit */
+}
+
+/* Hover Effect: Foto yang ditunjuk bakal naik ke paling atas */
+.polaroid:hover {
+    transform: scale(1.1) rotate(0deg) !important;
+    z-index: 50; /* Naik ke atas tumpukan */
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.3);
+}
+
+/* --- Posisi Acak (Chaos Layout) --- */
+
+/* Foto 1: Pojok Kiri Atas */
+.polaroid:nth-child(1) {
+    top: 0;
+    left: 0;
+    transform: rotate(-15deg);
+    z-index: 1;
+}
+
+/* Foto 2: Kanan Atas */
+.polaroid:nth-child(2) {
+    top: 20px;
+    right: 10px;
+    transform: rotate(10deg);
+    z-index: 2;
+}
+
+/* Foto 3: Tengah Bawah */
+.polaroid:nth-child(3) {
+    bottom: 50px;
+    left: 80px;
+    transform: rotate(-5deg);
+    z-index: 3;
+}
+
+/* Foto 4: Pojok Kanan Bawah */
+.polaroid:nth-child(4) {
+    bottom: 0;
+    right: 0;
+    transform: rotate(20deg);
+    z-index: 4;
+}
+
+/* Foto 5: Agak Tengah (Tertutup) */
+.polaroid:nth-child(5) {
+    top: 150px;
+    left: 50px;
+    transform: rotate(5deg);
+    z-index: 2;
+}
+
+/* Foto 6: Acak */
+.polaroid:nth-child(6) {
+    top: 100px;
+    right: 80px;
+    transform: rotate(-10deg);
+    z-index: 1;
+}
+
+/* RESPONSIVE HP */
+@media (max-width: 768px) {
+    .polaroid-stack {
+        height: 400px; /* Kecilin area di HP */
+        width: 100%;
+    }
+    .polaroid {
+        width: 160px; /* Kecilin ukuran foto di HP */
+    }
+}
 
 /* SECTION 5: WISH */
 #wish { background-color: #111; color: white; text-align: center; padding: 100px 20px; }
