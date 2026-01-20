@@ -177,6 +177,100 @@ VanillaTilt.init(document.querySelectorAll(".collage-item img, .polaroid"), {
     max: 15, speed: 400, glare: true, "max-glare": 0.5,
 });
 
+// --- LOGIC AMPLOP & SURAT ---
+function openEnvelope() {
+    const envelope = document.getElementById('envelope');
+    const instruction = document.getElementById('instruction-text');
+    const quote = document.getElementById('closing-quote');
+    const letter = document.querySelector('.letter');
+
+    if (!envelope.classList.contains('open')) {
+        envelope.classList.add('open');
+        instruction.style.opacity = '0'; // Sembunyikan instruksi
+        
+        // Mulai ngetik
+        setTimeout(() => {
+            typeWriter();
+            quote.classList.remove('hidden');
+            
+            // Jadikan surat bisa digeser setelah keluar
+            makeDraggable(letter);
+        }, 1000);
+    }
+}
+
+// --- LOGIC DRAG & DROP (UNIVERSAL: HP & LAPTOP) ---
+function makeDraggable(element) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+    element.onmousedown = dragMouseDown;
+    element.ontouchstart = dragMouseDown; // Support HP
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        
+        // Dapatkan posisi kursor awal
+        if (e.type === 'touchstart') {
+            pos3 = e.touches[0].clientX;
+            pos4 = e.touches[0].clientY;
+        } else {
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+        }
+        
+        // Angkat elemen ke paling atas saat di-klik
+        element.style.zIndex = 100;
+        
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+        
+        // Event HP
+        document.ontouchend = closeDragElement;
+        document.ontouchmove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        // e.preventDefault(); // Jangan prevent default di touchmove biar ga nge-freeze scroll halaman lain
+
+        let clientX, clientY;
+        if (e.type === 'touchmove') {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+
+        // Hitung posisi baru
+        pos1 = pos3 - clientX;
+        pos2 = pos4 - clientY;
+        pos3 = clientX;
+        pos4 = clientY;
+
+        // Set posisi elemen
+        element.style.top = (element.offsetTop - pos2) + "px";
+        element.style.left = (element.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+        // Stop moving
+        document.onmouseup = null;
+        document.onmousemove = null;
+        document.ontouchend = null;
+        document.ontouchmove = null;
+        
+        // Kembalikan z-index normal (opsional, biar tumpukan tetap natural)
+        // element.style.zIndex = ""; 
+    }
+}
+
+// Aktifkan Drag untuk semua Polaroid
+document.querySelectorAll('.draggable').forEach(polaroid => {
+    makeDraggable(polaroid);
+});
+
 // --- 9. SCROLL BAR ---
 window.onscroll = function() {
     let winScroll = document.body.scrollTop || document.documentElement.scrollTop;

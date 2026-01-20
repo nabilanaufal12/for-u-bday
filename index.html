@@ -116,32 +116,40 @@
 
     <section id="message">
         <div class="container message-layout">
+            
             <div class="message-text fade-in">
                 <h2>The First<br>On My Mind</h2>
                 
-                <div id="envelope-letter" onclick="openLetter()">
-                    <div class="flap"></div>
-                    <div class="pocket"></div>
-                    <div class="letter">
-                        <p id="typing-text"></p>
+                <div class="envelope-wrapper">
+                    <div id="envelope" onclick="openEnvelope()">
+                        <div class="front flap"></div>
+                        <div class="front pocket"></div>
+                        
+                        <div class="letter">
+                            <div class="letter-content">
+                                <p id="typing-text"></p>
+                            </div>
+                        </div>
+                        <div class="seal">❤️</div>
                     </div>
-                    <div class="seal">❤️</div>
                 </div>
-                
-                <p class="instruction-click">Klik amplop untuk baca suratnya...</p>
 
-                <p class="italic hidden" id="closing-quote" style="margin-top: 20px; font-weight: bold; color: #555;">
-                    "Tetap jadi Ratu yang ku kenal yaps. Semangat terus langkahnya!" ✨
-                </p>
+                <p class="instruction-click" id="instruction-text">Klik amplop untuk membuka surat & geser kertasnya! 👆</p>
+
+                <div id="closing-quote" class="hidden">
+                    <p class="italic" style="font-weight: bold; color: #2c3e50;">
+                        "Tetap jadi Ratu yang ku kenal yaps. Semangat terus langkahnya!" ✨
+                    </p>
+                </div>
             </div>
 
-            <div class="polaroid-stack fade-in">
-                <div class="polaroid"><img src="https://picsum.photos/id/1011/300/350" alt="Foto"></div>
-                <div class="polaroid"><img src="https://picsum.photos/id/1025/300/350" alt="Foto"></div>
-                <div class="polaroid"><img src="https://picsum.photos/id/1003/300/350" alt="Foto"></div>
-                <div class="polaroid"><img src="https://picsum.photos/id/106/300/350" alt="Foto"></div>
-                <div class="polaroid"><img src="https://picsum.photos/id/109/300/350" alt="Foto"></div>
-                <div class="polaroid"><img src="https://picsum.photos/id/64/300/350" alt="Foto"></div>
+            <div class="polaroid-stack fade-in" id="polaroid-container">
+                <div class="polaroid draggable"><img src="https://picsum.photos/id/1011/300/350" alt="Foto"></div>
+                <div class="polaroid draggable"><img src="https://picsum.photos/id/1025/300/350" alt="Foto"></div>
+                <div class="polaroid draggable"><img src="https://picsum.photos/id/1003/300/350" alt="Foto"></div>
+                <div class="polaroid draggable"><img src="https://picsum.photos/id/106/300/350" alt="Foto"></div>
+                <div class="polaroid draggable"><img src="https://picsum.photos/id/109/300/350" alt="Foto"></div>
+                <div class="polaroid draggable"><img src="https://picsum.photos/id/64/300/350" alt="Foto"></div>
             </div>
         </div>
     </section>

@@ -333,134 +333,201 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; }
     }
 }
 
-/* --- SECTION 4: MESSAGE (CHAOTIC STYLE) --- */
+/* --- SECTION 4: MESSAGE (INTERACTIVE) --- */
 #message {
-    background: #fdfbf7; /* Warna Kertas Krem */
+    background: #fdfbf7;
     display: flex;
     align-items: center;
     min-height: 100vh;
-    overflow: hidden; /* Biar foto gak keluar layar */
+    overflow: hidden;
+    position: relative;
 }
 
 .message-layout {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start; /* Ubah ke start biar ga ketutup */
     gap: 50px;
+    padding-top: 50px;
 }
 
 .message-text {
     flex: 1;
-    min-width: 300px;
-    z-index: 10; /* Teks di atas foto */
+    min-width: 350px;
+    z-index: 20; /* Lebih tinggi dari polaroid */
+    position: relative;
 }
 
-.message-text h2 {
-    font-size: 4rem;
-    margin-bottom: 30px;
-    line-height: 1.1;
-    color: #2c3e50;
+/* --- ENVELOPE LOGIC --- */
+.envelope-wrapper {
+    position: relative;
+    height: 250px; /* Space buat amplop */
+    margin: 20px 0;
 }
 
-.message-text p {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-    text-align: justify;
-    line-height: 1.8;
+#envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background-color: #ff7675;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 10;
 }
 
-/* Container Tumpukan Foto */
+/* Bagian Depan (Saku) */
+#envelope .front {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 30; /* Paling depan */
+}
+
+#envelope .pocket {
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-bottom: 100px solid #fd79a8; /* Warna saku lebih terang */
+    bottom: 0;
+    border-radius: 0 0 5px 5px;
+}
+
+/* Tutup Amplop */
+#envelope .flap {
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 100px solid #ff7675; /* Warna tutup */
+    top: 0;
+    transform-origin: top;
+    transition: transform 0.6s ease;
+    z-index: 40; /* Tutup di atas saku */
+}
+
+/* Segel Hati */
+.seal {
+    position: absolute;
+    top: 65px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    z-index: 50;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+/* Kertas Surat */
+.letter {
+    position: absolute;
+    width: 260px;
+    height: 320px; /* Surat panjang */
+    background: white;
+    top: 10px;
+    left: 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 20; /* Di antara belakang dan saku */
+    transition: transform 1s ease, top 1s ease;
+    padding: 20px;
+    overflow-y: auto; /* Bisa scroll kalau teks kepanjangan */
+    /* Tekstur Kertas */
+    background-image: linear-gradient(#eee .1rem, transparent .1rem);
+    background-size: 100% 1.5rem;
+}
+
+.letter p {
+    font-family: 'Lato', cursive; /* Font tulisan tangan lebih bagus */
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    color: #444;
+}
+
+/* State: OPEN */
+#envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 10; /* Pindah ke belakang */
+}
+
+#envelope.open .seal {
+    opacity: 0;
+}
+
+#envelope.open .letter {
+    transform: translateY(-150px); /* Surat naik ke atas */
+    z-index: 50; /* Surat jadi paling depan supaya bisa di-drag */
+    height: 400px; /* Surat memanjang */
+    cursor: grab; /* Kursor tangan */
+}
+
+#envelope.open .letter:active {
+    cursor: grabbing;
+}
+
+/* Quote & Instruksi */
+.instruction-click {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 50px; /* Jarak biar ga ketabrak surat */
+    font-style: italic;
+    transition: opacity 0.5s;
+}
+
+#closing-quote {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    border-left: 4px solid #ff7675;
+}
+
+/* --- POLAROID DRAGGABLE --- */
 .polaroid-stack {
     flex: 1;
     min-width: 350px;
+    height: 600px;
     position: relative;
-    height: 500px; /* Area tebar foto */
+    /* Hapus z-index fixed biar bisa tumpuk-tumpukan natural */
 }
 
-/* Gaya Dasar Polaroid */
 .polaroid {
     position: absolute;
     background: white;
-    padding: 10px 10px 35px 10px; /* Bawah lebih lebar ala polaroid */
+    padding: 10px 10px 35px 10px;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
-    width: 220px;
-    transition: transform 0.3s ease, z-index 0.3s;
-    cursor: pointer;
+    width: 200px;
+    cursor: grab;
+    transition: transform 0.2s; /* Transisi halus saat di-pickup */
+    /* Posisi awal acak biar estetik */
+}
+
+.polaroid:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+    z-index: 100 !important; /* Saat dipegang, selalu paling atas */
 }
 
 .polaroid img {
     width: 100%;
-    height: auto;
-    display: block;
-    filter: sepia(20%); /* Efek jadul dikit */
+    pointer-events: none; /* Biar gambar ga ke-drag browser */
 }
 
-/* Hover Effect: Foto yang ditunjuk bakal naik ke paling atas */
-.polaroid:hover {
-    transform: scale(1.1) rotate(0deg) !important;
-    z-index: 50; /* Naik ke atas tumpukan */
-    box-shadow: 10px 10px 30px rgba(0,0,0,0.3);
-}
+/* Posisi Awal Polaroid (Hardcoded biar rapi berantakannya) */
+.polaroid:nth-child(1) { top: 0; left: 0; transform: rotate(-10deg); }
+.polaroid:nth-child(2) { top: 50px; right: 20px; transform: rotate(15deg); }
+.polaroid:nth-child(3) { bottom: 100px; left: 50px; transform: rotate(-5deg); }
+.polaroid:nth-child(4) { bottom: 20px; right: 10px; transform: rotate(10deg); }
+.polaroid:nth-child(5) { top: 200px; left: 100px; transform: rotate(5deg); }
+.polaroid:nth-child(6) { top: 150px; right: 80px; transform: rotate(-20deg); }
 
-/* --- Posisi Acak (Chaos Layout) --- */
-
-/* Foto 1: Pojok Kiri Atas */
-.polaroid:nth-child(1) {
-    top: 0;
-    left: 0;
-    transform: rotate(-15deg);
-    z-index: 1;
-}
-
-/* Foto 2: Kanan Atas */
-.polaroid:nth-child(2) {
-    top: 20px;
-    right: 10px;
-    transform: rotate(10deg);
-    z-index: 2;
-}
-
-/* Foto 3: Tengah Bawah */
-.polaroid:nth-child(3) {
-    bottom: 50px;
-    left: 80px;
-    transform: rotate(-5deg);
-    z-index: 3;
-}
-
-/* Foto 4: Pojok Kanan Bawah */
-.polaroid:nth-child(4) {
-    bottom: 0;
-    right: 0;
-    transform: rotate(20deg);
-    z-index: 4;
-}
-
-/* Foto 5: Agak Tengah (Tertutup) */
-.polaroid:nth-child(5) {
-    top: 150px;
-    left: 50px;
-    transform: rotate(5deg);
-    z-index: 2;
-}
-
-/* Foto 6: Acak */
-.polaroid:nth-child(6) {
-    top: 100px;
-    right: 80px;
-    transform: rotate(-10deg);
-    z-index: 1;
-}
-
-/* RESPONSIVE HP */
+/* HP Friendly */
 @media (max-width: 768px) {
+    .message-layout {
+        flex-direction: column;
+    }
     .polaroid-stack {
-        height: 400px; /* Kecilin area di HP */
         width: 100%;
+        height: 400px;
     }
-    .polaroid {
-        width: 160px; /* Kecilin ukuran foto di HP */
-    }
+    .polaroid { width: 150px; }
 }
 
 /* SECTION 5: WISH */
