@@ -3,65 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday ❤️</title>
+    <title>Happy Birthday, My Love</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <div id="virtual-cursor"></div>
+    <audio id="bg-music" loop>
+        <source src="lagu-romantis.mp3" type="audio/mpeg">
+    </audio>
 
-    <video class="input_video"></video>
+    <section id="hero" class="parallax">
+        <div class="hero-content fade-in">
+            <h1 class="italic">Happy<br>Birthday</h1>
+            <div class="sub-title">18th Sweet Seventeen</div> 
+            <div class="date">24 Februari 2026</div> 
+        </div>
+    </section>
 
-    <div id="start-screen">
-        <h1>Untuk Orang Spesial ❤️</h1>
-        <p>Izinkan akses kamera untuk pengalaman interaktif.</p>
-        <button onclick="startExperience()">Buka Hadiah</button>
-        <p class="fallback-note">Kamera bermasalah? <span onclick="enableFallback()">Klik di sini untuk mode manual</span></p>
-    </div>
-
-    <div id="intro-section" class="hidden">
-        <div class="instruction">Arahkan jari telunjuk & ibu jari seolah 'mencubit' amplop untuk membukanya.</div>
-        <div class="envelope-container" id="envelope">
-            <div class="envelope-body">
-                <div class="heart-seal">💌</div>
+    <section id="the-list">
+        <div class="container fade-in">
+            <h2 class="section-title">3 Things You Get When You Turn 18</h2>
+            <div class="grid-collage">
+                <div class="grid-item">
+                    <img src="https://picsum.photos/id/1011/600/800" alt="Beauty">
+                    <div class="grid-caption">1. Unlimited Beauty</div>
+                </div>
+                <div class="grid-item">
+                    <img src="https://picsum.photos/id/1025/600/800" alt="Love">
+                    <div class="grid-caption">2. More Love</div>
+                </div>
+                <div class="grid-item">
+                    <img src="https://picsum.photos/id/1003/600/800" alt="Freedom">
+                    <div class="grid-caption">3. Bigger Dreams</div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div id="gallery-section" class="hidden">
-        <div class="gallery-track" id="gallery-track">
-            <div class="card">
-                <img src="https://picsum.photos/400/600?random=1" alt="Foto Kita">
-                <h3>Happy Birthday!</h3>
-                <p>Selamat ulang tahun sayang...</p>
+    <section id="achievement" class="parallax">
+        <div class="glass-box fade-in">
+            <h2>Rank #1 Through Consistency</h2>
+            <p>
+                "Selamat ya sayang, kamu berhasil mempertahankan posisi sebagai wanita terhebat di mataku. 
+                Meski kadang capek, kamu tetep berjuang. I'm so proud of you!"
+            </p>
+        </div>
+    </section>
+
+    <section id="message">
+        <div class="container message-layout">
+            <div class="message-text fade-in">
+                <h2>The First<br>On My Mind</h2>
+                <p>
+                    Setiap pagi bangun, yang pertama muncul di kepala cuma kamu. 
+                    Terima kasih sudah jadi alasan aku tersenyum setiap hari.
+                    Di umur yang baru ini, aku cuma mau bilang...
+                </p>
+                <p class="italic">
+                    "Kamu nggak perlu jadi sempurna buat dicintai. Just be you, that's enough."
+                </p>
             </div>
-            <div class="card">
-                <img src="https://picsum.photos/400/600?random=2" alt="Foto Kita">
-                <h3>Memories</h3>
-                <p>Ingat waktu kita jalan-jalan kesini?</p>
-            </div>
-            <div class="card">
-                <img src="https://picsum.photos/400/600?random=3" alt="Foto Kita">
-                <h3>Our Future</h3>
-                <p>Semoga tahun ini makin bahagia.</p>
-            </div>
-            <div class="card">
-                <img src="https://picsum.photos/400/600?random=4" alt="Foto Kita">
-                <h3>Love You</h3>
-                <p>Selamanya bersamamu.</p>
-            </div>
-            <div class="card">
-                <img src="https://picsum.photos/400/600?random=5" alt="Foto Kita">
-                <h3>The End?</h3>
-                <p>No, just the beginning.</p>
+            <div class="polaroid-stack fade-in">
+                <div class="polaroid"><img src="https://picsum.photos/id/104/300/300" alt="Us 1"></div>
+                <div class="polaroid"><img src="https://picsum.photos/id/106/300/300" alt="Us 2"></div>
+                <div class="polaroid"><img src="https://picsum.photos/id/109/300/300" alt="Us 3"></div>
             </div>
         </div>
-        <div class="scroll-instruction">Gerakkan jari ke kiri/kanan untuk geser foto</div>
-    </div>
+    </section>
+
+    <section id="wish">
+        <div class="wish-content fade-in">
+            <h2>18</h2>
+            <p>May this year brings you joy, success, and endless love. <br> I love you, always.</p>
+        </div>
+    </section>
+
+    <section id="selfie-section" class="parallax">
+        <div class="container fade-in">
+            <h2 style="font-size: 3rem; margin-bottom: 20px;">Happy Birthday, Sayang! ❤️</h2>
+            <p>Sebelum pergi, kirim pap reaksi kamu dong!</p>
+
+            <div class="camera-container">
+                <div class="camera-frame">
+                    <video id="webcam" autoplay playsinline></video>
+                    <canvas id="photo-canvas" class="hidden"></canvas>
+                </div>
+                <div class="controls">
+                    <button id="btn-start-cam" class="btn" onclick="startCamera()">Nyalakan Kamera 📸</button>
+                    <button id="btn-snap" class="btn hidden" onclick="takePicture()">Cekrek!</button>
+                    <button id="btn-send" class="btn hidden" onclick="sendToWA()">Kirim ke WA 🚀</button>
+                    <button id="btn-retake" class="btn secondary hidden" onclick="retake()">Ulang</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>

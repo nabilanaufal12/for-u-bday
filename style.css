@@ -1,139 +1,251 @@
-/* Reset & Base */
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+/* --- RESET & VARIABLES --- */
+:root {
+    --primary-dark: #1a1a1a;
+    --primary-light: #f9f9f9;
+    --accent-gold: #c5a059;
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Lato', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-    height: 100vh;
-    overflow: hidden; /* Hide default scrollbar */
-    display: flex;
-    justify_content: center;
-    align_items: center;
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    line-height: 1.6;
 }
 
-/* Hidden Video Input */
-.input_video { display: none; }
+/* --- TYPOGRAPHY --- */
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; }
+.text-center { text-align: center; }
+.italic { font-style: italic; }
 
-/* Kursor Virtual */
-#virtual-cursor {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.8);
-    border: 2px solid #ff4757;
-    border-radius: 50%;
-    pointer-events: none; /* Agar tidak menghalangi klik */
-    z-index: 9999;
-    box-shadow: 0 0 15px #ff4757, 0 0 30px #ff4757;
-    transition: transform 0.1s;
-    display: none; /* Muncul saat tangan terdeteksi */
+/* --- UTILS --- */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 0;
 }
 
-/* Helper Classes */
-.hidden { display: none !important; }
-
-/* Start Screen */
-#start-screen {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-}
-button {
-    margin-top: 20px;
-    padding: 10px 30px;
-    background: #ff4757;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: 0.3s;
-}
-button:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(255, 71, 87, 0.5); }
-.fallback-note { font-size: 0.8rem; margin-top: 15px; color: #555; cursor: pointer; text-decoration: underline;}
-
-/* Intro Section (Envelope) */
-#intro-section {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align_items: center;
-}
-.instruction {
-    margin-bottom: 50px;
-    color: #444;
-    font-weight: bold;
-    background: rgba(255,255,255,0.5);
-    padding: 10px 20px;
-    border-radius: 20px;
-}
-.envelope-container {
-    width: 300px;
-    height: 200px;
-    background: #ff6b81;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align_items: center;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    /* Animasi Jatuh */
-    animation: fallDown 1.5s ease-out forwards;
-    cursor: pointer;
-}
-.heart-seal { font-size: 3rem; animation: pulse 1s infinite alternate; }
-
-/* Gallery Section */
-#gallery-section {
-    width: 100%;
-    height: 100vh;
+/* Efek Parallax (Background Diam saat Scroll) */
+.parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
     display: flex;
     align-items: center;
-    overflow-x: auto; /* Fallback scroll */
-    scroll-behavior: smooth;
-}
-.gallery-track {
-    display: flex;
-    padding: 0 50px;
-    gap: 40px;
-    transition: transform 0.3s ease-out; /* Smooth scroll via JS */
-}
-.card {
-    min-width: 300px;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 20px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-}
-.card img { width: 100%; border-radius: 15px; margin-bottom: 15px; }
-.scroll-instruction {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.5);
-    color: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.8rem;
+    justify-content: center;
+    position: relative;
 }
 
-/* Animations */
-@keyframes fallDown {
-    0% { transform: translateY(-100vh) rotate(10deg); opacity: 0; }
-    60% { transform: translateY(20px) rotate(-5deg); opacity: 1; }
-    80% { transform: translateY(-10px) rotate(2deg); }
-    100% { transform: translateY(0) rotate(0); }
+/* Fade In Animation on Scroll */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }
-@keyframes pulse { to { transform: scale(1.1); } }
-@keyframes openEnvelope {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(2); opacity: 0; }
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- SECTION 1: HERO --- */
+#hero {
+    /* Ganti Foto Utama di sini (Portrait) */
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/id/1027/1000/1500'); 
+    color: white;
+    text-align: center;
+}
+.hero-content h1 {
+    font-size: 5rem;
+    line-height: 1;
+    letter-spacing: 5px;
+    margin-bottom: 10px;
+}
+.hero-content .sub-title {
+    font-size: 2rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent-gold);
+}
+.hero-content .date {
+    margin-top: 20px;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    display: inline-block;
+    padding: 10px 20px;
+}
+
+/* --- SECTION 2: THE LIST (GRID) --- */
+#the-list {
+    background: white;
+    padding: 80px 0;
+}
+.section-title {
+    font-size: 3rem;
+    margin-bottom: 50px;
+    text-align: center;
+}
+.grid-collage {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+.grid-item {
+    position: relative;
+    overflow: hidden;
+    height: 400px;
+}
+.grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.grid-item:hover img { transform: scale(1.05); }
+.grid-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: white;
+    padding: 10px 20px;
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* --- SECTION 3: ACHIEVEMENT (GLASSMORPHISM) --- */
+#achievement {
+    /* Ganti Background Achievement */
+    background-image: url('https://picsum.photos/id/1015/1600/900'); 
+}
+.glass-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 50px;
+    max-width: 800px;
+    color: white;
+    text-align: center;
+    border-radius: 2px;
+}
+.glass-box h2 { font-size: 3rem; margin-bottom: 20px; }
+.glass-box p { font-size: 1.2rem; font-weight: 300; }
+
+/* --- SECTION 4: THE MESSAGE --- */
+#message {
+    background: #fdfbf7; /* Kertas */
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+}
+.message-layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 50px;
+}
+.message-text {
+    flex: 1;
+    min-width: 300px;
+}
+.message-text h2 { font-size: 4rem; margin-bottom: 30px; line-height: 1.1; }
+.message-text p { font-size: 1.1rem; margin-bottom: 20px; text-align: justify; }
+
+.polaroid-stack {
+    flex: 1;
+    min-width: 300px;
+    position: relative;
+    height: 400px;
+}
+.polaroid {
+    position: absolute;
+    background: white;
+    padding: 15px 15px 40px 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 250px;
+    transform: rotate(-5deg);
+    transition: transform 0.3s;
+}
+.polaroid:nth-child(2) { transform: rotate(5deg); top: 50px; left: 50px; z-index: 2; }
+.polaroid:nth-child(3) { transform: rotate(-2deg); top: 100px; left: 20px; z-index: 3; }
+.polaroid:hover { transform: scale(1.1) rotate(0); z-index: 10; }
+.polaroid img { width: 100%; display: block; }
+
+/* --- SECTION 5: THE WISH --- */
+#wish {
+    background-color: #111;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+.wish-content h2 { font-size: 8rem; color: var(--accent-gold); opacity: 0.8; margin-bottom: -20px; }
+.wish-content p { font-size: 1.5rem; max-width: 600px; margin: 0 auto; font-weight: 300; }
+
+/* --- SECTION 6: SELFIE & FOOTER --- */
+#selfie-section {
+    /* Ganti Background Selfie Section */
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://picsum.photos/id/1060/1600/900'); 
+    text-align: center;
+    color: white;
+    padding-bottom: 100px;
+}
+.camera-container {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    max-width: 500px;
+    margin: 30px auto;
+    color: black;
+}
+.camera-frame {
+    width: 100%;
+    height: 350px; /* Portrait selfie */
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+}
+#webcam, #photo-canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1); /* Mirror */
+}
+.btn {
+    background: var(--accent-gold);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 5px;
+    font-family: var(--font-sans);
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn:hover { background: #b08d4b; transform: translateY(-2px); }
+.btn.secondary { background: #555; }
+.hidden { display: none; }
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 3.5rem; }
+    .section-title { font-size: 2.5rem; }
+    .message-layout { flex-direction: column; }
+    .polaroid-stack { height: 300px; width: 100%; display: flex; justify-content: center; }
+    .parallax { background-attachment: scroll; /* Fix for mobile jitter */ }
 }
