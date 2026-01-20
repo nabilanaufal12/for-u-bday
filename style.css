@@ -3,8 +3,6 @@
     --primary-dark: #1a1a1a;
     --primary-light: #f9f9f9;
     --accent-gold: #c5a059;
-    --glass-bg: rgba(255, 255, 255, 0.15);
-    --glass-border: rgba(255, 255, 255, 0.2);
     --font-serif: 'Playfair Display', serif;
     --font-sans: 'Lato', sans-serif;
 }
@@ -19,20 +17,73 @@ body {
     line-height: 1.6;
 }
 
-/* --- TYPOGRAPHY --- */
-h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; }
-.text-center { text-align: center; }
-.italic { font-style: italic; }
-
-/* --- UTILS --- */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 50px 0;
+/* --- EASTER EGG LOGIN OVERLAY --- */
+#login-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+    z-index: 10000; /* Paling atas */
+    display: flex;
+    justify-content: center;
+    align_items: center;
+    transition: opacity 1s ease;
 }
+.login-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+    max-width: 90%;
+    width: 400px;
+}
+.login-box h2 { font-family: var(--font-serif); margin-bottom: 10px; color: var(--accent-gold); }
+.login-box input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin: 15px 0;
+    width: 80%;
+    font-size: 1rem;
+    text-align: center;
+}
+.login-box button {
+    padding: 10px 20px;
+    background: var(--accent-gold);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.login-box button:hover { background: #b08d4b; }
+#error-msg { color: #ff6b6b; margin-top: 10px; font-weight: bold; }
 
-/* Efek Parallax (Background Diam saat Scroll) */
+/* --- FLOATING MUSIC BUTTON --- */
+#music-control {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+#music-control:hover { transform: scale(1.05); }
+
+/* --- EXISTING STYLES (Sama seperti sebelumnya) --- */
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; }
+.italic { font-style: italic; }
+.container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 50px 0; }
 .parallax {
     background-attachment: fixed;
     background-position: center;
@@ -44,208 +95,73 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; }
     justify-content: center;
     position: relative;
 }
-
-/* Fade In Animation on Scroll */
 .fade-in {
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 0; transform: translateY(30px);
     transition: opacity 1s ease-out, transform 1s ease-out;
 }
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
 
-/* --- SECTION 1: HERO --- */
+/* SECTION 1: HERO */
 #hero {
-    /* Ganti Foto Utama di sini (Portrait) */
     background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://picsum.photos/id/1027/1000/1500'); 
-    color: white;
-    text-align: center;
+    color: white; text-align: center;
 }
-.hero-content h1 {
-    font-size: 5rem;
-    line-height: 1;
-    letter-spacing: 5px;
-    margin-bottom: 10px;
-}
-.hero-content .sub-title {
-    font-size: 2rem;
-    font-family: var(--font-serif);
-    font-style: italic;
-    color: var(--accent-gold);
-}
-.hero-content .date {
-    margin-top: 20px;
-    font-size: 1rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    display: inline-block;
-    padding: 10px 20px;
-}
+.hero-content h1 { font-size: 5rem; line-height: 1; margin-bottom: 10px; }
+.hero-content .sub-title { font-size: 2rem; font-family: var(--font-serif); font-style: italic; color: var(--accent-gold); }
+.hero-content .date { margin-top: 20px; font-size: 1rem; letter-spacing: 3px; border-top: 1px solid white; border-bottom: 1px solid white; display: inline-block; padding: 10px 20px; }
 
-/* --- SECTION 2: THE LIST (GRID) --- */
-#the-list {
-    background: white;
-    padding: 80px 0;
-}
-.section-title {
-    font-size: 3rem;
-    margin-bottom: 50px;
-    text-align: center;
-}
-.grid-collage {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-.grid-item {
-    position: relative;
-    overflow: hidden;
-    height: 400px;
-}
-.grid-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
+/* SECTION 2: THE LIST */
+#the-list { background: white; padding: 80px 0; }
+.section-title { font-size: 3rem; margin-bottom: 50px; text-align: center; }
+.grid-collage { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.grid-item { position: relative; overflow: hidden; height: 400px; }
+.grid-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
 .grid-item:hover img { transform: scale(1.05); }
-.grid-caption {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background: white;
-    padding: 10px 20px;
-    font-family: var(--font-serif);
-    font-size: 1.2rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
+.grid-caption { position: absolute; bottom: 20px; left: 20px; background: white; padding: 10px 20px; font-family: var(--font-serif); font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
 
-/* --- SECTION 3: ACHIEVEMENT (GLASSMORPHISM) --- */
-#achievement {
-    /* Ganti Background Achievement */
-    background-image: url('https://picsum.photos/id/1015/1600/900'); 
-}
+/* SECTION 3: ACHIEVEMENT */
+#achievement { background-image: url('https://picsum.photos/id/1015/1600/900'); }
 .glass-box {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 50px;
-    max-width: 800px;
-    color: white;
-    text-align: center;
-    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 50px; max-width: 800px; color: white; text-align: center; border-radius: 2px;
 }
 .glass-box h2 { font-size: 3rem; margin-bottom: 20px; }
 .glass-box p { font-size: 1.2rem; font-weight: 300; }
 
-/* --- SECTION 4: THE MESSAGE --- */
-#message {
-    background: #fdfbf7; /* Kertas */
-    display: flex;
-    align-items: center;
-    min-height: 100vh;
-}
-.message-layout {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 50px;
-}
-.message-text {
-    flex: 1;
-    min-width: 300px;
-}
+/* SECTION 4: MESSAGE */
+#message { background: #fdfbf7; display: flex; align-items: center; min-height: 100vh; }
+.message-layout { display: flex; flex-wrap: wrap; align-items: center; gap: 50px; }
+.message-text { flex: 1; min-width: 300px; }
 .message-text h2 { font-size: 4rem; margin-bottom: 30px; line-height: 1.1; }
 .message-text p { font-size: 1.1rem; margin-bottom: 20px; text-align: justify; }
-
-.polaroid-stack {
-    flex: 1;
-    min-width: 300px;
-    position: relative;
-    height: 400px;
-}
-.polaroid {
-    position: absolute;
-    background: white;
-    padding: 15px 15px 40px 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    width: 250px;
-    transform: rotate(-5deg);
-    transition: transform 0.3s;
-}
+.polaroid-stack { flex: 1; min-width: 300px; position: relative; height: 400px; }
+.polaroid { position: absolute; background: white; padding: 15px 15px 40px 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 250px; transform: rotate(-5deg); transition: transform 0.3s; }
 .polaroid:nth-child(2) { transform: rotate(5deg); top: 50px; left: 50px; z-index: 2; }
 .polaroid:nth-child(3) { transform: rotate(-2deg); top: 100px; left: 20px; z-index: 3; }
 .polaroid:hover { transform: scale(1.1) rotate(0); z-index: 10; }
 .polaroid img { width: 100%; display: block; }
 
-/* --- SECTION 5: THE WISH --- */
-#wish {
-    background-color: #111;
-    color: white;
-    text-align: center;
-    padding: 100px 20px;
-}
+/* SECTION 5: WISH */
+#wish { background-color: #111; color: white; text-align: center; padding: 100px 20px; }
 .wish-content h2 { font-size: 8rem; color: var(--accent-gold); opacity: 0.8; margin-bottom: -20px; }
 .wish-content p { font-size: 1.5rem; max-width: 600px; margin: 0 auto; font-weight: 300; }
 
-/* --- SECTION 6: SELFIE & FOOTER --- */
-#selfie-section {
-    /* Ganti Background Selfie Section */
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://picsum.photos/id/1060/1600/900'); 
-    text-align: center;
-    color: white;
-    padding-bottom: 100px;
-}
-.camera-container {
-    background: white;
-    padding: 20px;
-    border-radius: 20px;
-    max-width: 500px;
-    margin: 30px auto;
-    color: black;
-}
-.camera-frame {
-    width: 100%;
-    height: 350px; /* Portrait selfie */
-    background: #000;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 20px;
-}
-#webcam, #photo-canvas {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scaleX(-1); /* Mirror */
-}
-.btn {
-    background: var(--accent-gold);
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    font-size: 1rem;
-    border-radius: 50px;
-    cursor: pointer;
-    margin: 5px;
-    font-family: var(--font-sans);
-    font-weight: bold;
-    transition: 0.3s;
-}
+/* SECTION 6: SELFIE */
+#selfie-section { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://picsum.photos/id/1060/1600/900'); text-align: center; color: white; padding-bottom: 100px; }
+.camera-container { background: white; padding: 20px; border-radius: 20px; max-width: 500px; margin: 30px auto; color: black; }
+.camera-frame { width: 100%; height: 350px; background: #000; border-radius: 10px; overflow: hidden; position: relative; margin-bottom: 20px; }
+#webcam, #photo-canvas { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+.btn { background: var(--accent-gold); color: white; border: none; padding: 12px 30px; font-size: 1rem; border-radius: 50px; cursor: pointer; margin: 5px; font-family: var(--font-sans); font-weight: bold; transition: 0.3s; }
 .btn:hover { background: #b08d4b; transform: translateY(-2px); }
 .btn.secondary { background: #555; }
-.hidden { display: none; }
+.hidden { display: none !important; }
 
-/* MOBILE RESPONSIVE */
+/* MOBILE */
 @media (max-width: 768px) {
     .hero-content h1 { font-size: 3.5rem; }
     .section-title { font-size: 2.5rem; }
     .message-layout { flex-direction: column; }
     .polaroid-stack { height: 300px; width: 100%; display: flex; justify-content: center; }
-    .parallax { background-attachment: scroll; /* Fix for mobile jitter */ }
+    .parallax { background-attachment: scroll; }
 }
