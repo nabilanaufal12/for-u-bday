@@ -110,14 +110,102 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; }
 .hero-content .sub-title { font-size: 2rem; font-family: var(--font-serif); font-style: italic; color: var(--accent-gold); }
 .hero-content .date { margin-top: 20px; font-size: 1rem; letter-spacing: 3px; border-top: 1px solid white; border-bottom: 1px solid white; display: inline-block; padding: 10px 20px; }
 
-/* SECTION 2: THE LIST */
-#the-list { background: white; padding: 80px 0; }
-.section-title { font-size: 3rem; margin-bottom: 50px; text-align: center; }
-.grid-collage { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-.grid-item { position: relative; overflow: hidden; height: 400px; }
-.grid-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-.grid-item:hover img { transform: scale(1.05); }
-.grid-caption { position: absolute; bottom: 20px; left: 20px; background: white; padding: 10px 20px; font-family: var(--font-serif); font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+/* --- SECTION 2: THE LIST (OVERLAY STYLE) --- */
+#the-list {
+    position: relative;
+    background: #000; /* Background hitam biar foto kontras */
+    padding: 0; /* Full bleed */
+    height: 100vh; /* Full layar */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Teks Melayang di Tengah */
+.overlay-container {
+    position: absolute;
+    z-index: 10; /* Di atas foto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    color: white;
+    text-shadow: 0 0 20px rgba(0,0,0,0.8); /* Shadow biar kebaca */
+    width: 100%;
+    pointer-events: none; /* Biar user tetep bisa scroll lewat area ini */
+}
+
+.huge-number {
+    font-family: var(--font-serif);
+    font-size: 15rem; /* Ukuran Raksasa */
+    line-height: 1;
+}
+
+.middle-text {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-align: center;
+}
+
+.huge-cursive {
+    font-family: 'Playfair Display', serif; /* Atau font script kalau mau */
+    font-style: italic;
+    font-size: 15rem;
+    line-height: 1;
+    color: var(--accent-gold);
+}
+
+/* Background Kolase Grid */
+.collage-background {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 Kolom */
+    width: 100%;
+    height: 100%;
+    opacity: 0.6; /* Foto agak gelap biar teks jelas */
+    filter: grayscale(30%); /* Efek agak aesthetic */
+    gap: 5px;
+}
+
+.collage-item {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.collage-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 3s ease;
+}
+
+/* Efek Zoom pelan saat hover/kelihatan */
+#the-list:hover .collage-item img {
+    transform: scale(1.1);
+}
+
+/* RESPONSIVE HP */
+@media (max-width: 768px) {
+    .overlay-container {
+        flex-direction: column;
+        gap: 0;
+    }
+    .huge-number, .huge-cursive {
+        font-size: 8rem;
+    }
+    .middle-text {
+        font-size: 1.2rem;
+        margin: 10px 0;
+    }
+    .collage-background {
+        grid-template-columns: repeat(2, 1fr); /* HP cuma 2 kolom */
+    }
+}
 
 /* SECTION 3: ACHIEVEMENT */
 #achievement { background-image: url('https://picsum.photos/id/1015/1600/900'); }
