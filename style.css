@@ -333,7 +333,7 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; }
     }
 }
 
-/* --- SECTION 4: MESSAGE (INTERACTIVE) --- */
+/* --- SECTION 4: MESSAGE (FIXED LAYOUT) --- */
 #message {
     background: #fdfbf7;
     display: flex;
@@ -346,105 +346,134 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; }
 .message-layout {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start; /* Ubah ke start biar ga ketutup */
-    gap: 50px;
-    padding-top: 50px;
+    align-items: flex-start;
+    gap: 30px; /* Jarak antar elemen */
+    padding-top: 80px; /* Tambah padding atas biar judul ga mepet */
+    width: 100%;
 }
 
 .message-text {
     flex: 1;
     min-width: 350px;
-    z-index: 20; /* Lebih tinggi dari polaroid */
+    z-index: 20;
     position: relative;
+    padding-left: 20px; /* Space kiri */
 }
 
-/* --- ENVELOPE LOGIC --- */
+/* Judul Lebih Besar */
+.message-text h2 {
+    font-size: 5rem; /* Diperbesar dari 4rem */
+    margin-bottom: 40px; /* Jarak ke amplop lebih jauh */
+    line-height: 1;
+    color: #2c3e50;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+
+/* --- ENVELOPE LOGIC (FIXED) --- */
 .envelope-wrapper {
     position: relative;
-    height: 250px; /* Space buat amplop */
-    margin: 20px 0;
+    height: 300px; /* Area aman buat amplop */
+    margin-bottom: 20px;
 }
 
 #envelope {
-    position: relative;
-    width: 300px;
-    height: 200px;
+    position: absolute; /* Ubah ke absolute biar bebas digeser */
+    top: 0;
+    left: 20px;
+    width: 320px;
+    height: 220px;
     background-color: #ff7675;
     border-radius: 5px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    cursor: grab; /* Kursor tangan */
     z-index: 10;
+    transition: transform 0.2s; /* Hanya untuk hover, bukan drag */
+}
+
+#envelope:active {
+    cursor: grabbing;
 }
 
 /* Bagian Depan (Saku) */
-#envelope .front {
+.pocket {
     position: absolute;
-    width: 0;
-    height: 0;
-    z-index: 30; /* Paling depan */
-}
-
-#envelope .pocket {
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-bottom: 100px solid #fd79a8; /* Warna saku lebih terang */
     bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-left: 160px solid #ff7675;
+    border-right: 160px solid #ff7675;
+    border-bottom: 110px solid #fd79a8; /* Warna saku beda dikit */
+    border-top: 110px solid transparent;
     border-radius: 0 0 5px 5px;
+    z-index: 30; /* Di atas surat saat tertutup */
+    pointer-events: none; /* Biar klik tembus ke amplop utama */
 }
 
 /* Tutup Amplop */
-#envelope .flap {
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-top: 100px solid #ff7675; /* Warna tutup */
+.flap {
+    position: absolute;
     top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-top: 120px solid #ff5e57; /* Warna tutup lebih gelap */
+    border-bottom: 100px solid transparent;
     transform-origin: top;
-    transition: transform 0.6s ease;
-    z-index: 40; /* Tutup di atas saku */
+    transition: transform 0.6s ease 0.2s, z-index 0.2s;
+    z-index: 40; /* Paling atas saat tertutup */
+    pointer-events: none;
 }
 
 /* Segel Hati */
 .seal {
     position: absolute;
-    top: 65px;
+    top: 70px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 2rem;
+    font-size: 2.5rem;
     z-index: 50;
     transition: opacity 0.3s;
     pointer-events: none;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 /* Kertas Surat */
 .letter {
     position: absolute;
-    width: 260px;
-    height: 320px; /* Surat panjang */
-    background: white;
-    top: 10px;
+    width: 280px;
+    height: 350px; /* Surat panjang */
+    background: #fff;
+    top: 10px; /* Posisi awal di dalam */
     left: 20px;
     border-radius: 5px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     z-index: 20; /* Di antara belakang dan saku */
-    transition: transform 1s ease, top 1s ease;
-    padding: 20px;
-    overflow-y: auto; /* Bisa scroll kalau teks kepanjangan */
-    /* Tekstur Kertas */
-    background-image: linear-gradient(#eee .1rem, transparent .1rem);
-    background-size: 100% 1.5rem;
+    transition: transform 0.8s ease-in-out, top 0.8s ease-in-out, z-index 0.1s;
+    padding: 25px;
+    overflow-y: auto; /* Scrollable text */
+    opacity: 0; /* Sembunyi dulu */
+    transform: scale(0.8); /* Kecil dulu */
+    
+    /* Tekstur Kertas Bergaris */
+    background-image: repeating-linear-gradient(#fff, #fff 1.5rem, #eee 1.5rem, #eee 1.6rem);
 }
 
-.letter p {
-    font-family: 'Lato', cursive; /* Font tulisan tangan lebih bagus */
-    font-size: 0.9rem;
-    line-height: 1.5rem;
+.letter-content p {
+    font-family: 'Lato', cursive; /* Font tulisan tangan */
+    font-size: 1rem; /* Ukuran font surat */
+    line-height: 1.6rem;
     color: #444;
+    margin-top: 0;
+    font-weight: 600;
 }
 
-/* State: OPEN */
+/* --- STATE: OPEN (Saat Amplop Terbuka) --- */
 #envelope.open .flap {
     transform: rotateX(180deg);
-    z-index: 10; /* Pindah ke belakang */
+    z-index: 10; /* Pindah ke belakang surat */
 }
 
 #envelope.open .seal {
@@ -452,82 +481,69 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; }
 }
 
 #envelope.open .letter {
-    transform: translateY(-150px); /* Surat naik ke atas */
-    z-index: 50; /* Surat jadi paling depan supaya bisa di-drag */
-    height: 400px; /* Surat memanjang */
-    cursor: grab; /* Kursor tangan */
+    opacity: 1;
+    transform: scale(1);
+    top: -150px; /* Naik ke atas keluar amplop */
+    z-index: 100; /* Paling atas dari segalanya! */
+    height: 450px; /* Memanjang */
+    cursor: grab;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
 }
 
 #envelope.open .letter:active {
     cursor: grabbing;
 }
 
-/* Quote & Instruksi */
+/* Instruksi & Quote */
 .instruction-click {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #888;
-    margin-top: 50px; /* Jarak biar ga ketabrak surat */
+    margin-top: 180px; /* Turunkan instruksi biar ga ketabrak */
     font-style: italic;
     transition: opacity 0.5s;
+    pointer-events: none;
 }
 
 #closing-quote {
-    margin-top: 20px;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 10px;
-    border-left: 4px solid #ff7675;
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    border-left: 5px solid #ff7675;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    max-width: 400px;
 }
 
-/* --- POLAROID DRAGGABLE --- */
+/* Polaroid Stack */
 .polaroid-stack {
     flex: 1;
-    min-width: 350px;
+    min-width: 400px;
     height: 600px;
     position: relative;
-    /* Hapus z-index fixed biar bisa tumpuk-tumpukan natural */
 }
 
-.polaroid {
-    position: absolute;
-    background: white;
-    padding: 10px 10px 35px 10px;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
-    width: 200px;
-    cursor: grab;
-    transition: transform 0.2s; /* Transisi halus saat di-pickup */
-    /* Posisi awal acak biar estetik */
-}
-
-.polaroid:active {
-    cursor: grabbing;
-    transform: scale(1.1);
-    z-index: 100 !important; /* Saat dipegang, selalu paling atas */
-}
-
-.polaroid img {
-    width: 100%;
-    pointer-events: none; /* Biar gambar ga ke-drag browser */
-}
-
-/* Posisi Awal Polaroid (Hardcoded biar rapi berantakannya) */
-.polaroid:nth-child(1) { top: 0; left: 0; transform: rotate(-10deg); }
-.polaroid:nth-child(2) { top: 50px; right: 20px; transform: rotate(15deg); }
-.polaroid:nth-child(3) { bottom: 100px; left: 50px; transform: rotate(-5deg); }
-.polaroid:nth-child(4) { bottom: 20px; right: 10px; transform: rotate(10deg); }
-.polaroid:nth-child(5) { top: 200px; left: 100px; transform: rotate(5deg); }
-.polaroid:nth-child(6) { top: 150px; right: 80px; transform: rotate(-20deg); }
-
-/* HP Friendly */
+/* RESPONSIVE HP */
 @media (max-width: 768px) {
     .message-layout {
         flex-direction: column;
+        padding-top: 20px;
+    }
+    .message-text h2 {
+        font-size: 3.5rem; /* Kecilin dikit di HP */
+    }
+    .envelope-wrapper {
+        height: 250px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    #envelope {
+        left: auto; /* Tengahin di HP */
     }
     .polaroid-stack {
         width: 100%;
         height: 400px;
     }
-    .polaroid { width: 150px; }
 }
 
 /* SECTION 5: WISH */

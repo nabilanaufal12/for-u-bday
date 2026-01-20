@@ -68,23 +68,105 @@ function typeWriter() {
     }
 }
 
-// --- 4. OPEN LETTER ---
-function openLetter() {
-    const envelope = document.getElementById('envelope-letter');
-    const instruction = document.querySelector('.instruction-click');
+// --- 4. OPEN LETTER FUNCTION (FIXED) ---
+function openEnvelope() {
+    const envelope = document.getElementById('envelope');
+    const instruction = document.getElementById('instruction-text');
     const closingQuote = document.getElementById('closing-quote');
-    
+    const letter = document.querySelector('.letter');
+
+    // Jika belum terbuka, buka animasi
     if (!envelope.classList.contains('open')) {
         envelope.classList.add('open');
-        instruction.style.display = 'none';
         
-        // Mulai ngetik setelah amplop terbuka
+        // Hilangkan instruksi
+        if(instruction) instruction.style.opacity = '0';
+        
+        // Mulai ngetik setelah surat keluar (delay 0.6s)
         setTimeout(() => {
             typeWriter();
-            closingQuote.classList.remove('hidden');
-        }, 1500);
+            if(closingQuote) closingQuote.classList.remove('hidden');
+            
+            // Jadikan surat bisa digeser
+            makeDraggable(letter);
+        }, 800);
     }
 }
+
+// --- DRAG & DROP LOGIC (UNIVERSAL: Amplop + Surat + Polaroid) ---
+function makeDraggable(element) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+    element.onmousedown = dragMouseDown;
+    element.ontouchstart = dragMouseDown; // Support HP
+
+    function dragMouseDown(e) {
+        // Stop bubbling biar klik amplop gak nutup surat (opsional)
+        // e.stopPropagation(); 
+        
+        e = e || window.event;
+        // e.preventDefault(); // Jangan prevent default biar bisa scroll halaman lain kalau ga pas di elemen
+
+        if (e.type === 'touchstart') {
+            pos3 = e.touches[0].clientX;
+            pos4 = e.touches[0].clientY;
+        } else {
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+        }
+        
+        // Angkat elemen ke paling atas saat dipegang
+        element.style.zIndex = 200; 
+        
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+        
+        // Event HP
+        document.ontouchend = closeDragElement;
+        document.ontouchmove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault(); // Penting biar ga scroll layar pas nge-drag objek
+
+        let clientX, clientY;
+        if (e.type === 'touchmove') {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+
+        // Hitung posisi baru
+        pos1 = pos3 - clientX;
+        pos2 = pos4 - clientY;
+        pos3 = clientX;
+        pos4 = clientY;
+
+        // Set posisi
+        element.style.top = (element.offsetTop - pos2) + "px";
+        element.style.left = (element.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+        document.ontouchend = null;
+        document.ontouchmove = null;
+    }
+}
+
+// Inisialisasi Draggable
+// 1. Amplop (Bisa digeser dari awal)
+const envelopeElement = document.getElementById('envelope');
+if(envelopeElement) makeDraggable(envelopeElement);
+
+// 2. Polaroid (Bisa digeser dari awal)
+document.querySelectorAll('.draggable').forEach(polaroid => {
+    makeDraggable(polaroid);
+});
 
 // --- 5. CONFETTI ---
 const wishSection = document.getElementById('wish');
