@@ -6,36 +6,32 @@ function checkPassword() {
     const musicBtn = document.getElementById('music-control');
     const bgMusic = document.getElementById('bg-music');
 
-    // GANTI PASSWORD DI SINI (Format bebas, contoh tanggal)
+    // PASSWORD: TANGGAL LAHIR DIA (13-02-2006)
     const correctPassword = "13022006"; 
 
     if (input === correctPassword) {
-        // Jika Benar:
-        overlay.style.opacity = '0'; // Fade out overlay
+        overlay.style.opacity = '0';
         setTimeout(() => {
-            overlay.style.display = 'none'; // Hilangkan overlay
+            overlay.style.display = 'none';
         }, 1000);
 
-        // Nyalakan Musik Otomatis
         bgMusic.play().then(() => {
             musicBtn.innerHTML = "🔊 Pause Music";
         }).catch(err => {
-            console.log("Autoplay blocked, user must interact");
+            console.log("Autoplay blocked");
         });
         
-        musicBtn.classList.remove('hidden'); // Munculkan tombol musik
-        
+        musicBtn.classList.remove('hidden');
     } else {
-        // Jika Salah:
         errorMsg.classList.remove('hidden');
-        input.value = ""; // Kosongkan input
+        input.value = "";
     }
 }
 
 // --- 2. MUSIC CONTROL ---
 const bgMusic = document.getElementById('bg-music');
 const musicBtn = document.getElementById('music-control');
-let isPlaying = true; // Asumsi sudah play setelah login
+let isPlaying = true;
 
 function toggleMusic() {
     if (isPlaying) {
@@ -48,7 +44,7 @@ function toggleMusic() {
     isPlaying = !isPlaying;
 }
 
-// --- 3. SCROLL ANIMATION (FADE IN) ---
+// --- 3. SCROLL ANIMATION ---
 const observerOptions = { root: null, rootMargin: '0px', threshold: 0.2 };
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -57,19 +53,33 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// --- 4. TYPEWRITER EFFECT (NGETIK SENDIRI) ---
+// --- 4. TYPEWRITER EFFECT (SURAT SPECIAL) ---
 const textElement = document.getElementById('typing-text');
-const textContent = `Setiap pagi bangun, yang pertama muncul di kepala cuma kamu. Terima kasih sudah jadi alasan aku tersenyum setiap hari. Di umur yang baru ini, aku cuma mau bilang... "Kamu nggak perlu jadi sempurna buat dicintai. Just be you, that's enough." ❤️`;
+
+// ISI SURAT UNTUK CRUSH (WARM & SUPPORTIVE)
+const textContent = `Assalamu'alaikum, Ratu. ✨
+Barakallahu fii umrik! Happy 20th Birthday!
+
+Di umur yang baru ini, aku cuma mau berdoa semoga kamu selalu diberi kesehatan, dilancarkan kuliah Pendidikan Matematikanya, dan makin bersinar sebagai Duta Kampus UMRAH.
+
+Semoga apa pun yang lagi Ratu hadapi sekarang diberi kemudahan, hati tetap tenang, dan selalu dikuatkan buat terus melangkah walau kadang capek tugas numpuk, hehe.
+
+Tetap jadi diri Ratu yang ku kenal yaps. Aku akan selalu jadi supporter kamu dari sini. Semoge semua doa baik berbalik ke kamu yaa. Aamiin 🤲`;
+
 let charIndex = 0;
 
 function typeWriter() {
     if (charIndex < textContent.length) {
-        textElement.innerHTML += textContent.charAt(charIndex);
+        if (textContent.charAt(charIndex) === '\n') {
+            textElement.innerHTML += '<br>';
+        } else {
+            textElement.innerHTML += textContent.charAt(charIndex);
+        }
         charIndex++;
-        setTimeout(typeWriter, 50); // Kecepatan ngetik
+        setTimeout(typeWriter, 40);
     }
 }
-// Trigger ngetik saat section message muncul
+
 const messageObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -80,18 +90,15 @@ const messageObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 document.querySelectorAll('#message').forEach(el => messageObserver.observe(el));
 
-// --- 5. CONFETTI SURPRISE ---
+// --- 5. CONFETTI ---
 const wishSection = document.getElementById('wish');
 const confettiObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            // Efek Confetti
             var duration = 3 * 1000;
             var animationEnd = Date.now() + duration;
             var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-            
             function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-
             var interval = setInterval(function() {
                 var timeLeft = animationEnd - Date.now();
                 if (timeLeft <= 0) return clearInterval(interval);
@@ -99,14 +106,13 @@ const confettiObserver = new IntersectionObserver((entries) => {
                 confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
                 confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
             }, 250);
-
             confettiObserver.unobserve(entry.target);
         }
     });
 }, { threshold: 0.5 });
 confettiObserver.observe(wishSection);
 
-// --- 6. CAMERA & WA LOGIC (SAMA SEPERTI SEBELUMNYA) ---
+// --- 6. CAMERA & WA ---
 const video = document.getElementById('webcam');
 const canvas = document.getElementById('photo-canvas');
 const ctx = canvas.getContext('2d');
@@ -127,7 +133,7 @@ async function startCamera() {
 function takePicture() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    ctx.translate(canvas.width, 0); ctx.scale(-1, 1); // Mirror
+    ctx.translate(canvas.width, 0); ctx.scale(-1, 1);
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     video.classList.add('hidden'); canvas.classList.remove('hidden');
     btnSnap.classList.add('hidden'); btnSend.classList.remove('hidden'); btnRetake.classList.remove('hidden');
@@ -143,9 +149,9 @@ function sendToWA() {
     const link = document.createElement('a');
     link.href = image; link.download = "Reaction-Birthday.png"; link.click();
     
-    // GANTI NOMOR DI SINI
-    const phoneNumber = "628123456789"; 
-    const message = "Sayang, ini reaksiku! Bagus banget websitenya ❤️";
+    // GANTI NOMOR DI SINI (Nomor WA Kamu)
+    const phoneNumber = "628xxxxxxxxxx"; 
+    const message = "Bg Nabil, makasih ya websitenya bagus banget! Ini pap reaksiku hehe ✨";
     const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     setTimeout(() => window.open(waUrl, '_blank'), 1000);
 }

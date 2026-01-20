@@ -478,15 +478,15 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; }
 .btn.secondary { background: #555; }
 .hidden { display: none !important; }
 
-/* --- SECTION TRISAKTI (NEW) --- */
-#trisakti {
+/* --- SECTION UMRAH (DULU TRISAKTI) --- */
+#umrah {
     position: relative;
-    background: linear-gradient(to top, #dfe9f3 0%, white 100%); /* Warna Langit */
+    background: linear-gradient(to top, #dfe9f3 0%, white 100%);
     padding: 80px 0;
     overflow: hidden;
 }
 
-/* Logo Kampus Melayang */
+/* Logo Kampus */
 .campus-logo {
     position: absolute;
     top: 20px;
