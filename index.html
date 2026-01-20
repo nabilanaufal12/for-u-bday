@@ -10,9 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
 </head>
+<div class="progress-container">
+    <div class="progress-bar" id="myBar"></div>
+</div>
 <body>
 
     <div id="login-overlay">
@@ -116,9 +120,19 @@
         <div class="container message-layout">
             <div class="message-text fade-in">
                 <h2>The First<br>On My Mind</h2>
-                <p id="typing-text"></p> 
                 
-                <p class="italic" style="margin-top: 20px; font-weight: bold; color: #555;">
+                <div id="envelope-letter" onclick="openLetter()">
+                    <div class="flap"></div>
+                    <div class="pocket"></div>
+                    <div class="letter">
+                        <p id="typing-text"></p>
+                    </div>
+                    <div class="seal">❤️</div>
+                </div>
+                
+                <p class="instruction-click">Klik amplop untuk baca suratnya...</p>
+
+                <p class="italic hidden" id="closing-quote" style="margin-top: 20px; font-weight: bold; color: #555;">
                     "Tetap jadi Ratu yang ku kenal yaps. Semangat terus langkahnya!" ✨
                 </p>
             </div>

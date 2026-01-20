@@ -564,6 +564,112 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 700; }
     transform: rotate(0deg) scale(1.02);
 }
 
+/* --- SCROLL INDICATOR --- */
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: transparent;
+    z-index: 10001; /* Di atas segalanya */
+}
+
+.progress-bar {
+    height: 5px;
+    background: var(--accent-gold); /* atau #ff7675 (pink) */
+    width: 0%;
+    transition: width 0.1s;
+    box-shadow: 0 0 10px var(--accent-gold);
+}
+
+/* --- ENVELOPE INTERACTIVE --- */
+#envelope-letter {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background: #ff7675;
+    margin: 20px auto;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+    overflow: visible; /* Biar surat bisa keluar */
+}
+
+#envelope-letter:hover { transform: scale(1.05); }
+
+.flap {
+    position: absolute;
+    top: 0; left: 0; width: 0; height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 100px solid #ff5e57; /* Warna tutup amplop */
+    transform-origin: top;
+    transition: transform 0.6s 0.5s; /* Delay biar seal kebuka dulu */
+    z-index: 5;
+}
+
+.pocket {
+    position: absolute;
+    bottom: 0; left: 0; width: 0; height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-bottom: 100px solid #ff7675; /* Saku amplop */
+    z-index: 3;
+}
+
+.seal {
+    position: absolute;
+    top: 60px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    z-index: 6;
+    transition: opacity 0.3s;
+}
+
+/* Surat di dalam */
+.letter {
+    position: absolute;
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1; /* Di belakang saku */
+    transition: transform 1s 1s, z-index 0.1s 1s; /* Delay biar flap kebuka dulu */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-size: 0.8rem;
+    overflow-y: auto; /* Scroll kalau panjang */
+}
+
+/* KELAS SAAT AMPLOP DIBUKA (JS akan nambahin class ini) */
+.open .flap { transform: rotateX(180deg); z-index: 0; }
+.open .seal { opacity: 0; }
+.open .letter { 
+    transform: translateY(-50px); /* Surat naik ke atas */
+    z-index: 10; /* Surat jadi di paling depan */
+    height: 350px; /* Surat memanjang otomatis */
+}
+.instruction-click { font-size: 0.8rem; color: #888; margin-top: 10px; font-style: italic; }
+
+/* --- SPARKLE EFFECT --- */
+.sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    animation: sparkleAnim 1s forwards;
+    box-shadow: 0 0 10px gold;
+}
+
+@keyframes sparkleAnim {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0) translateY(20px); opacity: 0; }
+}
+
 /* Update Mobile Responsive untuk Trisakti */
 @media (max-width: 768px) {
     .trisakti-layout {

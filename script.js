@@ -54,6 +54,25 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
 // --- 4. TYPEWRITER EFFECT (SURAT SPECIAL) ---
+// --- 4. OPEN LETTER & TYPEWRITER ---
+function openLetter() {
+    const envelope = document.getElementById('envelope-letter');
+    const instruction = document.querySelector('.instruction-click');
+    const closingQuote = document.getElementById('closing-quote');
+    
+    // Cek kalau amplop belum dibuka
+    if (!envelope.classList.contains('open')) {
+        envelope.classList.add('open');
+        instruction.style.display = 'none'; // Hilangkan teks instruksi
+        
+        // Mulai ngetik setelah animasi amplop selesai (1.5 detik)
+        setTimeout(() => {
+            typeWriter();
+            closingQuote.classList.remove('hidden');
+        }, 1500);
+    }
+}
+
 const textElement = document.getElementById('typing-text');
 
 // ISI SURAT UNTUK CRUSH (WARM & SUPPORTIVE)
@@ -155,3 +174,51 @@ function sendToWA() {
     const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     setTimeout(() => window.open(waUrl, '_blank'), 1000);
 }
+
+// --- 7. CURSOR SPARKLE EFFECT ---
+const sparkleColor = "#c5a059"; // Warna emas sesuai tema
+let sparkles = [];
+
+function createSparkle(x, y) {
+    const el = document.createElement("div");
+    el.classList.add("sparkle");
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+    document.body.appendChild(el);
+    
+    // Hapus sparkle setelah animasi selesai
+    setTimeout(() => {
+        el.remove();
+    }, 1000);
+}
+
+document.addEventListener("mousemove", (e) => {
+    // Buat sparkle cuma kadang-kadang biar gak berat (1 dari 5 frame)
+    if (Math.random() < 0.2) {
+        createSparkle(e.clientX, e.clientY + window.scrollY);
+    }
+});
+
+// Support Touch (buat HP)
+document.addEventListener("touchmove", (e) => {
+    if (Math.random() < 0.2) {
+        const touch = e.touches[0];
+        createSparkle(touch.clientX, touch.clientY + window.scrollY);
+    }
+});
+
+// --- 8. TILT EFFECT FOR CARDS ---
+VanillaTilt.init(document.querySelectorAll(".collage-item img, .polaroid"), {
+    max: 15, // Maksimal kemiringan
+    speed: 400,
+    glare: true, // Efek kilap kaca
+    "max-glare": 0.5,
+});
+
+// --- 9. SCROLL PROGRESS BAR ---
+window.onscroll = function() {
+    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrolled = (winScroll / height) * 100;
+    document.getElementById("myBar").style.width = scrolled + "%";
+};
