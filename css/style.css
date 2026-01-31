@@ -1,3 +1,115 @@
+/* --- TAMBAHAN DI BAGIAN ATAS (VARIABLE) --- */
+:root {
+  --primary-dark: #0f0c29; /* Lebih gelap/mewah */
+  --primary-light: #f9f9f9;
+  --accent-gold: #ffd700;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Lato", sans-serif;
+}
+
+body {
+  /* Ganti background putih polos dengan gradient halus */
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  color: white; /* Default text jadi putih agar kontras */
+  cursor: none; /* Hilangkan kursor asli */
+}
+
+/* --- CUSTOM CURSOR (MAGIC) --- */
+#cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent-gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s;
+  box-shadow: 0 0 10px var(--accent-gold);
+}
+#cursor-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 300px;
+  background: rgba(197, 160, 89, 0.15);
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+}
+
+/* --- GLASSMORPHISM CLASS (KOTAK KACA) --- */
+.glass-box {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* --- UPDATED HERO TEXT ANIMATION --- */
+.hero-content h1 {
+  font-size: 6rem;
+  background: linear-gradient(45deg, #c5a059, #fff, #c5a059);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 3s infinite;
+  text-shadow: 0 0 30px rgba(197, 160, 89, 0.3);
+}
+
+@keyframes shine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* --- FLOATING HEARTS BACKGROUND --- */
+.floating-heart {
+  position: fixed;
+  bottom: -10vh;
+  font-size: 20px;
+  color: rgba(255, 105, 180, 0.6);
+  animation: floatUp 15s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.8; }
+  100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+
+/* --- UPDATE SECTIONS AGAR TRANSPARAN --- */
+/* Update section Achievement & Umrah agar menyatu dengan dark theme */
+#achievement, #umrah, #message, #wish {
+  background: transparent; /* Biar background body kelihatan */
+}
+
+/* Locker Note jadi Glass */
+.locker-note {
+  background: rgba(255,255,255,0.9); /* Tetap terang tapi agak transparan */
+  color: #333;
+}
+
+/* Trisakti Text */
+.trisakti-title { color: white; }
+.trisakti-message p {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
 /* --- RESET & VARIABLES --- */
 :root {
   --primary-dark: #1a1a1a;
@@ -21,63 +133,149 @@ body {
   line-height: 1.6;
 }
 
-/* --- LOGIN OVERLAY (FIXED) --- */
+/* --- LOGIN OVERLAY (COSMIC GATE) --- */
 #login-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
-  z-index: 10000; /* Paling atas */
+  /* Background Gradasi Gelap Kosmik */
+  background: radial-gradient(circle at center, #1b113a 0%, #000000 100%);
+  z-index: 10000;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition:
-    opacity 1s ease,
-    visibility 1s ease;
+  transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out;
+  overflow: hidden;
 }
+
+/* Efek Bintang Latar (Opsional, tapi bagus) */
+#login-overlay::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.1;
+  animation: rotateBackground 100s linear infinite;
+}
+
+@keyframes rotateBackground {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Kotak Login Kaca Premium */
 .login-box {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 40px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05); /* Lebih transparan */
+  backdrop-filter: blur(20px);            /* Blur lebih kuat */
+  -webkit-backdrop-filter: blur(20px);
+  padding: 50px 40px;
   border-radius: 20px;
   text-align: center;
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.3); /* Highlight atas */
+  border-left: 1px solid rgba(255, 255, 255, 0.3); /* Highlight kiri */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.05);
   max-width: 90%;
-  width: 400px;
+  width: 380px;
+  transform: translateY(0);
+  animation: floatBox 6s ease-in-out infinite;
+  z-index: 2;
 }
+
+/* Animasi Floating Halus */
+@keyframes floatBox {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
 .login-box h2 {
   font-family: var(--font-serif);
-  margin-bottom: 10px;
-  color: var(--accent-gold);
+  font-size: 2rem;
+  margin-bottom: 5px;
+  background: linear-gradient(to right, #fff, #c5a059);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
 }
+
+.login-box p {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-bottom: 25px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+/* Input Stylized */
 .login-box input {
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  margin: 15px 0;
-  width: 80%;
-  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+  width: 100%;
+  font-size: 1.2rem;
   text-align: center;
+  color: var(--accent-gold);
+  letter-spacing: 5px; /* Jarak antar angka pass */
+  outline: none;
+  transition: all 0.3s;
+  font-family: monospace; /* Font ala kode rahasia */
 }
+
+.login-box input:focus {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.login-box input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  font-family: var(--font-sans);
+}
+
+/* Tombol Mewah */
 .login-box button {
-  padding: 10px 20px;
-  background: var(--accent-gold);
-  color: white;
+  padding: 12px 30px;
+  width: 100%;
+  background: linear-gradient(45deg, #c5a059, #e6c88b);
+  color: #1a0b2e;
   border: none;
-  border-radius: 5px;
+  border-radius: 50px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 5px 15px rgba(197, 160, 89, 0.4);
 }
+
 .login-box button:hover {
-  background: #b08d4b;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(197, 160, 89, 0.6);
+  background: linear-gradient(45deg, #e6c88b, #c5a059);
 }
+
+.login-box button:active {
+  transform: scale(0.98);
+}
+
+/* Error Message */
 #error-msg {
+  margin-top: 15px;
   color: #ff6b6b;
-  margin-top: 10px;
+  font-size: 0.9rem;
   font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
 }
 
 /* Animasi Shake */

@@ -297,3 +297,81 @@ function sendToWA() {
   const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   setTimeout(() => window.open(waUrl, "_blank"), 1000);
 }
+
+/* --- TAMBAHAN DI BAGIAN BAWAH FILE --- */
+
+// 5. MAGIC CURSOR
+const cursor = document.createElement('div');
+cursor.id = 'cursor';
+document.body.appendChild(cursor);
+
+const cursorBlur = document.createElement('div');
+cursorBlur.id = 'cursor-blur';
+document.body.appendChild(cursorBlur);
+
+document.addEventListener('mousemove', (e) => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  
+  // Efek delay sedikit pada blur agar smooth
+  cursorBlur.style.left = e.clientX + 'px';
+  cursorBlur.style.top = e.clientY + 'px';
+});
+
+// Hover effect pada elemen clickable (tombol/link)
+const clickables = document.querySelectorAll('a, button, .polaroid, #envelope');
+clickables.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    cursor.style.backgroundColor = 'rgba(197, 160, 89, 0.2)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    cursor.style.backgroundColor = 'transparent';
+  });
+});
+
+// 6. FLOATING HEARTS ANIMATION
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('floating-heart');
+  heart.innerHTML = '❤';
+  
+  // Posisi Random
+  heart.style.left = Math.random() * 100 + 'vw';
+  
+  // Ukuran Random
+  const size = Math.random() * 20 + 10; 
+  heart.style.fontSize = size + 'px';
+  
+  // Durasi Random
+  heart.style.animationDuration = Math.random() * 5 + 10 + 's';
+  
+  document.body.appendChild(heart);
+  
+  // Hapus setelah animasi selesai
+  setTimeout(() => {
+    heart.remove();
+  }, 15000);
+}
+
+// Munculkan hati setiap 300ms
+setInterval(createHeart, 500);
+
+// 7. ENHANCED SCROLL REVEAL (Lebih smooth)
+const revealElements = document.querySelectorAll('.fade-in');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Tambahkan efek sedikit scale up saat muncul
+      entry.target.style.transform = 'translateY(0) scale(1)';
+    }
+  });
+}, { threshold: 0.15 });
+
+revealElements.forEach(el => {
+  el.style.transition = 'all 1s cubic-bezier(0.5, 0, 0, 1)';
+  el.style.transform = 'translateY(50px) scale(0.95)'; // Posisi awal
+  revealObserver.observe(el);
+});
