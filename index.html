@@ -15,7 +15,10 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
 
-    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <div id="login-overlay">
@@ -40,7 +43,7 @@
     </div>
 
     <audio id="bg-music" loop>
-      <source src="backsound.mp3" type="audio/mpeg" />
+      <source src="assets/audio/backsound.mp3" type="audio/mpeg" />
     </audio>
     <button id="music-control" class="hidden" onclick="toggleMusic()">
       🔊 Pause Music
@@ -144,6 +147,13 @@
       </div>
     </section>
 
+    <section id="planet-gallery">
+      <div class="planet-overlay">
+        <h2>The Universe of <br><span class="highlight-gold">Ratu</span></h2>
+        <p>Geser & Putar untuk menjelajahi kenangan.</p>
+      </div>
+    </section>
+
     <section id="message">
       <div class="container message-layout">
         <div class="message-text fade-in">
@@ -241,6 +251,8 @@
       </div>
     </section>
 
-    <script src="script.js"></script>
+    <script src="js/planet.js"></script>
+
+    <script src="js/main.js"></script>
   </body>
 </html>
