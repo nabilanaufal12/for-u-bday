@@ -1,3 +1,13 @@
+#starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Di belakang semua konten */
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%); /* Deep space blue */
+}
+
 /* --- TAMBAHAN DI BAGIAN ATAS (VARIABLE) --- */
 :root {
   --primary-dark: #0f0c29; /* Lebih gelap/mewah */
@@ -298,6 +308,20 @@ body {
   }
 }
 
+/* Kelas untuk efek warp */
+.warp-effect {
+  transform: scale(30); /* Zoom in gila-gilaan */
+  opacity: 0;
+  filter: blur(20px);
+  transition: transform 1.5s cubic-bezier(0.7, 0, 0.3, 1), opacity 1.5s ease-in;
+}
+
+/* Update login overlay agar mendukung transisi ini */
+#login-overlay {
+  /* properti lama tetap ada */
+  transform-origin: center; /* Zoom dari tengah */
+}
+
 /* --- MUSIC BUTTON --- */
 #music-control {
   position: fixed;
@@ -594,6 +618,27 @@ h3 {
 @keyframes panBackground {
   0% { transform: translate(0, 0) rotate(0deg); }
   100% { transform: translate(-5%, -5%) rotate(2deg); }
+}
+
+/* Desktop Specific Layout */
+@media (min-width: 1024px) {
+  .collage-background {
+    /* Grid 4 kolom untuk desktop */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    width: 120%; /* Sedikit lebih lebar dari layar agar pan effect mulus */
+    left: -10%;
+  }
+
+  /* Membuat variasi ukuran foto agar tidak kotak-kotak membosankan */
+  .collage-item:nth-child(even) {
+    transform: translateY(30px); /* Selang-seling turun */
+  }
+  
+  .collage-item:nth-child(3n) {
+    grid-row: span 2; /* Foto memanjang ke bawah */
+    height: 620px;
+  }
 }
 
 /* Responsive HP */
@@ -1486,4 +1531,20 @@ h3 {
   .planet-overlay h2 {
     font-size: 2rem;
   }
+}
+
+/* Custom Scrollbar Webkit */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0f0c29; 
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #c5a059, #886016);
+  border-radius: 5px;
+  border: 2px solid #0f0c29;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffd700;
 }

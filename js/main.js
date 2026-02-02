@@ -7,27 +7,28 @@ function checkPassword() {
   const input = document.getElementById("pass-input").value;
   const errorMsg = document.getElementById("error-msg");
   const overlay = document.getElementById("login-overlay");
-
-  // PASSWORD
-  const correctPassword = "13022006";
+  const correctPassword = "13022006"; // Sesuaikan tanggal lahir
 
   if (input === correctPassword) {
-    // Hilangkan Overlay
-    overlay.style.opacity = "0";
-    overlay.style.visibility = "hidden"; // Pastikan hilang dari flow
+    // 1. Tambahkan efek WARP
+    overlay.classList.add("warp-effect");
 
-    // Putar Musik Otomatis (Allowed karena user baru saja klik tombol)
-    bgMusic
-      .play()
+    // 2. Play Music
+    bgMusic.play()
       .then(() => {
         isPlaying = true;
         musicBtn.innerHTML = "🔊 Pause Music";
         musicBtn.classList.remove("hidden");
       })
-      .catch((err) => {
-        console.log("Autoplay blocked, waiting for interaction");
-        musicBtn.classList.remove("hidden");
-      });
+      .catch(console.error);
+
+    // 3. Hapus overlay setelah animasi selesai
+    setTimeout(() => {
+      overlay.style.display = "none";
+      // Trigger animasi masuk elemen Hero
+      document.querySelector('.hero-content h1').style.animationPlayState = 'running';
+    }, 1500); // Sesuai durasi CSS transition
+    
   } else {
     errorMsg.classList.remove("hidden");
     input.value = "";

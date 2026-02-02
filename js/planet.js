@@ -24,16 +24,26 @@ document.addEventListener("DOMContentLoaded", () => {
   controls.enableZoom = true;
 
   // --- 2. LIGHTING ---
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+
+  // 1. Ambient Light (Cahaya dasar gelap ungu/biru)
+  const ambientLight = new THREE.AmbientLight(0x4040a0, 0.5); 
   scene.add(ambientLight);
 
-  const sunLight = new THREE.DirectionalLight(0xffd700, 1.5);
-  sunLight.position.set(20, 10, 10);
+  // 2. Main Sun Light (Cahaya Matahari Emas dari kanan atas)
+  const sunLight = new THREE.DirectionalLight(0xffd700, 2);
+  sunLight.position.set(50, 30, 50);
+  sunLight.castShadow = true; // Aktifkan bayangan
   scene.add(sunLight);
 
-  const pointLight = new THREE.PointLight(0xff00ff, 1, 50); 
-  pointLight.position.set(0, 0, 0);
-  scene.add(pointLight);
+  // 3. Rim Light (Cahaya Biru dari belakang untuk efek siluet dramatis)
+  const rimLight = new THREE.SpotLight(0x00ffff, 3);
+  rimLight.position.set(-30, 10, -10);
+  rimLight.lookAt(planet.position);
+  scene.add(rimLight);
+
+  // 4. Point Light di tengah planet (biar planetnya glowing)
+  const glowLight = new THREE.PointLight(0x6a0dad, 1.5, 100);
+  scene.add(glowLight);
 
   // --- 3. PLANET (INTI) ---
   const planetGeo = new THREE.SphereGeometry(4, 64, 64);
