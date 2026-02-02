@@ -101,9 +101,9 @@ body {
   color: #333;
 }
 
-/* Trisakti Text */
-.trisakti-title { color: white; }
-.trisakti-message p {
+/* umrah Text */
+.umrah-title { color: white; }
+.umrah-message p {
   background: rgba(255, 255, 255, 0.1);
   color: white;
   backdrop-filter: blur(5px);
@@ -364,8 +364,8 @@ h3 {
 /* SECTION 1: HERO (Cinematic Universe) */
 #hero {
   position: relative;
-  /* Gunakan foto Ratu yang paling bagus/aesthetic di sini, atau background galaksi */
-  /* Jika ingin foto Ratu: url('../assets/images/foto-hero.jpg'); */
+  /* Gunakan foto Habibah yang paling bagus/aesthetic di sini, atau background galaksi */
+  /* Jika ingin foto Habibah: url('../assets/images/foto-hero.jpg'); */
   background-image: 
     linear-gradient(to bottom, rgba(15, 12, 41, 0.6), rgba(15, 12, 41, 0.9)),
     url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80");
@@ -663,7 +663,7 @@ h3 {
   transform: scale(1.1) rotate(10deg);
 }
 
-.trisakti-layout {
+.umrah-layout {
   display: flex;
   align-items: center;
   gap: 60px;
@@ -672,12 +672,12 @@ h3 {
 }
 
 /* Bagian Teks */
-.trisakti-text {
+.umrah-text {
   flex: 1;
   text-align: left;
 }
 
-.trisakti-title {
+.umrah-title {
   font-size: 3.5rem;
   line-height: 1.1;
   margin-bottom: 30px;
@@ -685,7 +685,7 @@ h3 {
   text-shadow: 0 0 30px rgba(197, 160, 89, 0.2);
 }
 
-.trisakti-title .big-number {
+.umrah-title .big-number {
   font-size: 7rem;
   color: var(--accent-gold);
   font-family: var(--font-serif);
@@ -693,7 +693,7 @@ h3 {
   text-shadow: 0 0 20px var(--accent-gold);
 }
 
-.trisakti-title .highlight {
+.umrah-title .highlight {
   background: linear-gradient(to right, #c5a059, #fff);
   -webkit-background-clip: text;
   background-clip: text;
@@ -702,7 +702,7 @@ h3 {
 }
 
 /* Kotak Pesan (Glassmorphism Premium) */
-.trisakti-message {
+.umrah-message {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -714,13 +714,13 @@ h3 {
   transition: transform 0.3s, background 0.3s;
 }
 
-.trisakti-message:hover {
+.umrah-message:hover {
   transform: translateY(-5px);
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 20px 50px rgba(197, 160, 89, 0.1);
 }
 
-.trisakti-message h3 {
+.umrah-message h3 {
   font-size: 1.2rem;
   color: var(--accent-gold);
   margin-bottom: 15px;
@@ -728,7 +728,7 @@ h3 {
   text-transform: uppercase;
 }
 
-.trisakti-message p {
+.umrah-message p {
   font-size: 1.1rem;
   color: #e0e0e0;
   line-height: 1.8;
@@ -739,7 +739,7 @@ h3 {
 }
 
 /* Bagian Foto */
-.trisakti-image {
+.umrah-image {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -747,7 +747,7 @@ h3 {
 }
 
 /* Frame Foto Glowing */
-.trisakti-image img {
+.umrah-image img {
   max-width: 400px;
   width: 100%;
   border-radius: 20px;
@@ -761,7 +761,7 @@ h3 {
   transition: all 0.5s ease;
 }
 
-.trisakti-image:hover img {
+.umrah-image:hover img {
   transform: rotate(0deg) scale(1.02);
   border-color: var(--accent-gold);
   box-shadow: 0 0 60px rgba(197, 160, 89, 0.4);
@@ -769,14 +769,14 @@ h3 {
 
 /* Responsive HP */
 @media (max-width: 768px) {
-  .trisakti-layout {
+  .umrah-layout {
     flex-direction: column-reverse; /* Foto pindah ke atas teks di HP */
     text-align: center;
     gap: 40px;
   }
-  .trisakti-text { text-align: center; }
-  .trisakti-title { font-size: 2.5rem; }
-  .trisakti-image img { max-width: 300px; }
+  .umrah-text { text-align: center; }
+  .umrah-title { font-size: 2.5rem; }
+  .umrah-image img { max-width: 300px; }
   .campus-logo { width: 70px; top: 10px; right: 10px; }
 }
 
