@@ -200,6 +200,7 @@ body {
   margin-bottom: 5px;
   background: linear-gradient(to right, #fff, #c5a059);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 1px;
 }
@@ -360,635 +361,1069 @@ h3 {
   display: none !important;
 }
 
-/* SECTION 1: HERO */
+/* SECTION 1: HERO (Cinematic Universe) */
 #hero {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url("https://picsum.photos/id/1027/1000/1500");
-  color: white;
+  position: relative;
+  /* Gunakan foto Ratu yang paling bagus/aesthetic di sini, atau background galaksi */
+  /* Jika ingin foto Ratu: url('../assets/images/foto-hero.jpg'); */
+  background-image: 
+    linear-gradient(to bottom, rgba(15, 12, 41, 0.6), rgba(15, 12, 41, 0.9)),
+    url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Efek Parallax */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-}
-.hero-content h1 {
-  font-size: 5rem;
-  line-height: 1;
-  margin-bottom: 10px;
-}
-.hero-content .sub-title {
-  font-size: 2rem;
-  font-family: var(--font-serif);
-  font-style: italic;
-  color: var(--accent-gold);
-}
-.hero-content .date {
-  margin-top: 20px;
-  font-size: 1rem;
-  letter-spacing: 3px;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  display: inline-block;
-  padding: 10px 20px;
+  color: white;
+  overflow: hidden;
 }
 
-/* SECTION 2: THE LIST */
+.hero-content {
+  z-index: 2;
+  padding: 20px;
+}
+
+/* Judul Utama */
+.hero-content h1 {
+  font-family: var(--font-serif);
+  font-size: 6rem; /* Sangat besar */
+  line-height: 1;
+  margin-bottom: 20px;
+  background: linear-gradient(to bottom, #ffffff 0%, #c5a059 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 20px rgba(197, 160, 89, 0.5));
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInUp 1.5s ease-out forwards 0.5s; /* Animasi Muncul */
+}
+
+/* Sub-judul */
+.hero-content .sub-title {
+  font-size: 1.5rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 30px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeIn 1.5s ease-out forwards 1.5s;
+}
+
+/* Tanggal */
+.hero-content .date {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  padding: 10px 25px;
+  border: 1px solid rgba(197, 160, 89, 0.5);
+  border-radius: 50px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  color: var(--accent-gold);
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: fadeIn 1.5s ease-out forwards 2s;
+}
+
+/* Scroll Indicator (Panah Bawah) */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.7;
+  animation: bounce 2s infinite;
+  z-index: 2;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+}
+
+.scroll-indicator span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-bottom: 2px solid white;
+  border-right: 2px solid white;
+  transform: rotate(45deg);
+  margin-top: 10px;
+}
+
+/* Animations Keyframes */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+  40% { transform: translate(-50%, -10px); }
+  60% { transform: translate(-50%, -5px); }
+}
+
+/* Responsive untuk HP */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 4rem; /* Lebih kecil di HP */
+  }
+  .hero-content .sub-title {
+    font-size: 1rem;
+    letter-spacing: 3px;
+  }
+}
+
+/* SECTION 2: THE LIST (Memory Nebula) */
 #the-list {
   position: relative;
-  background: #000;
-  padding: 0;
+  /* Background transparan agar menyatu dengan body */
+  background: transparent; 
   height: 100vh;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+/* Container Teks di Tengah (Glass Effect) */
 .overlay-container {
-  position: absolute;
+  position: relative;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  color: white;
-  text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-  width: 100%;
-  pointer-events: none;
+  gap: 30px;
+  text-align: center;
+  /* Menggunakan variable glass-bg dari update sebelumnya */
+  background: rgba(20, 20, 30, 0.6); 
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 60px 80px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  transform: scale(0.9);
+  transition: transform 0.5s;
 }
+
+.overlay-container:hover {
+  transform: scale(1);
+  border-color: var(--accent-gold);
+}
+
+/* Typography Mewah */
 .huge-number {
   font-family: var(--font-serif);
-  font-size: 15rem;
-  line-height: 1;
+  font-size: 10rem;
+  line-height: 0.8;
+  background: linear-gradient(to bottom, #fff, #888);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
 .middle-text {
   display: flex;
   flex-direction: column;
-  font-family: var(--font-serif);
-  font-size: 2rem;
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
   text-transform: uppercase;
-  letter-spacing: 5px;
-  text-align: center;
+  letter-spacing: 6px;
+  color: rgba(255, 255, 255, 0.9);
+  border-left: 2px solid var(--accent-gold);
+  border-right: 2px solid var(--accent-gold);
+  padding: 0 30px;
 }
+
 .huge-cursive {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-serif);
   font-style: italic;
-  font-size: 15rem;
-  line-height: 1;
+  font-size: 10rem;
+  line-height: 0.8;
   color: var(--accent-gold);
+  text-shadow: 0 0 30px rgba(197, 160, 89, 0.4);
 }
+
+/* Background Kolase Bergerak */
 .collage-background {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  width: 100%;
-  height: 100%;
-  opacity: 0.6;
-  filter: grayscale(30%);
-  gap: 5px;
+  grid-template-columns: repeat(6, 1fr); /* Lebih banyak kolom */
+  gap: 10px;
+  opacity: 0.4; /* Agak gelap biar teks terbaca */
+  filter: grayscale(40%) contrast(120%);
+  z-index: 1;
+  animation: panBackground 30s linear infinite alternate;
 }
+
 .collage-item {
   width: 100%;
-  height: 100%;
+  height: 300px; /* Tinggi fix agar rapi */
   overflow: hidden;
+  border-radius: 10px;
 }
+
 .collage-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 3s ease;
-}
-#the-list:hover .collage-item img {
-  transform: scale(1.1);
+  transition: transform 0.5s ease;
 }
 
-/* SECTION 3: UMRAH */
+/* Hover Effect pada Background (sedikit highlight) */
+.collage-item:hover img {
+  transform: scale(1.1);
+  filter: grayscale(0%);
+}
+
+@keyframes panBackground {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-5%, -5%) rotate(2deg); }
+}
+
+/* Responsive HP */
+@media (max-width: 768px) {
+  .overlay-container {
+    flex-direction: column;
+    padding: 40px 20px;
+    gap: 10px;
+    width: 90%;
+  }
+  .middle-text {
+    border: none;
+    border-top: 1px solid var(--accent-gold);
+    border-bottom: 1px solid var(--accent-gold);
+    padding: 20px 0;
+    font-size: 1rem;
+  }
+  .huge-number, .huge-cursive {
+    font-size: 6rem;
+  }
+  .collage-background {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* SECTION 3: UMRAH (Cosmic Academic) */
 #umrah {
   position: relative;
-  background: linear-gradient(to top, #dfe9f3 0%, white 100%);
-  padding: 80px 0;
+  padding: 120px 0;
   overflow: hidden;
+  background: transparent; /* Menyatu dengan body */
 }
+
+/* Hiasan Background: Simbol Matematika Melayang */
+#umrah::before {
+  content: "∑  ∫  π  √  ∞  x²";
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 100%;
+  font-family: 'Times New Roman', serif;
+  font-size: 6rem;
+  color: rgba(255, 255, 255, 0.03); /* Sangat samar */
+  letter-spacing: 50px;
+  z-index: 0;
+  pointer-events: none;
+  animation: floatMath 20s infinite linear alternate;
+}
+
+@keyframes floatMath {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-30px) scale(1.1); }
+}
+
+/* Logo Kampus Melayang */
 .campus-logo {
   position: absolute;
   top: 20px;
-  right: 20px;
+  right: 5%;
   width: 100px;
-  opacity: 0.8;
+  opacity: 0.9;
   z-index: 10;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+  transition: transform 0.5s;
 }
+.campus-logo:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+
 .trisakti-layout {
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 60px;
   position: relative;
   z-index: 2;
 }
+
+/* Bagian Teks */
 .trisakti-text {
   flex: 1;
+  text-align: left;
 }
+
 .trisakti-title {
-  font-size: 3rem;
-  line-height: 1;
+  font-size: 3.5rem;
+  line-height: 1.1;
   margin-bottom: 30px;
-  color: #2c3e50;
+  color: white;
+  text-shadow: 0 0 30px rgba(197, 160, 89, 0.2);
 }
+
 .trisakti-title .big-number {
-  font-size: 8rem;
+  font-size: 7rem;
   color: var(--accent-gold);
   font-family: var(--font-serif);
-  margin-right: -10px;
+  margin-right: 5px;
+  text-shadow: 0 0 20px var(--accent-gold);
 }
+
 .trisakti-title .highlight {
-  color: #3498db;
+  background: linear-gradient(to right, #c5a059, #fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-style: italic;
 }
+
+/* Kotak Pesan (Glassmorphism Premium) */
+.trisakti-message {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 35px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid var(--accent-gold); /* Aksen Emas di kiri */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s, background 0.3s;
+}
+
+.trisakti-message:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(197, 160, 89, 0.1);
+}
+
 .trisakti-message h3 {
   font-size: 1.2rem;
-  font-family: var(--font-sans);
-  font-weight: bold;
-  margin-bottom: 20px;
+  color: var(--accent-gold);
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
+
 .trisakti-message p {
-  font-size: 1rem;
-  color: #555;
-  background: rgba(255, 255, 255, 0.7);
-  padding: 20px;
-  border-radius: 10px;
-  border-left: 5px solid #3498db;
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  line-height: 1.8;
+  font-weight: 300;
+  background: none; /* Reset background lama */
+  border: none;
+  padding: 0;
 }
+
+/* Bagian Foto */
 .trisakti-image {
   flex: 1;
   display: flex;
   justify-content: center;
-}
-.trisakti-image img {
-  max-width: 350px;
-  border-radius: 20px;
-  box-shadow: 20px 20px 0px rgba(52, 152, 219, 0.2);
-  transform: rotate(3deg);
-  transition: transform 0.3s;
-}
-.trisakti-image img:hover {
-  transform: rotate(0deg) scale(1.02);
+  position: relative;
 }
 
-/* SECTION 4: ACHIEVEMENT */
+/* Frame Foto Glowing */
+.trisakti-image img {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 20px;
+  /* Border tipis emas */
+  border: 1px solid rgba(255, 215, 0, 0.4); 
+  /* Efek bayangan cahaya */
+  box-shadow: 
+    0 0 20px rgba(197, 160, 89, 0.1),
+    15px 15px 0px rgba(255, 255, 255, 0.05);
+  transform: rotate(3deg);
+  transition: all 0.5s ease;
+}
+
+.trisakti-image:hover img {
+  transform: rotate(0deg) scale(1.02);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 60px rgba(197, 160, 89, 0.4);
+}
+
+/* Responsive HP */
+@media (max-width: 768px) {
+  .trisakti-layout {
+    flex-direction: column-reverse; /* Foto pindah ke atas teks di HP */
+    text-align: center;
+    gap: 40px;
+  }
+  .trisakti-text { text-align: center; }
+  .trisakti-title { font-size: 2.5rem; }
+  .trisakti-image img { max-width: 300px; }
+  .campus-logo { width: 70px; top: 10px; right: 10px; }
+}
+
+/* SECTION 4: ACHIEVEMENT (Galactic Hall of Fame) */
 #achievement {
   position: relative;
-  background-color: #6a89cc;
-  background-image: repeating-linear-gradient(
-    transparent,
-    transparent 20px,
-    rgba(0, 0, 0, 0.1) 20px,
-    rgba(0, 0, 0, 0.1) 22px
-  );
   padding: 100px 0;
-  overflow: hidden;
-  border-top: 10px solid #4a69bd;
-  border-bottom: 10px solid #4a69bd;
+  /* Background transparan, tapi kita kasih spotlight di tengah */
+  background: transparent; 
 }
-.locker-layout {
+
+/* Spotlight Effect di belakang */
+#achievement::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 80vh;
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.1) 0%, transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.achievement-layout {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 50px;
-}
-.locker-note {
-  background: #f1f2f6;
-  padding: 30px;
-  border-radius: 5px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  gap: 60px;
   position: relative;
-  flex: 1;
-  transform: rotate(-2deg);
-  font-family: "Courier New", monospace;
+  z-index: 2;
 }
-.tape {
+
+/* KARTU TEKS (Holographic Card) */
+.achievement-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.achievement-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-gold);
+}
+
+/* Garis Emas Dekoratif */
+.achievement-card::before {
+  content: '';
   position: absolute;
-  top: -15px;
-  left: 40%;
-  width: 100px;
-  height: 30px;
-  background-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transform: rotate(-2deg);
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--accent-gold), transparent);
 }
-.locker-note h2 {
+
+.achievement-card h2 {
   font-family: var(--font-serif);
-  font-size: 2.5rem;
+  font-size: 3rem;
   line-height: 1.2;
-  color: #2c3e50;
+  color: white;
   margin-bottom: 20px;
-  border-bottom: 2px dashed #ccc;
-  padding-bottom: 10px;
 }
+
 .rank-number {
-  font-size: 4rem;
-  color: #e55039;
+  font-size: 4.5rem;
+  color: var(--accent-gold);
   font-style: italic;
+  text-shadow: 0 0 20px rgba(197, 160, 89, 0.6); /* Glowing Gold */
+  display: inline-block;
+  animation: pulseGlow 3s infinite alternate;
 }
+
+.note-content {
+  font-family: var(--font-sans);
+  color: #ddd;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.note-content strong {
+  color: white;
+  font-weight: 700;
+}
+
 .highlight-red {
-  background: #ffcccc;
-  padding: 0 5px;
+  color: #ff6b6b; /* Merah terang neon */
   font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.4);
+  background: transparent; /* Hapus background pink lama */
+  padding: 0;
 }
-.locker-photo {
+
+/* FOTO (Floating Frame) */
+.achievement-photo {
   flex: 1;
-  position: relative;
   display: flex;
   justify-content: center;
-  transform: rotate(3deg);
+  position: relative;
 }
-.locker-photo img {
-  max-width: 300px;
-  border: 10px solid white;
-  border-bottom: 40px solid white;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+
+.photo-frame {
+  position: relative;
+  padding: 10px;
+  background: linear-gradient(45deg, #333, #000);
+  border-radius: 15px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  transform: rotate(-3deg);
+  transition: all 0.5s ease;
 }
-.tape-corner {
-  position: absolute;
-  top: -10px;
-  right: 30%;
-  width: 80px;
-  height: 30px;
-  background-color: rgba(255, 255, 255, 0.4);
-  transform: rotate(45deg);
+
+.photo-frame img {
+  display: block;
+  max-width: 350px;
+  width: 100%;
+  border-radius: 10px;
+  filter: sepia(20%) contrast(110%); /* Sedikit vintage cinematic */
+}
+
+/* Efek Hover pada Foto */
+.achievement-photo:hover .photo-frame {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 0 30px var(--accent-gold);
   z-index: 10;
 }
 
-/* SECTION 5: MESSAGE (FIXED) */
+/* Ornamen Bintang Kecil */
+.star-decoration {
+  position: absolute;
+  color: var(--accent-gold);
+  font-size: 2rem;
+  animation: spinStar 5s linear infinite;
+}
+
+@keyframes pulseGlow {
+  0% { text-shadow: 0 0 10px rgba(197, 160, 89, 0.3); }
+  100% { text-shadow: 0 0 30px rgba(197, 160, 89, 0.8), 0 0 10px white; }
+}
+
+@keyframes spinStar {
+  0% { transform: rotate(0deg) scale(1); opacity: 0.5; }
+  50% { transform: rotate(180deg) scale(1.2); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1); opacity: 0.5; }
+}
+
+/* Responsive HP */
+@media (max-width: 768px) {
+  .achievement-layout {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+  .achievement-card::before {
+    width: 100%; height: 2px; /* Garis jadi di atas */
+    background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+  }
+  .photo-frame img { max-width: 300px; }
+  .rank-number { font-size: 3.5rem; }
+}
+
+/* SECTION 5: MESSAGE (Stardust Letter) */
 #message {
-  background: #fdfbf7;
+  position: relative;
+  /* Background transparan agar menyatu dengan galaxy */
+  background: transparent; 
   display: flex;
   align-items: center;
   min-height: 100vh;
   overflow: hidden;
-  position: relative;
+  padding: 50px 0;
 }
+
+/* Layout Container */
 .message-layout {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 30px;
-  padding-top: 80px;
+  align-items: center; /* Center vertically */
+  gap: 50px;
   width: 100%;
 }
+
+/* Bagian Kiri (Surat) */
 .message-text {
   flex: 1;
   min-width: 350px;
   z-index: 20;
   position: relative;
-  padding-left: 20px;
-}
-.message-text h2 {
-  font-size: 5rem;
-  margin-bottom: 60px;
-  line-height: 1;
-  color: #2c3e50;
-  position: relative;
-  z-index: 5;
-  pointer-events: none;
 }
 
-/* Amplop */
+.message-text h2 {
+  font-size: 4rem;
+  margin-bottom: 40px;
+  line-height: 1.1;
+  /* Gradasi Emas Mewah */
+  background: linear-gradient(to right, #fff, #c5a059);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(197, 160, 89, 0.3));
+}
+
+/* --- AMPLOP KOSMIK --- */
 .envelope-wrapper {
   position: relative;
-  height: 300px;
+  height: 320px;
   margin-bottom: 20px;
+  perspective: 1000px;
 }
+
 #envelope {
-  position: absolute;
-  top: 0;
-  left: 20px;
-  width: 320px;
-  height: 220px;
-  background-color: #ff7675;
-  border-radius: 5px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  cursor: grab;
-  z-index: 10;
-  transition: transform 0.2s;
+  position: relative;
+  width: 350px;
+  height: 240px;
+  background: linear-gradient(135deg, #702525, #a33232); /* Merah Marun Mewah */
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  cursor: pointer;
+  transition: transform 0.5s;
 }
-#envelope:active {
-  cursor: grabbing;
-  z-index: 100;
+
+#envelope:hover {
+  transform: translateY(-10px) rotate(2deg);
+  box-shadow: 0 30px 60px rgba(197, 160, 89, 0.2); /* Glow emas saat hover */
 }
+
+/* Bagian Depan Amplop (Pocket) */
 .pocket {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  border-left: 160px solid #ff7675;
-  border-right: 160px solid #ff7675;
-  border-bottom: 110px solid #fd79a8;
-  border-top: 110px solid transparent;
-  border-radius: 0 0 5px 5px;
+  border-radius: 0 0 10px 10px;
+  border-left: 175px solid #852d2d;
+  border-right: 175px solid #852d2d;
+  border-bottom: 120px solid #9c3636;
+  border-top: 120px solid transparent;
   z-index: 30;
   pointer-events: none;
 }
+
+/* Tutup Amplop (Flap) */
 .flap {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  border-left: 160px solid transparent;
-  border-right: 160px solid transparent;
-  border-top: 120px solid #ff5e57;
-  border-bottom: 100px solid transparent;
+  border-radius: 10px 10px 0 0;
+  border-left: 175px solid transparent;
+  border-right: 175px solid transparent;
+  border-top: 130px solid #a33232; /* Warna tutup */
+  border-bottom: 110px solid transparent;
   transform-origin: top;
-  transition:
-    transform 0.6s ease 0.2s,
-    z-index 0.2s;
+  transition: transform 0.6s ease 0.2s, z-index 0.2s;
   z-index: 40;
   pointer-events: none;
 }
+
+/* Segel Lilin (Seal) */
 .seal {
   position: absolute;
-  top: 70px;
+  top: 80px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 2.5rem;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, #ffd700, #c5a059);
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
   z-index: 50;
-  transition: opacity 0.3s;
-  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #5a3e12;
+  border: 2px solid rgba(255,255,255,0.2);
+  transition: opacity 0.4s;
 }
 
-/* Surat */
+/* Isi Surat */
 .letter {
   position: absolute;
-  width: 280px;
-  height: 400px;
-  background: #fff;
   top: 10px;
-  left: 20px;
+  left: 25px;
+  width: 300px;
+  height: 380px;
+  background: #fff;
   border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  z-index: 20;
-  transition:
-    transform 0.8s ease-in-out,
-    top 0.8s ease-in-out;
   padding: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  z-index: 20;
+  transition: transform 0.8s ease-in-out, top 0.8s ease-in-out;
   overflow-y: auto;
   opacity: 0;
-  transform: scale(0.8);
-  background-image: repeating-linear-gradient(
-    #fff,
-    #fff 1.5rem,
-    #eee 1.5rem,
-    #eee 1.6rem
-  );
-}
-.letter-content p {
-  font-family: "Lato", cursive;
-  font-size: 1.1rem;
-  line-height: 1.8rem;
-  color: #444;
-  margin-top: 0;
-  font-weight: 600;
+  transform: translateY(0) scale(0.9);
+  /* Motif Kertas Surat */
+  background-image: linear-gradient(#eee 1px, transparent 1px);
+  background-size: 100% 1.5rem;
 }
 
-/* Open State */
+.letter-content p {
+  font-family: 'Dancing Script', cursive; /* Font tulisan tangan (jika ada) atau serif */
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  color: #444;
+  margin-top: 0;
+}
+
+/* STATE: OPEN (Saat diklik) */
 #envelope.open .flap {
   transform: rotateX(180deg);
   z-index: 10;
 }
 #envelope.open .seal {
   opacity: 0;
+  transform: scale(0);
 }
 #envelope.open .letter {
   opacity: 1;
-  transform: scale(1);
-  top: -180px;
+  top: -200px; /* Surat naik ke atas */
+  transform: scale(1) rotate(2deg);
   z-index: 100;
-  height: 500px;
-  cursor: grab;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-}
-#envelope.open .letter:active {
-  cursor: grabbing;
+  height: 500px; /* Surat memanjang */
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
 
 .instruction-click {
-  font-size: 0.9rem;
-  color: #888;
-  margin-top: 200px;
+  color: rgba(255,255,255,0.6);
   font-style: italic;
-  transition: opacity 0.5s;
-  pointer-events: none;
-}
-#closing-quote {
-  margin-top: 30px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 15px;
-  border-left: 5px solid #ff7675;
-  max-width: 400px;
+  font-size: 0.9rem;
+  margin-top: 50px;
 }
 
-/* Polaroid */
+#closing-quote {
+  margin-top: 20px;
+  color: var(--accent-gold);
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+/* --- POLAROID FLOATING (Bagian Kanan) --- */
 .polaroid-stack {
   flex: 1;
   min-width: 400px;
   height: 600px;
   position: relative;
+  /* Agar foto tidak keluar area section */
+  /* overflow: hidden; (Opsional, matikan jika ingin foto keluar dikit) */ 
 }
+
 .polaroid {
   position: absolute;
-  background: white;
-  padding: 10px 10px 35px 10px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-  width: 220px;
+  background: rgba(255, 255, 255, 0.95); /* Kertas foto agak transparan */
+  padding: 12px 12px 40px 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 200px;
   cursor: grab;
-  transition: transform 0.2s;
-  pointer-events: auto;
+  transition: transform 0.3s;
+  animation: floatCard 6s ease-in-out infinite; /* Animasi melayang */
+  transform-origin: center;
 }
+
 .polaroid:active {
   cursor: grabbing;
-  transform: scale(1.1);
-  z-index: 200 !important;
+  transform: scale(1.1) !important;
+  z-index: 100;
 }
+
 .polaroid img {
   width: 100%;
-  pointer-events: none;
-}
-.polaroid:nth-child(1) {
-  top: 0;
-  left: 0;
-  transform: rotate(-10deg);
-}
-.polaroid:nth-child(2) {
-  top: 50px;
-  right: 20px;
-  transform: rotate(15deg);
-}
-.polaroid:nth-child(3) {
-  bottom: 100px;
-  left: 50px;
-  transform: rotate(-5deg);
-}
-.polaroid:nth-child(4) {
-  bottom: 20px;
-  right: 10px;
-  transform: rotate(10deg);
-}
-.polaroid:nth-child(5) {
-  top: 200px;
-  left: 100px;
-  transform: rotate(5deg);
-}
-.polaroid:nth-child(6) {
-  top: 150px;
-  right: 80px;
-  transform: rotate(-20deg);
-}
-
-/* SECTION 5: WISH */
-#wish {
-  background-color: #111;
-  color: white;
-  text-align: center;
-  padding: 100px 20px;
-}
-.wish-content h2 {
-  font-size: 8rem;
-  color: var(--accent-gold);
-  opacity: 0.8;
-  margin-bottom: -20px;
-}
-.wish-content p {
-  font-size: 1.5rem;
-  max-width: 600px;
-  margin: 0 auto;
-  font-weight: 300;
-}
-
-/* SECTION 6: SELFIE */
-#selfie-section {
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("https://picsum.photos/id/1060/1600/900");
-  text-align: center;
-  color: white;
-  padding-bottom: 100px;
-}
-.camera-container {
-  background: white;
-  padding: 20px;
-  border-radius: 20px;
-  max-width: 500px;
-  margin: 30px auto;
-  color: black;
-}
-.camera-frame {
-  width: 100%;
-  height: 350px;
-  background: #000;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-  margin-bottom: 20px;
-}
-#webcam,
-#photo-canvas {
-  width: 100%;
-  height: 100%;
+  height: 220px;
   object-fit: cover;
-  transform: scaleX(-1);
-}
-.btn {
-  background: var(--accent-gold);
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  font-size: 1rem;
-  border-radius: 50px;
-  cursor: pointer;
-  margin: 5px;
-  font-family: var(--font-sans);
-  font-weight: bold;
-  transition: 0.3s;
-}
-.btn:hover {
-  background: #b08d4b;
-  transform: translateY(-2px);
-}
-.btn.secondary {
-  background: #555;
+  filter: sepia(10%);
 }
 
-/* Progress Bar */
-.progress-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background: transparent;
-  z-index: 10001;
-}
-.progress-bar {
-  height: 5px;
-  background: var(--accent-gold);
-  width: 0%;
-  transition: width 0.1s;
-  box-shadow: 0 0 10px var(--accent-gold);
+/* Posisi Awal Foto & Delay Animasi */
+.polaroid:nth-child(1) { top: 5%; left: 5%; transform: rotate(-10deg); animation-delay: 0s; }
+.polaroid:nth-child(2) { top: 10%; right: 10%; transform: rotate(15deg); animation-delay: 1s; }
+.polaroid:nth-child(3) { bottom: 15%; left: 10%; transform: rotate(-5deg); animation-delay: 2s; z-index: 2; }
+.polaroid:nth-child(4) { bottom: 5%; right: 15%; transform: rotate(10deg); animation-delay: 3s; }
+.polaroid:nth-child(5) { top: 40%; left: 35%; transform: rotate(5deg); animation-delay: 1.5s; z-index: 3; }
+
+/* Animasi Melayang (Zero Gravity) */
+@keyframes floatCard {
+  0% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-20px) rotate(calc(var(--r, 0deg) + 2deg)); }
+  100% { transform: translateY(0) rotate(var(--r, 0deg)); }
 }
 
-/* SPARKLE */
-.sparkle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: var(--accent-gold);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  animation: sparkleAnim 1s forwards;
-  box-shadow: 0 0 10px gold;
-}
-@keyframes sparkleAnim {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0) translateY(20px);
-    opacity: 0;
-  }
-}
-
-/* RESPONSIVE */
+/* Responsive HP */
 @media (max-width: 768px) {
-  .overlay-container {
-    flex-direction: column;
-    gap: 0;
-  }
-  .huge-number,
-  .huge-cursive {
-    font-size: 8rem;
-  }
-  .collage-background {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .trisakti-layout,
-  .locker-layout,
   .message-layout {
     flex-direction: column;
-  }
-  .message-text h2 {
-    font-size: 3.5rem;
+    text-align: center;
   }
   .envelope-wrapper {
-    height: 250px;
-    width: 100%;
     display: flex;
     justify-content: center;
-  }
-  #envelope {
-    left: auto;
   }
   .polaroid-stack {
     width: 100%;
     height: 400px;
+    margin-top: -50px; /* Biar agak naik */
   }
+  .polaroid {
+    width: 140px; /* Foto lebih kecil di HP */
+    padding: 8px 8px 30px 8px;
+  }
+  .polaroid img { height: 160px; }
+}
+
+/* SECTION 6: WISH (The Supernova) */
+#wish {
+  position: relative;
+  padding: 150px 0;
+  text-align: center;
+  overflow: hidden;
+  /* Background transparan agar gradient body terlihat */
+  background: transparent; 
+}
+
+/* Efek Cahaya Berdenyut di Belakang (Supernova Glow) */
+#wish::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.15) 0%, transparent 70%);
+  filter: blur(60px);
+  z-index: 0;
+  animation: pulseLight 6s infinite alternate;
+}
+
+@keyframes pulseLight {
+  0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.8); }
+  100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+.wish-content {
+  position: relative;
+  z-index: 2;
+  padding: 60px 40px;
+  border: 1px solid rgba(197, 160, 89, 0.3); /* Border Emas Tipis */
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); /* Shadow lebih dalam */
+}
+
+/* Angka 20 Raksasa */
+.wish-content h2 {
+  font-family: var(--font-serif);
+  font-size: 10rem;
+  line-height: 0.9;
+  margin-bottom: 20px;
+  /* Gradasi Logam Mulia */
+  background: linear-gradient(to bottom, #ffffff 20%, #c5a059 80%, #5a3e12 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 25px rgba(197, 160, 89, 0.5));
+  animation: floatText 5s ease-in-out infinite;
+}
+
+@keyframes floatText {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.wish-content p {
+  font-size: 1.2rem;
+  color: #f0f0f0;
+  font-weight: 300;
+  line-height: 1.8;
+  letter-spacing: 1px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Tanda Tangan */
+.wish-signature {
+  margin-top: 40px;
+  font-family: 'Playfair Display', serif; /* Atau font script jika ada */
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--accent-gold);
+  text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+}
+
+/* Garis Pemisah Kecil */
+.wish-divider {
+  width: 50px;
+  height: 2px;
+  background: var(--accent-gold);
+  margin: 30px auto;
+  opacity: 0.7;
+}
+
+/* Responsive HP */
+@media (max-width: 768px) {
+  .wish-content h2 { font-size: 6rem; }
+  .wish-content { padding: 40px 20px; width: 90%; margin: 0 auto; }
+  #wish::before { width: 300px; height: 300px; }
+}
+
+/* SECTION 7: SELFIE (The Galactic Mirror) */
+#selfie-section {
+  position: relative;
+  /* Gunakan background galaxy yang sama atau gradient gelap */
+  background: radial-gradient(circle at bottom, #1b113a 0%, #000000 80%);
+  text-align: center;
+  padding: 100px 0 150px 0;
+  color: white;
+  overflow: hidden;
+}
+
+#selfie-section h2 {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+  background: linear-gradient(to right, #fff, #c5a059);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(197, 160, 89, 0.3);
+}
+
+#selfie-section p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+}
+
+/* Container Kamera (Glass Interface) */
+.camera-container {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 30px;
+  border-radius: 30px;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+/* Hiasan Sudut Kamera (Corner Accents) */
+.camera-container::before,
+.camera-container::after {
+  content: '';
+  position: absolute;
+  width: 30px; height: 30px;
+  border: 2px solid var(--accent-gold);
+  transition: all 0.3s;
+}
+.camera-container::before { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+.camera-container::after { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+/* Frame Video */
+.camera-frame {
+  width: 100%;
+  height: 400px;
+  background: #000;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+#webcam, #photo-canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* Mirror effect */
+}
+
+/* Control Buttons (Floating Pills) */
+.controls {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  background: linear-gradient(45deg, #1a1a1a, #333);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 12px 30px;
+  font-size: 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  border-color: var(--accent-gold);
+}
+
+/* Primary Action Button (Gold) */
+#btn-snap, #btn-start-cam {
+  background: linear-gradient(45deg, #c5a059, #e6c88b);
+  color: #1a0b2e;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
+}
+
+#btn-snap:hover, #btn-start-cam:hover {
+  box-shadow: 0 0 30px rgba(197, 160, 89, 0.6);
+}
+
+/* Secondary Button */
+.btn.secondary {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.btn.secondary:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Hide helper */
+.hidden { display: none !important; }
+
+/* Responsive HP */
+@media (max-width: 768px) {
+  #selfie-section h2 { font-size: 2.5rem; }
+  .camera-container { width: 90%; padding: 20px; }
+  .camera-frame { height: 300px; }
 }
 
 /* --- SECTION: PLANET GALLERY (3D) --- */
