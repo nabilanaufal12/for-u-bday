@@ -428,134 +428,205 @@ h1, h2, h3 {
   .hero-content .sub-title { font-size: 1rem; letter-spacing: 3px; }
 }
 
-/* --- SECTION 2: THE LIST --- */
+/* --- SECTION 2: THE LIST (MARQUEE EDITION) --- */
 #the-list {
   position: relative;
   background: transparent;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden; /* Sembunyikan foto yang keluar layar */
+  padding: 80px 0;
 }
 
+/* Container Teks (Centerpiece) - Tetap Rapi & Terbaca */
 .overlay-container {
   position: relative;
   z-index: 10;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 10px;
   text-align: center;
-  background: rgba(20, 20, 30, 0.6);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  padding: 60px 80px;
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-  transform: scale(0.9);
-  transition: transform 0.5s;
+  
+  /* Glassmorphism */
+  background: rgba(15, 12, 41, 0.75); 
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  
+  /* Padding yang pas */
+  padding: 40px 60px;
+  
+  border-radius: 40px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
 }
 
 .overlay-container:hover {
-  transform: scale(1);
   border-color: var(--accent-gold);
+  transform: translateY(-5px);
+}
+
+/* Typography Angka Besar */
+.huge-number, .huge-cursive {
+  font-family: var(--font-serif);
+  font-size: clamp(6rem, 12vw, 10rem); 
+  line-height: 1.4; /* Agar ekor huruf aman */
+  margin: 0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .huge-number {
-  font-family: var(--font-serif);
-  font-size: 10rem;
-  line-height: 0.8;
-  background: linear-gradient(to bottom, #fff, #888);
+  background: linear-gradient(to bottom, #fff, #bbb);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.middle-text {
-  display: flex;
-  flex-direction: column;
-  font-family: var(--font-sans);
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 6px;
-  color: rgba(255, 255, 255, 0.9);
-  border-left: 2px solid var(--accent-gold);
-  border-right: 2px solid var(--accent-gold);
-  padding: 0 30px;
+  padding: 0 10px;
 }
 
 .huge-cursive {
-  font-family: var(--font-serif);
   font-style: italic;
-  font-size: 10rem;
-  line-height: 0.8;
   color: var(--accent-gold);
-  text-shadow: 0 0 30px rgba(197, 160, 89, 0.4);
+  text-shadow: 0 0 40px rgba(197, 160, 89, 0.5);
+  margin-right: 15px;
+  padding-right: 15px; 
 }
 
-.collage-background {
+/* Teks Tengah */
+.middle-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: var(--font-sans);
+  
+  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.9);
+  
+  border-left: 2px solid var(--accent-gold);
+  border-right: 2px solid var(--accent-gold);
+  
+  padding: 0 30px;
+  height: 90px;
+  margin: 0 10px;
+}
+
+/* === MARQUEE FOTO LANDSCAPE (PENGGANTI COLLAGE) === */
+.marquee-container {
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-  opacity: 0.4;
-  filter: grayscale(40%) contrast(120%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-5deg); /* Miring sedikit biar dinamis */
+  width: 150%;
+  height: 150%;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px; /* Jarak vertikal antar strip foto */
+  
   z-index: 1;
-  animation: panBackground 30s linear infinite alternate;
+  opacity: 0.6; /* Transparansi agar tidak nabrak teks */
+  filter: grayscale(30%) contrast(110%) brightness(0.7);
+  pointer-events: none;
 }
 
-.collage-item {
+.marquee-row {
   width: 100%;
-  height: 300px;
+  display: flex;
   overflow: hidden;
-  border-radius: 10px;
+  white-space: nowrap; /* Wajib agar foto berjejer ke samping */
 }
 
-.collage-item img {
-  width: 100%;
-  height: 100%;
+.marquee-content {
+  display: flex;
+  gap: 20px; /* Jarak antar foto */
+}
+
+/* Gaya Foto Landscape */
+.marquee-content img {
+  height: 250px; /* Tinggi fix */
+  aspect-ratio: 16/9; /* MAKSA JADI LANDSCAPE */
   object-fit: cover;
-  transition: transform 0.5s ease;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  flex-shrink: 0;
 }
 
-.collage-item:hover img {
-  transform: scale(1.1);
-  filter: grayscale(0%);
+/* ANIMASI: Baris Atas (Gerak Kiri) */
+.scroll-left {
+  animation: scrollLeft 50s linear infinite;
+}
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Geser setengah (karena ada duplikat) */
 }
 
-@keyframes panBackground {
-  0% { transform: translate(0, 0) rotate(0deg); }
-  100% { transform: translate(-5%, -5%) rotate(2deg); }
+/* ANIMASI: Baris Bawah (Gerak Kanan) */
+.scroll-right {
+  animation: scrollRight 50s linear infinite;
+}
+@keyframes scrollRight {
+  0% { transform: translateX(-50%); } /* Mulai dari posisi geser */
+  100% { transform: translateX(0); }
 }
 
-/* DESKTOP LAYOUT (MASONRY-LIKE) */
-@media (min-width: 1024px) {
-  .collage-background {
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 20px;
-    width: 120%;
-    left: -10%;
-  }
-  .collage-item:nth-child(even) {
-    transform: translateY(30px);
-  }
-  .collage-item:nth-child(3n) {
-    grid-row: span 2;
-    height: 620px;
-  }
+/* Vignette Overlay (Pinggiran Gelap) */
+#the-list::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 35%, #0f0c29 95%);
+  z-index: 2;
+  pointer-events: none;
 }
 
+/* --- RESPONSIVE HP --- */
 @media (max-width: 768px) {
-  .overlay-container { flex-direction: column; padding: 40px 20px; gap: 10px; width: 90%; }
-  .middle-text { border: none; border-top: 1px solid var(--accent-gold); border-bottom: 1px solid var(--accent-gold); padding: 20px 0; font-size: 1rem; }
-  .huge-number, .huge-cursive { font-size: 6rem; }
-  .collage-background { grid-template-columns: repeat(3, 1fr); }
+  #the-list {
+    padding: 0;
+  }
+
+  .overlay-container {
+    flex-direction: column;
+    padding: 30px 20px;
+    width: 85%;
+    gap: 10px;
+    background: rgba(15, 12, 41, 0.85); /* Lebih solid di HP */
+  }
+
+  .huge-number, .huge-cursive {
+    font-size: 5rem; /* Ukuran aman di HP */
+    line-height: 1.1;
+  }
+  
+  .middle-text {
+    border: none;
+    border-top: 1px solid var(--accent-gold);
+    border-bottom: 1px solid var(--accent-gold);
+    padding: 15px 0;
+    width: 80%;
+    height: auto;
+    margin: 10px 0;
+  }
+
+  /* Marquee HP Adjustment */
+  .marquee-container {
+    gap: 15px;
+    transform: translate(-50%, -50%) rotate(0deg); /* Lurus di HP */
+  }
+  
+  .marquee-content img {
+    height: 140px; /* Foto lebih kecil di HP */
+    gap: 10px;
+  }
 }
 
 /* --- SECTION 3: UMRAH --- */
