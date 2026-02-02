@@ -7,10 +7,12 @@ function checkPassword() {
   const input = document.getElementById("pass-input").value;
   const errorMsg = document.getElementById("error-msg");
   const overlay = document.getElementById("login-overlay");
-  const correctPassword = "13022006"; // Sesuaikan tanggal lahir
+  
+  // Ganti sesuai tanggal lahir (DDMMYYYY)
+  const correctPassword = "13022006"; 
 
   if (input === correctPassword) {
-    // 1. Tambahkan efek WARP
+    // 1. Tambahkan efek WARP (Hyperspace Jump)
     overlay.classList.add("warp-effect");
 
     // 2. Play Music
@@ -22,17 +24,18 @@ function checkPassword() {
       })
       .catch(console.error);
 
-    // 3. Hapus overlay setelah animasi selesai
+    // 3. Hapus overlay setelah animasi selesai (1.5 detik)
     setTimeout(() => {
       overlay.style.display = "none";
-      // Trigger animasi masuk elemen Hero
-      document.querySelector('.hero-content h1').style.animationPlayState = 'running';
-    }, 1500); // Sesuai durasi CSS transition
+      // Trigger animasi masuk elemen Hero (jika ada yang dipause)
+      const heroTitle = document.querySelector('.hero-content h1');
+      if(heroTitle) heroTitle.style.animationPlayState = 'running';
+    }, 1500); 
     
   } else {
     errorMsg.classList.remove("hidden");
     input.value = "";
-    // Animasi Shake
+    // Animasi Shake jika salah
     const box = document.querySelector(".login-box");
     box.style.animation = "shake 0.5s";
     setTimeout(() => (box.style.animation = ""), 500);
@@ -50,7 +53,7 @@ function toggleMusic() {
   isPlaying = !isPlaying;
 }
 
-// --- 2. DRAG & DROP LOGIC (FIXED) ---
+// --- 2. DRAG & DROP LOGIC ---
 function makeDraggable(element) {
   let pos1 = 0,
     pos2 = 0,
@@ -63,33 +66,25 @@ function makeDraggable(element) {
   function dragMouseDown(e) {
     e = e || window.event;
 
-    // Jangan prevent default di sini agar user masih bisa scroll jika tidak sedang drag
-    // Tapi kita butuh coordinate
     if (e.type === "touchstart") {
       pos3 = e.touches[0].clientX;
       pos4 = e.touches[0].clientY;
     } else {
-      e.preventDefault(); // Mouse usually needs preventDefault to stop text selection
+      e.preventDefault(); 
       pos3 = e.clientX;
       pos4 = e.clientY;
     }
 
-    // Naikkan z-index saat dipegang
     element.style.zIndex = 1000;
 
     document.onmouseup = closeDragElement;
     document.onmousemove = elementDrag;
-
-    // Event Touch
     document.ontouchend = closeDragElement;
     document.ontouchmove = elementDrag;
   }
 
   function elementDrag(e) {
     e = e || window.event;
-
-    // Hanya prevent default saat bergerak (dragging)
-    // Ini mencegah layar ikut scroll saat kita geser foto
     if (e.cancelable) e.preventDefault();
 
     let clientX, clientY;
@@ -101,13 +96,11 @@ function makeDraggable(element) {
       clientY = e.clientY;
     }
 
-    // Hitung pergeseran
     pos1 = pos3 - clientX;
     pos2 = pos4 - clientY;
     pos3 = clientX;
     pos4 = clientY;
 
-    // Set posisi baru
     element.style.top = element.offsetTop - pos2 + "px";
     element.style.left = element.offsetLeft - pos1 + "px";
   }
@@ -117,11 +110,10 @@ function makeDraggable(element) {
     document.onmousemove = null;
     document.ontouchend = null;
     document.ontouchmove = null;
-    // element.style.zIndex = ""; // Biarkan z-index tinggi atau reset jika mau
   }
 }
 
-// Inisialisasi Draggable (Amplop & Polaroid)
+// Inisialisasi Draggable
 window.onload = function () {
   const envelope = document.getElementById("envelope");
   if (envelope) makeDraggable(envelope);
@@ -167,7 +159,6 @@ function openEnvelope() {
     setTimeout(() => {
       typeWriter();
       if (quote) quote.classList.remove("hidden");
-      // Jadikan surat draggable setelah keluar
       makeDraggable(letter);
     }, 800);
   }
@@ -213,7 +204,7 @@ if (wishSection) {
   confettiObserver.observe(wishSection);
 }
 
-// Sparkle
+// Sparkle Effect
 function createSparkle(x, y) {
   const el = document.createElement("div");
   el.classList.add("sparkle");
@@ -230,7 +221,7 @@ document.addEventListener("touchmove", (e) => {
     createSparkle(e.touches[0].clientX, e.touches[0].clientY + window.scrollY);
 });
 
-// Tilt & Scroll
+// Tilt & Scroll Progress
 if (typeof VanillaTilt !== "undefined") {
   VanillaTilt.init(document.querySelectorAll(".collage-item img, .polaroid"), {
     max: 15,
@@ -241,9 +232,7 @@ if (typeof VanillaTilt !== "undefined") {
 }
 window.onscroll = function () {
   let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-  let height =
-    document.documentElement.scrollHeight -
-    document.documentElement.clientHeight;
+  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
   let scrolled = (winScroll / height) * 100;
   document.getElementById("myBar").style.width = scrolled + "%";
 };
@@ -292,16 +281,13 @@ function sendToWA() {
   link.href = image;
   link.download = "Reaction-Birthday.png";
   link.click();
-  const phoneNumber = "628xxxxxxxxxx";
-  const message =
-    "Makasih ya websitenya bagus banget! Ini pap reaksiku hehe ✨";
+  const phoneNumber = "628xxxxxxxxxx"; // Ganti dengan nomor WA kamu
+  const message = "Makasih ya websitenya bagus banget! Ini pap reaksiku hehe ✨";
   const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   setTimeout(() => window.open(waUrl, "_blank"), 1000);
 }
 
-/* --- TAMBAHAN DI BAGIAN BAWAH FILE --- */
-
-// 5. MAGIC CURSOR
+// --- 5. MAGIC CURSOR ---
 const cursor = document.createElement('div');
 cursor.id = 'cursor';
 document.body.appendChild(cursor);
@@ -313,13 +299,10 @@ document.body.appendChild(cursorBlur);
 document.addEventListener('mousemove', (e) => {
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
-  
-  // Efek delay sedikit pada blur agar smooth
   cursorBlur.style.left = e.clientX + 'px';
   cursorBlur.style.top = e.clientY + 'px';
 });
 
-// Hover effect pada elemen clickable (tombol/link)
 const clickables = document.querySelectorAll('a, button, .polaroid, #envelope');
 clickables.forEach(el => {
   el.addEventListener('mouseenter', () => {
@@ -332,40 +315,28 @@ clickables.forEach(el => {
   });
 });
 
-// 6. FLOATING HEARTS ANIMATION
+// --- 6. FLOATING HEARTS ANIMATION ---
 function createHeart() {
   const heart = document.createElement('div');
   heart.classList.add('floating-heart');
   heart.innerHTML = '❤';
-  
-  // Posisi Random
   heart.style.left = Math.random() * 100 + 'vw';
   
-  // Ukuran Random
   const size = Math.random() * 20 + 10; 
   heart.style.fontSize = size + 'px';
-  
-  // Durasi Random
   heart.style.animationDuration = Math.random() * 5 + 10 + 's';
   
   document.body.appendChild(heart);
-  
-  // Hapus setelah animasi selesai
-  setTimeout(() => {
-    heart.remove();
-  }, 15000);
+  setTimeout(() => { heart.remove(); }, 15000);
 }
-
-// Munculkan hati setiap 300ms
 setInterval(createHeart, 500);
 
-// 7. ENHANCED SCROLL REVEAL (Lebih smooth)
+// --- 7. ENHANCED SCROLL REVEAL ---
 const revealElements = document.querySelectorAll('.fade-in');
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      // Tambahkan efek sedikit scale up saat muncul
       entry.target.style.transform = 'translateY(0) scale(1)';
     }
   });
@@ -373,6 +344,6 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 revealElements.forEach(el => {
   el.style.transition = 'all 1s cubic-bezier(0.5, 0, 0, 1)';
-  el.style.transform = 'translateY(50px) scale(0.95)'; // Posisi awal
+  el.style.transform = 'translateY(50px) scale(0.95)';
   revealObserver.observe(el);
 });

@@ -28,7 +28,7 @@ function initStars() {
 function animateStars() {
   ctxStar.clearRect(0, 0, width, height);
   
-  // Efek Nebula/Glow tipis (Opsional, berat di performa rendah)
+  // Efek Nebula/Glow tipis (Opsional)
   // ctxStar.fillStyle = "rgba(20, 30, 50, 0.3)";
   // ctxStar.fillRect(0, 0, width, height);
 

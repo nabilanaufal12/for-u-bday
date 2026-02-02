@@ -23,29 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
   controls.autoRotateSpeed = 0.5;
   controls.enableZoom = true;
 
-  // --- 2. LIGHTING ---
-
-  // 1. Ambient Light (Cahaya dasar gelap ungu/biru)
-  const ambientLight = new THREE.AmbientLight(0x4040a0, 0.5); 
-  scene.add(ambientLight);
-
-  // 2. Main Sun Light (Cahaya Matahari Emas dari kanan atas)
-  const sunLight = new THREE.DirectionalLight(0xffd700, 2);
-  sunLight.position.set(50, 30, 50);
-  sunLight.castShadow = true; // Aktifkan bayangan
-  scene.add(sunLight);
-
-  // 3. Rim Light (Cahaya Biru dari belakang untuk efek siluet dramatis)
-  const rimLight = new THREE.SpotLight(0x00ffff, 3);
-  rimLight.position.set(-30, 10, -10);
-  rimLight.lookAt(planet.position);
-  scene.add(rimLight);
-
-  // 4. Point Light di tengah planet (biar planetnya glowing)
-  const glowLight = new THREE.PointLight(0x6a0dad, 1.5, 100);
-  scene.add(glowLight);
-
-  // --- 3. PLANET (INTI) ---
+  // --- 2. PLANET (INTI) ---
+  // Dibuat duluan agar lighting bisa berefleksi dengan benar
   const planetGeo = new THREE.SphereGeometry(4, 64, 64);
   const planetMat = new THREE.MeshStandardMaterial({
     color: 0x3a0ca3, 
@@ -55,6 +34,28 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   const planet = new THREE.Mesh(planetGeo, planetMat);
   scene.add(planet);
+
+  // --- 3. LIGHTING (DRAMATIC UPGRADE) ---
+  
+  // 1. Ambient Light (Nuansa Ungu Gelap)
+  const ambientLight = new THREE.AmbientLight(0x4040a0, 0.5); 
+  scene.add(ambientLight);
+
+  // 2. Main Sun Light (Cahaya Emas Utama)
+  const sunLight = new THREE.DirectionalLight(0xffd700, 2);
+  sunLight.position.set(50, 30, 50);
+  sunLight.castShadow = true; 
+  scene.add(sunLight);
+
+  // 3. Rim Light (Cahaya Biru dari Belakang - Efek Siluet)
+  const rimLight = new THREE.SpotLight(0x00ffff, 3);
+  rimLight.position.set(-30, 10, -10);
+  // SpotLight secara default mengarah ke (0,0,0) dimana planet berada
+  scene.add(rimLight);
+
+  // 4. Point Light (Glow Tambahan di Tengah)
+  const glowLight = new THREE.PointLight(0x6a0dad, 1.5, 100);
+  scene.add(glowLight);
 
   // --- 4. CINCIN TEKS UCAPAN ---
   function createTextTexture(text) {
@@ -79,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return tex;
   }
 
-  const textString = "Happy 20th Birthday Ratu! ✨ Barakallahu Fii Umrik ✨";
+  const textString = "Happy 20th Birthday Habibah! ✨ Barakallahu Fii Umrik ✨";
   const textTexture = createTextTexture(textString);
   
   const textRingGeo = new THREE.CylinderGeometry(6.5, 6.5, 1.5, 64, 1, true);
@@ -92,7 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   const textRing = new THREE.Mesh(textRingGeo, textRingMat);
   scene.add(textRing);
-
 
   // --- 5. FOTO SEBAGAI ASTEROID (MULTI-TEXTURE) ---
   function createCircleAlphaMap() {
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const photoGeo = new THREE.PlaneGeometry(1, 1); 
   const dummy = new THREE.Object3D();
 
-  // DAFTAR NAMA FOTO (Pastikan nama file sesuai!)
+  // DAFTAR NAMA FOTO (Menggunakan path relatif terhadap index.html)
   const photoFiles = [
     'foto-1.jpg', 
     'foto-2.jpg', 
@@ -129,7 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Loop untuk membuat Mesh berbeda tiap foto
   photoFiles.forEach((fileName) => {
-    const texture = loader.load(`../assets/images/${fileName}`);
+    // Note: Path assets/images/ karena dipanggil dari index.html
+    const texture = loader.load(`assets/images/${fileName}`);
     
     const material = new THREE.MeshBasicMaterial({
       map: texture,
@@ -173,11 +174,10 @@ document.addEventListener("DOMContentLoaded", () => {
     mesh.userData = { rotationSpeed: 0.0005 + Math.random() * 0.0005 }; 
     scene.add(mesh);
     
-    // Masukkan ke array global biar bisa diakses di fungsi animate (optional hack)
+    // Masukkan ke array global biar bisa diakses di fungsi animate
     if (!window.asteroidMeshes) window.asteroidMeshes = [];
     window.asteroidMeshes.push(mesh);
   });
-
 
   // --- 6. ANIMASI ---
   function animate() {

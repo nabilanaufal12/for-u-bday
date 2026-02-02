@@ -1,3 +1,4 @@
+/* --- BACKGROUND CANVAS BINTANG --- */
 #starfield {
   position: fixed;
   top: 0;
@@ -8,9 +9,9 @@
   background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%); /* Deep space blue */
 }
 
-/* --- TAMBAHAN DI BAGIAN ATAS (VARIABLE) --- */
+/* --- VARIABLES --- */
 :root {
-  --primary-dark: #0f0c29; /* Lebih gelap/mewah */
+  --primary-dark: #0f0c29; 
   --primary-light: #f9f9f9;
   --accent-gold: #ffd700;
   --glass-bg: rgba(255, 255, 255, 0.1);
@@ -20,10 +21,16 @@
 }
 
 body {
-  /* Ganti background putih polos dengan gradient halus */
-  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-  color: white; /* Default text jadi putih agar kontras */
+  /* Gradient transparan agar canvas bintang terlihat, tapi tetap ada warna dasar */
+  background: linear-gradient(to bottom, rgba(15, 12, 41, 0.8), rgba(48, 43, 99, 0.8), rgba(36, 36, 62, 0.8));
+  color: white; 
   cursor: none; /* Hilangkan kursor asli */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  line-height: 1.6;
 }
 
 /* --- CUSTOM CURSOR (MAGIC) --- */
@@ -55,7 +62,7 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* --- GLASSMORPHISM CLASS (KOTAK KACA) --- */
+/* --- GLASSMORPHISM CLASS --- */
 .glass-box {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
@@ -66,7 +73,7 @@ body {
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-/* --- UPDATED HERO TEXT ANIMATION --- */
+/* --- HERO TEXT ANIMATION --- */
 .hero-content h1 {
   font-size: 6rem;
   background: linear-gradient(45deg, #c5a059, #fff, #c5a059);
@@ -82,7 +89,7 @@ body {
   100% { background-position: 100% 50%; }
 }
 
-/* --- FLOATING HEARTS BACKGROUND --- */
+/* --- FLOATING HEARTS --- */
 .floating-heart {
   position: fixed;
   bottom: -10vh;
@@ -99,48 +106,22 @@ body {
   100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
 }
 
-/* --- UPDATE SECTIONS AGAR TRANSPARAN --- */
-/* Update section Achievement & Umrah agar menyatu dengan dark theme */
+/* --- SECTIONS TRANSPARENCY --- */
 #achievement, #umrah, #message, #wish {
-  background: transparent; /* Biar background body kelihatan */
+  background: transparent;
 }
 
-/* Locker Note jadi Glass */
 .locker-note {
-  background: rgba(255,255,255,0.9); /* Tetap terang tapi agak transparan */
+  background: rgba(255,255,255,0.9);
   color: #333;
 }
 
-/* umrah Text */
 .umrah-title { color: white; }
 .umrah-message p {
   background: rgba(255, 255, 255, 0.1);
   color: white;
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255,255,255,0.2);
-}
-
-/* --- RESET & VARIABLES --- */
-:root {
-  --primary-dark: #1a1a1a;
-  --primary-light: #f9f9f9;
-  --accent-gold: #c5a059;
-  --font-serif: "Playfair Display", serif;
-  --font-sans: "Lato", sans-serif;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-  font-family: var(--font-sans);
-  overflow-x: hidden;
-  line-height: 1.6;
 }
 
 /* --- LOGIN OVERLAY (COSMIC GATE) --- */
@@ -150,7 +131,6 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  /* Background Gradasi Gelap Kosmik */
   background: radial-gradient(circle at center, #1b113a 0%, #000000 100%);
   z-index: 10000;
   display: flex;
@@ -158,9 +138,18 @@ body {
   align-items: center;
   transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out;
   overflow: hidden;
+  transform-origin: center;
 }
 
-/* Efek Bintang Latar (Opsional, tapi bagus) */
+/* WARP EFFECT CLASS (JUMP TO HYPERSPACE) */
+.warp-effect {
+  transform: scale(30); /* Zoom in effect */
+  opacity: 0;
+  filter: blur(20px);
+  transition: transform 1.5s cubic-bezier(0.7, 0, 0.3, 1), opacity 1.5s ease-in;
+}
+
+/* Efek Bintang Latar Login */
 #login-overlay::before {
   content: "";
   position: absolute;
@@ -177,19 +166,19 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Kotak Login Kaca Premium */
+/* Login Box */
 .login-box {
   position: relative;
-  background: rgba(255, 255, 255, 0.05); /* Lebih transparan */
-  backdrop-filter: blur(20px);            /* Blur lebih kuat */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   padding: 50px 40px;
   border-radius: 20px;
   text-align: center;
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-top: 1px solid rgba(255, 255, 255, 0.3); /* Highlight atas */
-  border-left: 1px solid rgba(255, 255, 255, 0.3); /* Highlight kiri */
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.05);
   max-width: 90%;
   width: 380px;
@@ -198,7 +187,6 @@ body {
   z-index: 2;
 }
 
-/* Animasi Floating Halus */
 @keyframes floatBox {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -223,7 +211,6 @@ body {
   letter-spacing: 1px;
 }
 
-/* Input Stylized */
 .login-box input {
   background: rgba(0, 0, 0, 0.3);
   padding: 15px;
@@ -234,10 +221,10 @@ body {
   font-size: 1.2rem;
   text-align: center;
   color: var(--accent-gold);
-  letter-spacing: 5px; /* Jarak antar angka pass */
+  letter-spacing: 5px;
   outline: none;
   transition: all 0.3s;
-  font-family: monospace; /* Font ala kode rahasia */
+  font-family: monospace;
 }
 
 .login-box input:focus {
@@ -253,7 +240,6 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Tombol Mewah */
 .login-box button {
   padding: 12px 30px;
   width: 100%;
@@ -280,7 +266,6 @@ body {
   transform: scale(0.98);
 }
 
-/* Error Message */
 #error-msg {
   margin-top: 15px;
   color: #ff6b6b;
@@ -289,37 +274,10 @@ body {
   text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
 }
 
-/* Animasi Shake */
 @keyframes shake {
-  0% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-10px);
-  }
-  50% {
-    transform: translateX(10px);
-  }
-  75% {
-    transform: translateX(-10px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-/* Kelas untuk efek warp */
-.warp-effect {
-  transform: scale(30); /* Zoom in gila-gilaan */
-  opacity: 0;
-  filter: blur(20px);
-  transition: transform 1.5s cubic-bezier(0.7, 0, 0.3, 1), opacity 1.5s ease-in;
-}
-
-/* Update login overlay agar mendukung transisi ini */
-#login-overlay {
-  /* properti lama tetap ada */
-  transform-origin: center; /* Zoom dari tengah */
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
 }
 
 /* --- MUSIC BUTTON --- */
@@ -344,58 +302,38 @@ body {
 }
 
 /* --- UTILS --- */
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-family: var(--font-serif);
   font-weight: 700;
 }
-.italic {
-  font-style: italic;
-}
+.italic { font-style: italic; }
 .container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 50px 0;
 }
-.parallax {
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
 .fade-in {
   opacity: 0;
   transform: translateY(30px);
-  transition:
-    opacity 1s ease-out,
-    transform 1s ease-out;
+  transition: opacity 1s ease-out, transform 1s ease-out;
 }
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
 }
-.hidden {
-  display: none !important;
-}
+.hidden { display: none !important; }
 
-/* SECTION 1: HERO (Cinematic Universe) */
+/* --- SECTION 1: HERO --- */
 #hero {
   position: relative;
-  /* Gunakan foto Habibah yang paling bagus/aesthetic di sini, atau background galaksi */
-  /* Jika ingin foto Habibah: url('../assets/images/foto-hero.jpg'); */
+  /* Gambar Galaxy background */
   background-image: 
     linear-gradient(to bottom, rgba(15, 12, 41, 0.6), rgba(15, 12, 41, 0.9)),
     url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80");
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Efek Parallax */
+  background-attachment: fixed;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -411,10 +349,9 @@ h3 {
   padding: 20px;
 }
 
-/* Judul Utama */
 .hero-content h1 {
   font-family: var(--font-serif);
-  font-size: 6rem; /* Sangat besar */
+  font-size: 6rem;
   line-height: 1;
   margin-bottom: 20px;
   background: linear-gradient(to bottom, #ffffff 0%, #c5a059 100%);
@@ -425,10 +362,9 @@ h3 {
   filter: drop-shadow(0 0 20px rgba(197, 160, 89, 0.5));
   opacity: 0;
   transform: translateY(50px);
-  animation: fadeInUp 1.5s ease-out forwards 0.5s; /* Animasi Muncul */
+  animation: fadeInUp 1.5s ease-out forwards 0.5s;
 }
 
-/* Sub-judul */
 .hero-content .sub-title {
   font-size: 1.5rem;
   letter-spacing: 5px;
@@ -440,7 +376,6 @@ h3 {
   animation: fadeIn 1.5s ease-out forwards 1.5s;
 }
 
-/* Tanggal */
 .hero-content .date {
   font-family: 'Courier New', monospace;
   font-size: 1rem;
@@ -455,7 +390,6 @@ h3 {
   animation: fadeIn 1.5s ease-out forwards 2s;
 }
 
-/* Scroll Indicator (Panah Bawah) */
 .scroll-indicator {
   position: absolute;
   bottom: 40px;
@@ -481,38 +415,23 @@ h3 {
   margin-top: 10px;
 }
 
-/* Animations Keyframes */
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { to { opacity: 1; } }
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
   40% { transform: translate(-50%, -10px); }
   60% { transform: translate(-50%, -5px); }
 }
 
-/* Responsive untuk HP */
 @media (max-width: 768px) {
-  .hero-content h1 {
-    font-size: 4rem; /* Lebih kecil di HP */
-  }
-  .hero-content .sub-title {
-    font-size: 1rem;
-    letter-spacing: 3px;
-  }
+  .hero-content h1 { font-size: 4rem; }
+  .hero-content .sub-title { font-size: 1rem; letter-spacing: 3px; }
 }
 
-/* SECTION 2: THE LIST (Memory Nebula) */
+/* --- SECTION 2: THE LIST --- */
 #the-list {
   position: relative;
-  /* Background transparan agar menyatu dengan body */
-  background: transparent; 
+  background: transparent;
   height: 100vh;
   overflow: hidden;
   display: flex;
@@ -520,7 +439,6 @@ h3 {
   align-items: center;
 }
 
-/* Container Teks di Tengah (Glass Effect) */
 .overlay-container {
   position: relative;
   z-index: 10;
@@ -529,8 +447,7 @@ h3 {
   justify-content: center;
   gap: 30px;
   text-align: center;
-  /* Menggunakan variable glass-bg dari update sebelumnya */
-  background: rgba(20, 20, 30, 0.6); 
+  background: rgba(20, 20, 30, 0.6);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   padding: 60px 80px;
@@ -546,7 +463,6 @@ h3 {
   border-color: var(--accent-gold);
 }
 
-/* Typography Mewah */
 .huge-number {
   font-family: var(--font-serif);
   font-size: 10rem;
@@ -579,7 +495,6 @@ h3 {
   text-shadow: 0 0 30px rgba(197, 160, 89, 0.4);
 }
 
-/* Background Kolase Bergerak */
 .collage-background {
   position: absolute;
   top: -50%;
@@ -587,9 +502,9 @@ h3 {
   width: 200%;
   height: 200%;
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* Lebih banyak kolom */
+  grid-template-columns: repeat(6, 1fr);
   gap: 10px;
-  opacity: 0.4; /* Agak gelap biar teks terbaca */
+  opacity: 0.4;
   filter: grayscale(40%) contrast(120%);
   z-index: 1;
   animation: panBackground 30s linear infinite alternate;
@@ -597,7 +512,7 @@ h3 {
 
 .collage-item {
   width: 100%;
-  height: 300px; /* Tinggi fix agar rapi */
+  height: 300px;
   overflow: hidden;
   border-radius: 10px;
 }
@@ -609,7 +524,6 @@ h3 {
   transition: transform 0.5s ease;
 }
 
-/* Hover Effect pada Background (sedikit highlight) */
 .collage-item:hover img {
   transform: scale(1.1);
   filter: grayscale(0%);
@@ -620,59 +534,38 @@ h3 {
   100% { transform: translate(-5%, -5%) rotate(2deg); }
 }
 
-/* Desktop Specific Layout */
+/* DESKTOP LAYOUT (MASONRY-LIKE) */
 @media (min-width: 1024px) {
   .collage-background {
-    /* Grid 4 kolom untuk desktop */
     grid-template-columns: repeat(4, 1fr); 
     gap: 20px;
-    width: 120%; /* Sedikit lebih lebar dari layar agar pan effect mulus */
+    width: 120%;
     left: -10%;
   }
-
-  /* Membuat variasi ukuran foto agar tidak kotak-kotak membosankan */
   .collage-item:nth-child(even) {
-    transform: translateY(30px); /* Selang-seling turun */
+    transform: translateY(30px);
   }
-  
   .collage-item:nth-child(3n) {
-    grid-row: span 2; /* Foto memanjang ke bawah */
+    grid-row: span 2;
     height: 620px;
   }
 }
 
-/* Responsive HP */
 @media (max-width: 768px) {
-  .overlay-container {
-    flex-direction: column;
-    padding: 40px 20px;
-    gap: 10px;
-    width: 90%;
-  }
-  .middle-text {
-    border: none;
-    border-top: 1px solid var(--accent-gold);
-    border-bottom: 1px solid var(--accent-gold);
-    padding: 20px 0;
-    font-size: 1rem;
-  }
-  .huge-number, .huge-cursive {
-    font-size: 6rem;
-  }
-  .collage-background {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .overlay-container { flex-direction: column; padding: 40px 20px; gap: 10px; width: 90%; }
+  .middle-text { border: none; border-top: 1px solid var(--accent-gold); border-bottom: 1px solid var(--accent-gold); padding: 20px 0; font-size: 1rem; }
+  .huge-number, .huge-cursive { font-size: 6rem; }
+  .collage-background { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* SECTION 3: UMRAH (Cosmic Academic) */
+/* --- SECTION 3: UMRAH --- */
 #umrah {
   position: relative;
   padding: 120px 0;
   overflow: hidden;
-  background: transparent; /* Menyatu dengan body */
+  background: transparent;
 }
 
-/* Hiasan Background: Simbol Matematika Melayang */
 #umrah::before {
   content: "∑  ∫  π  √  ∞  x²";
   position: absolute;
@@ -681,7 +574,7 @@ h3 {
   width: 100%;
   font-family: 'Times New Roman', serif;
   font-size: 6rem;
-  color: rgba(255, 255, 255, 0.03); /* Sangat samar */
+  color: rgba(255, 255, 255, 0.03);
   letter-spacing: 50px;
   z-index: 0;
   pointer-events: none;
@@ -693,7 +586,6 @@ h3 {
   100% { transform: translateY(-30px) scale(1.1); }
 }
 
-/* Logo Kampus Melayang */
 .campus-logo {
   position: absolute;
   top: 20px;
@@ -716,11 +608,7 @@ h3 {
   z-index: 2;
 }
 
-/* Bagian Teks */
-.umrah-text {
-  flex: 1;
-  text-align: left;
-}
+.umrah-text { flex: 1; text-align: left; }
 
 .umrah-title {
   font-size: 3.5rem;
@@ -746,7 +634,6 @@ h3 {
   font-style: italic;
 }
 
-/* Kotak Pesan (Glassmorphism Premium) */
 .umrah-message {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
@@ -754,7 +641,7 @@ h3 {
   padding: 35px;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-left: 4px solid var(--accent-gold); /* Aksen Emas di kiri */
+  border-left: 4px solid var(--accent-gold);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s, background 0.3s;
 }
@@ -778,12 +665,11 @@ h3 {
   color: #e0e0e0;
   line-height: 1.8;
   font-weight: 300;
-  background: none; /* Reset background lama */
+  background: none;
   border: none;
   padding: 0;
 }
 
-/* Bagian Foto */
 .umrah-image {
   flex: 1;
   display: flex;
@@ -791,17 +677,12 @@ h3 {
   position: relative;
 }
 
-/* Frame Foto Glowing */
 .umrah-image img {
   max-width: 400px;
   width: 100%;
   border-radius: 20px;
-  /* Border tipis emas */
   border: 1px solid rgba(255, 215, 0, 0.4); 
-  /* Efek bayangan cahaya */
-  box-shadow: 
-    0 0 20px rgba(197, 160, 89, 0.1),
-    15px 15px 0px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 20px rgba(197, 160, 89, 0.1), 15px 15px 0px rgba(255, 255, 255, 0.05);
   transform: rotate(3deg);
   transition: all 0.5s ease;
 }
@@ -812,33 +693,25 @@ h3 {
   box-shadow: 0 0 60px rgba(197, 160, 89, 0.4);
 }
 
-/* Responsive HP */
 @media (max-width: 768px) {
-  .umrah-layout {
-    flex-direction: column-reverse; /* Foto pindah ke atas teks di HP */
-    text-align: center;
-    gap: 40px;
-  }
+  .umrah-layout { flex-direction: column-reverse; text-align: center; gap: 40px; }
   .umrah-text { text-align: center; }
   .umrah-title { font-size: 2.5rem; }
   .umrah-image img { max-width: 300px; }
   .campus-logo { width: 70px; top: 10px; right: 10px; }
 }
 
-/* SECTION 4: ACHIEVEMENT (Galactic Hall of Fame) */
+/* --- SECTION 4: ACHIEVEMENT --- */
 #achievement {
   position: relative;
   padding: 100px 0;
-  /* Background transparan, tapi kita kasih spotlight di tengah */
-  background: transparent; 
+  background: transparent;
 }
 
-/* Spotlight Effect di belakang */
 #achievement::after {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   width: 80vw;
   height: 80vh;
@@ -856,7 +729,6 @@ h3 {
   z-index: 2;
 }
 
-/* KARTU TEKS (Holographic Card) */
 .achievement-card {
   flex: 1;
   background: rgba(255, 255, 255, 0.03);
@@ -876,7 +748,6 @@ h3 {
   border-color: var(--accent-gold);
 }
 
-/* Garis Emas Dekoratif */
 .achievement-card::before {
   content: '';
   position: absolute;
@@ -897,7 +768,7 @@ h3 {
   font-size: 4.5rem;
   color: var(--accent-gold);
   font-style: italic;
-  text-shadow: 0 0 20px rgba(197, 160, 89, 0.6); /* Glowing Gold */
+  text-shadow: 0 0 20px rgba(197, 160, 89, 0.6);
   display: inline-block;
   animation: pulseGlow 3s infinite alternate;
 }
@@ -909,20 +780,15 @@ h3 {
   font-size: 1.1rem;
 }
 
-.note-content strong {
-  color: white;
-  font-weight: 700;
-}
-
+.note-content strong { color: white; font-weight: 700; }
 .highlight-red {
-  color: #ff6b6b; /* Merah terang neon */
+  color: #ff6b6b;
   font-weight: bold;
   text-shadow: 0 0 10px rgba(255, 107, 107, 0.4);
-  background: transparent; /* Hapus background pink lama */
+  background: transparent;
   padding: 0;
 }
 
-/* FOTO (Floating Frame) */
 .achievement-photo {
   flex: 1;
   display: flex;
@@ -945,17 +811,15 @@ h3 {
   max-width: 350px;
   width: 100%;
   border-radius: 10px;
-  filter: sepia(20%) contrast(110%); /* Sedikit vintage cinematic */
+  filter: sepia(20%) contrast(110%);
 }
 
-/* Efek Hover pada Foto */
 .achievement-photo:hover .photo-frame {
   transform: rotate(0deg) scale(1.05);
   box-shadow: 0 0 30px var(--accent-gold);
   z-index: 10;
 }
 
-/* Ornamen Bintang Kecil */
 .star-decoration {
   position: absolute;
   color: var(--accent-gold);
@@ -974,26 +838,17 @@ h3 {
   100% { transform: rotate(360deg) scale(1); opacity: 0.5; }
 }
 
-/* Responsive HP */
 @media (max-width: 768px) {
-  .achievement-layout {
-    flex-direction: column;
-    text-align: center;
-    gap: 40px;
-  }
-  .achievement-card::before {
-    width: 100%; height: 2px; /* Garis jadi di atas */
-    background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
-  }
+  .achievement-layout { flex-direction: column; text-align: center; gap: 40px; }
+  .achievement-card::before { width: 100%; height: 2px; background: linear-gradient(to right, transparent, var(--accent-gold), transparent); }
   .photo-frame img { max-width: 300px; }
   .rank-number { font-size: 3.5rem; }
 }
 
-/* SECTION 5: MESSAGE (Stardust Letter) */
+/* --- SECTION 5: MESSAGE --- */
 #message {
   position: relative;
-  /* Background transparan agar menyatu dengan galaxy */
-  background: transparent; 
+  background: transparent;
   display: flex;
   align-items: center;
   min-height: 100vh;
@@ -1001,16 +856,14 @@ h3 {
   padding: 50px 0;
 }
 
-/* Layout Container */
 .message-layout {
   display: flex;
   flex-wrap: wrap;
-  align-items: center; /* Center vertically */
+  align-items: center;
   gap: 50px;
   width: 100%;
 }
 
-/* Bagian Kiri (Surat) */
 .message-text {
   flex: 1;
   min-width: 350px;
@@ -1022,7 +875,6 @@ h3 {
   font-size: 4rem;
   margin-bottom: 40px;
   line-height: 1.1;
-  /* Gradasi Emas Mewah */
   background: linear-gradient(to right, #fff, #c5a059);
   -webkit-background-clip: text;
   background-clip: text;
@@ -1030,7 +882,6 @@ h3 {
   filter: drop-shadow(0 0 15px rgba(197, 160, 89, 0.3));
 }
 
-/* --- AMPLOP KOSMIK --- */
 .envelope-wrapper {
   position: relative;
   height: 320px;
@@ -1042,7 +893,7 @@ h3 {
   position: relative;
   width: 350px;
   height: 240px;
-  background: linear-gradient(135deg, #702525, #a33232); /* Merah Marun Mewah */
+  background: linear-gradient(135deg, #702525, #a33232);
   border-radius: 10px;
   box-shadow: 0 20px 50px rgba(0,0,0,0.5);
   cursor: pointer;
@@ -1051,10 +902,9 @@ h3 {
 
 #envelope:hover {
   transform: translateY(-10px) rotate(2deg);
-  box-shadow: 0 30px 60px rgba(197, 160, 89, 0.2); /* Glow emas saat hover */
+  box-shadow: 0 30px 60px rgba(197, 160, 89, 0.2);
 }
 
-/* Bagian Depan Amplop (Pocket) */
 .pocket {
   position: absolute;
   bottom: 0;
@@ -1070,7 +920,6 @@ h3 {
   pointer-events: none;
 }
 
-/* Tutup Amplop (Flap) */
 .flap {
   position: absolute;
   top: 0;
@@ -1080,7 +929,7 @@ h3 {
   border-radius: 10px 10px 0 0;
   border-left: 175px solid transparent;
   border-right: 175px solid transparent;
-  border-top: 130px solid #a33232; /* Warna tutup */
+  border-top: 130px solid #a33232;
   border-bottom: 110px solid transparent;
   transform-origin: top;
   transition: transform 0.6s ease 0.2s, z-index 0.2s;
@@ -1088,7 +937,6 @@ h3 {
   pointer-events: none;
 }
 
-/* Segel Lilin (Seal) */
 .seal {
   position: absolute;
   top: 80px;
@@ -1109,7 +957,6 @@ h3 {
   transition: opacity 0.4s;
 }
 
-/* Isi Surat */
 .letter {
   position: absolute;
   top: 10px;
@@ -1125,34 +972,26 @@ h3 {
   overflow-y: auto;
   opacity: 0;
   transform: translateY(0) scale(0.9);
-  /* Motif Kertas Surat */
   background-image: linear-gradient(#eee 1px, transparent 1px);
   background-size: 100% 1.5rem;
 }
 
 .letter-content p {
-  font-family: 'Dancing Script', cursive; /* Font tulisan tangan (jika ada) atau serif */
+  font-family: 'Dancing Script', cursive;
   font-size: 1.2rem;
   line-height: 1.5rem;
   color: #444;
   margin-top: 0;
 }
 
-/* STATE: OPEN (Saat diklik) */
-#envelope.open .flap {
-  transform: rotateX(180deg);
-  z-index: 10;
-}
-#envelope.open .seal {
-  opacity: 0;
-  transform: scale(0);
-}
+#envelope.open .flap { transform: rotateX(180deg); z-index: 10; }
+#envelope.open .seal { opacity: 0; transform: scale(0); }
 #envelope.open .letter {
   opacity: 1;
-  top: -200px; /* Surat naik ke atas */
+  top: -200px;
   transform: scale(1) rotate(2deg);
   z-index: 100;
-  height: 500px; /* Surat memanjang */
+  height: 500px;
   box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
 
@@ -1170,25 +1009,22 @@ h3 {
   letter-spacing: 1px;
 }
 
-/* --- POLAROID FLOATING (Bagian Kanan) --- */
 .polaroid-stack {
   flex: 1;
   min-width: 400px;
   height: 600px;
   position: relative;
-  /* Agar foto tidak keluar area section */
-  /* overflow: hidden; (Opsional, matikan jika ingin foto keluar dikit) */ 
 }
 
 .polaroid {
   position: absolute;
-  background: rgba(255, 255, 255, 0.95); /* Kertas foto agak transparan */
+  background: rgba(255, 255, 255, 0.95);
   padding: 12px 12px 40px 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   width: 200px;
   cursor: grab;
   transition: transform 0.3s;
-  animation: floatCard 6s ease-in-out infinite; /* Animasi melayang */
+  animation: floatCard 6s ease-in-out infinite;
   transform-origin: center;
 }
 
@@ -1205,53 +1041,35 @@ h3 {
   filter: sepia(10%);
 }
 
-/* Posisi Awal Foto & Delay Animasi */
 .polaroid:nth-child(1) { top: 5%; left: 5%; transform: rotate(-10deg); animation-delay: 0s; }
 .polaroid:nth-child(2) { top: 10%; right: 10%; transform: rotate(15deg); animation-delay: 1s; }
 .polaroid:nth-child(3) { bottom: 15%; left: 10%; transform: rotate(-5deg); animation-delay: 2s; z-index: 2; }
 .polaroid:nth-child(4) { bottom: 5%; right: 15%; transform: rotate(10deg); animation-delay: 3s; }
 .polaroid:nth-child(5) { top: 40%; left: 35%; transform: rotate(5deg); animation-delay: 1.5s; z-index: 3; }
 
-/* Animasi Melayang (Zero Gravity) */
 @keyframes floatCard {
   0% { transform: translateY(0) rotate(var(--r, 0deg)); }
   50% { transform: translateY(-20px) rotate(calc(var(--r, 0deg) + 2deg)); }
   100% { transform: translateY(0) rotate(var(--r, 0deg)); }
 }
 
-/* Responsive HP */
 @media (max-width: 768px) {
-  .message-layout {
-    flex-direction: column;
-    text-align: center;
-  }
-  .envelope-wrapper {
-    display: flex;
-    justify-content: center;
-  }
-  .polaroid-stack {
-    width: 100%;
-    height: 400px;
-    margin-top: -50px; /* Biar agak naik */
-  }
-  .polaroid {
-    width: 140px; /* Foto lebih kecil di HP */
-    padding: 8px 8px 30px 8px;
-  }
+  .message-layout { flex-direction: column; text-align: center; }
+  .envelope-wrapper { display: flex; justify-content: center; }
+  .polaroid-stack { width: 100%; height: 400px; margin-top: -50px; }
+  .polaroid { width: 140px; padding: 8px 8px 30px 8px; }
   .polaroid img { height: 160px; }
 }
 
-/* SECTION 6: WISH (The Supernova) */
+/* --- SECTION 6: WISH --- */
 #wish {
   position: relative;
   padding: 150px 0;
   text-align: center;
   overflow: hidden;
-  /* Background transparan agar gradient body terlihat */
-  background: transparent; 
+  background: transparent;
 }
 
-/* Efek Cahaya Berdenyut di Belakang (Supernova Glow) */
 #wish::before {
   content: '';
   position: absolute;
@@ -1273,17 +1091,15 @@ h3 {
   position: relative;
   z-index: 2;
   padding: 60px 40px;
-  border: 1px solid rgba(197, 160, 89, 0.3); /* Border Emas Tipis */
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); /* Shadow lebih dalam */
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
 }
 
-/* Angka 20 Raksasa */
 .wish-content h2 {
   font-family: var(--font-serif);
   font-size: 10rem;
   line-height: 0.9;
   margin-bottom: 20px;
-  /* Gradasi Logam Mulia */
   background: linear-gradient(to bottom, #ffffff 20%, #c5a059 80%, #5a3e12 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -1307,17 +1123,15 @@ h3 {
   margin: 0 auto;
 }
 
-/* Tanda Tangan */
 .wish-signature {
   margin-top: 40px;
-  font-family: 'Playfair Display', serif; /* Atau font script jika ada */
+  font-family: 'Playfair Display', serif;
   font-style: italic;
   font-size: 1.5rem;
   color: var(--accent-gold);
   text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
 }
 
-/* Garis Pemisah Kecil */
 .wish-divider {
   width: 50px;
   height: 2px;
@@ -1326,17 +1140,15 @@ h3 {
   opacity: 0.7;
 }
 
-/* Responsive HP */
 @media (max-width: 768px) {
   .wish-content h2 { font-size: 6rem; }
   .wish-content { padding: 40px 20px; width: 90%; margin: 0 auto; }
   #wish::before { width: 300px; height: 300px; }
 }
 
-/* SECTION 7: SELFIE (The Galactic Mirror) */
+/* --- SECTION 7: SELFIE --- */
 #selfie-section {
   position: relative;
-  /* Gunakan background galaxy yang sama atau gradient gelap */
   background: radial-gradient(circle at bottom, #1b113a 0%, #000000 80%);
   text-align: center;
   padding: 100px 0 150px 0;
@@ -1362,7 +1174,6 @@ h3 {
   letter-spacing: 1px;
 }
 
-/* Container Kamera (Glass Interface) */
 .camera-container {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(20px);
@@ -1376,9 +1187,7 @@ h3 {
   position: relative;
 }
 
-/* Hiasan Sudut Kamera (Corner Accents) */
-.camera-container::before,
-.camera-container::after {
+.camera-container::before, .camera-container::after {
   content: '';
   position: absolute;
   width: 30px; height: 30px;
@@ -1388,7 +1197,6 @@ h3 {
 .camera-container::before { top: 20px; left: 20px; border-right: none; border-bottom: none; }
 .camera-container::after { bottom: 20px; right: 20px; border-left: none; border-top: none; }
 
-/* Frame Video */
 .camera-frame {
   width: 100%;
   height: 400px;
@@ -1404,10 +1212,9 @@ h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scaleX(-1); /* Mirror effect */
+  transform: scaleX(-1);
 }
 
-/* Control Buttons (Floating Pills) */
 .controls {
   margin-top: 30px;
   display: flex;
@@ -1439,7 +1246,6 @@ h3 {
   border-color: var(--accent-gold);
 }
 
-/* Primary Action Button (Gold) */
 #btn-snap, #btn-start-cam {
   background: linear-gradient(45deg, #c5a059, #e6c88b);
   color: #1a0b2e;
@@ -1452,31 +1258,22 @@ h3 {
   box-shadow: 0 0 30px rgba(197, 160, 89, 0.6);
 }
 
-/* Secondary Button */
-.btn.secondary {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.3);
-}
-.btn.secondary:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-/* Hide helper */
+.btn.secondary { background: transparent; border: 1px solid rgba(255,255,255,0.3); }
+.btn.secondary:hover { background: rgba(255,255,255,0.1); }
 .hidden { display: none !important; }
 
-/* Responsive HP */
 @media (max-width: 768px) {
   #selfie-section h2 { font-size: 2.5rem; }
   .camera-container { width: 90%; padding: 20px; }
   .camera-frame { height: 300px; }
 }
 
-/* --- SECTION: PLANET GALLERY (3D) --- */
+/* --- SECTION 8: PLANET GALLERY --- */
 #planet-gallery {
   position: relative;
   width: 100%;
-  height: 100vh; /* Full Screen */
-  background: radial-gradient(circle at center, #1a0b2e 0%, #000000 100%); /* Latar belakang kosmik gelap */
+  height: 100vh;
+  background: radial-gradient(circle at center, #1a0b2e 0%, #000000 100%);
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -1490,11 +1287,8 @@ h3 {
   cursor: grab;
 }
 
-#planet-gallery canvas:active {
-  cursor: grabbing;
-}
+#planet-gallery canvas:active { cursor: grabbing; }
 
-/* Overlay Text di atas 3D */
 .planet-overlay {
   position: absolute;
   top: 10%;
@@ -1503,7 +1297,7 @@ h3 {
   text-align: center;
   color: white;
   z-index: 20;
-  pointer-events: none; /* Agar klik tembus ke canvas 3D */
+  pointer-events: none;
   text-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
 }
 
@@ -1526,25 +1320,16 @@ h3 {
   letter-spacing: 2px;
 }
 
-/* Responsive Text */
 @media (max-width: 768px) {
-  .planet-overlay h2 {
-    font-size: 2rem;
-  }
+  .planet-overlay h2 { font-size: 2rem; }
 }
 
-/* Custom Scrollbar Webkit */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: #0f0c29; 
-}
+/* --- CUSTOM SCROLLBAR --- */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #0f0c29; }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(to bottom, #c5a059, #886016);
   border-radius: 5px;
   border: 2px solid #0f0c29;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #ffd700;
-}
+::-webkit-scrollbar-thumb:hover { background: #ffd700; }

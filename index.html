@@ -14,7 +14,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
@@ -77,20 +76,20 @@
       </div>
 
       <div class="collage-background fade-in">
-        <div class="collage-item"><img src="assets/images/foto-6.jpeg" alt="Memory 6"></div>
-        <div class="collage-item"><img src="assets/images/foto-7.jpeg" alt="Memory 7"></div>
-        <div class="collage-item"><img src="assets/images/foto-8.jpeg" alt="Memory 8"></div>
-        <div class="collage-item"><img src="assets/images/foto-9.jpeg" alt="Memory 9"></div>
+        <div class="collage-item"><img src="assets/images/foto-6.jpeg" alt="Memory"></div>
+        <div class="collage-item"><img src="assets/images/foto-7.jpeg" alt="Memory"></div>
+        <div class="collage-item"><img src="assets/images/foto-8.jpeg" alt="Memory"></div>
+        <div class="collage-item"><img src="assets/images/foto-9.jpeg" alt="Memory"></div>
         
-        <div class="collage-item"><img src="assets/images/foto-10.jpeg" alt="Memory 10"></div>
-        <div class="collage-item"><img src="assets/images/foto-11.jpeg" alt="Memory 11"></div>
-        <div class="collage-item"><img src="assets/images/foto-6.jpeg" alt="Memory 6"></div>
-        <div class="collage-item"><img src="assets/images/foto-7.jpeg" alt="Memory 7"></div>
+        <div class="collage-item"><img src="assets/images/foto-10.jpeg" alt="Memory"></div>
+        <div class="collage-item"><img src="assets/images/foto-11.jpeg" alt="Memory"></div>
+        <div class="collage-item"><img src="assets/images/foto-6.jpeg" alt="Memory"></div>
+        <div class="collage-item"><img src="assets/images/foto-7.jpeg" alt="Memory"></div>
         
-        <div class="collage-item"><img src="assets/images/foto-8.jpeg" alt="Memory 8"></div>
-        <div class="collage-item"><img src="assets/images/foto-9.jpeg" alt="Memory 9"></div>
-        <div class="collage-item"><img src="assets/images/foto-10.jpeg" alt="Memory 10"></div>
-        <div class="collage-item"><img src="assets/images/foto-11.jpeg" alt="Memory 11"></div>
+        <div class="collage-item"><img src="assets/images/foto-8.jpeg" alt="Memory"></div>
+        <div class="collage-item"><img src="assets/images/foto-9.jpeg" alt="Memory"></div>
+        <div class="collage-item"><img src="assets/images/foto-10.jpeg" alt="Memory"></div>
+        <div class="collage-item"><img src="assets/images/foto-11.jpeg" alt="Memory"></div>
       </div>
     </section>
 
@@ -101,7 +100,7 @@
         class="campus-logo fade-in"
       />
       
-      <div class="container umrah">
+      <div class="container umrah-layout">
         <div class="umrah-text fade-in">
           <h2 class="umrah-title">
             <span class="big-number">P</span>endidikan <br />
@@ -126,7 +125,6 @@
 
     <section id="achievement">
       <div class="container achievement-layout">
-        
         <div class="achievement-card fade-in">
           <h2>
             The <span class="rank-number">Star</span> <br />
@@ -151,7 +149,6 @@
           <div class="star-decoration" style="top: -20px; right: -20px;">✨</div>
           <div class="star-decoration" style="bottom: -20px; left: -20px; font-size: 1.5rem; animation-duration: 7s;">✨</div>
         </div>
-
       </div>
     </section>
 
@@ -164,7 +161,6 @@
 
     <section id="message">
       <div class="container message-layout">
-        
         <div class="message-text fade-in">
           <h2 id="main-title">The First<br />On My Mind</h2>
 
@@ -194,24 +190,19 @@
           <div class="polaroid draggable" style="--r: -10deg">
             <img src="assets/images/foto-1.jpg" alt="Kenangan 1" />
           </div>
-          
           <div class="polaroid draggable" style="--r: 15deg">
             <img src="assets/images/foto-2.jpg" alt="Kenangan 2" />
           </div>
-          
           <div class="polaroid draggable" style="--r: -5deg">
             <img src="assets/images/foto-3.jpg" alt="Kenangan 3" />
           </div>
-          
           <div class="polaroid draggable" style="--r: 10deg">
             <img src="assets/images/foto-4.jpg" alt="Kenangan 4" />
           </div>
-          
           <div class="polaroid draggable" style="--r: 5deg">
             <img src="assets/images/foto-5.jpg" alt="Kenangan 5" />
           </div>
         </div>
-
       </div>
     </section>
 
@@ -250,15 +241,12 @@
             <button id="btn-start-cam" class="btn" onclick="startCamera()">
               📸 Open Camera
             </button>
-            
             <button id="btn-snap" class="btn hidden" onclick="takePicture()">
               ✨ Capture
             </button>
-            
             <button id="btn-send" class="btn hidden" onclick="sendToWA()">
               🚀 Kirim ke Aku
             </button>
-            
             <button id="btn-retake" class="btn secondary hidden" onclick="retake()">
               Ulangi
             </button>
@@ -267,9 +255,9 @@
       </div>
     </section>
 
-    <script src="js/planet.js"></script>
-
-    <script src="js/main.js"></script>
-    
     <canvas id="starfield"></canvas>
+
+    <script src="js/planet.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/starfield.js"></script> </body>
 </html>
