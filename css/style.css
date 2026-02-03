@@ -213,31 +213,36 @@ body {
 
 .login-box input {
   background: rgba(0, 0, 0, 0.3);
-  padding: 15px;
+  padding: 12px 0;
   border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 25px;
   width: 100%;
-  font-size: 1.2rem;
-  text-align: center;
+  
+  font-family: 'Courier New', monospace;
+  font-size: 1.5rem;
   color: var(--accent-gold);
-  letter-spacing: 5px;
+  text-align: center;
+  letter-spacing: 8px;
+  line-height: 1.5;
+  
   outline: none;
-  transition: all 0.3s;
-  font-family: monospace;
-}
-
-.login-box input:focus {
-  border-color: var(--accent-gold);
-  box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
-  background: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
 }
 
 .login-box input::placeholder {
   color: rgba(255, 255, 255, 0.2);
-  letter-spacing: 2px;
-  font-size: 0.9rem;
-  font-family: var(--font-sans);
+  font-family: 'Courier New', monospace;
+  font-size: 1.5rem;
+  letter-spacing: 8px;
+  opacity: 1;
+  transform: none;
+}
+
+.login-box input:focus {
+  border-color: var(--accent-gold);
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
 }
 
 .login-box button {
@@ -916,25 +921,28 @@ h1, h2, h3 {
   .rank-number { font-size: 3.5rem; }
 }
 
-/* --- SECTION 5: MESSAGE --- */
+/* --- SECTION 5: MESSAGE (FINAL FIXED) --- */
 #message {
   position: relative;
   background: transparent;
   display: flex;
   align-items: center;
   min-height: 100vh;
-  overflow: hidden;
-  padding: 50px 0;
+  overflow: visible; 
+  padding: 80px 0;
 }
 
 .message-layout {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 50px;
-  width: 100%;
+  justify-content: center;
+  gap: 60px;
+  width: 90%;
+  max-width: 1200px;
 }
 
+/* Bagian Teks */
 .message-text {
   flex: 1;
   min-width: 350px;
@@ -943,6 +951,7 @@ h1, h2, h3 {
 }
 
 .message-text h2 {
+  font-family: var(--font-serif);
   font-size: 4rem;
   margin-bottom: 40px;
   line-height: 1.1;
@@ -951,119 +960,6 @@ h1, h2, h3 {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 0 15px rgba(197, 160, 89, 0.3));
-}
-
-.envelope-wrapper {
-  position: relative;
-  height: 320px;
-  margin-bottom: 20px;
-  perspective: 1000px;
-}
-
-#envelope {
-  position: relative;
-  width: 350px;
-  height: 240px;
-  background: linear-gradient(135deg, #702525, #a33232);
-  border-radius: 10px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  cursor: pointer;
-  transition: transform 0.5s;
-}
-
-#envelope:hover {
-  transform: translateY(-10px) rotate(2deg);
-  box-shadow: 0 30px 60px rgba(197, 160, 89, 0.2);
-}
-
-.pocket {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 0 0 10px 10px;
-  border-left: 175px solid #852d2d;
-  border-right: 175px solid #852d2d;
-  border-bottom: 120px solid #9c3636;
-  border-top: 120px solid transparent;
-  z-index: 30;
-  pointer-events: none;
-}
-
-.flap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px 10px 0 0;
-  border-left: 175px solid transparent;
-  border-right: 175px solid transparent;
-  border-top: 130px solid #a33232;
-  border-bottom: 110px solid transparent;
-  transform-origin: top;
-  transition: transform 0.6s ease 0.2s, z-index 0.2s;
-  z-index: 40;
-  pointer-events: none;
-}
-
-.seal {
-  position: absolute;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 50px;
-  background: radial-gradient(circle, #ffd700, #c5a059);
-  border-radius: 50%;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-  z-index: 50;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-  color: #5a3e12;
-  border: 2px solid rgba(255,255,255,0.2);
-  transition: opacity 0.4s;
-}
-
-.letter {
-  position: absolute;
-  top: 10px;
-  left: 25px;
-  width: 300px;
-  height: 380px;
-  background: #fff;
-  border-radius: 5px;
-  padding: 25px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  z-index: 20;
-  transition: transform 0.8s ease-in-out, top 0.8s ease-in-out;
-  overflow-y: auto;
-  opacity: 0;
-  transform: translateY(0) scale(0.9);
-  background-image: linear-gradient(#eee 1px, transparent 1px);
-  background-size: 100% 1.5rem;
-}
-
-.letter-content p {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-  color: #444;
-  margin-top: 0;
-}
-
-#envelope.open .flap { transform: rotateX(180deg); z-index: 10; }
-#envelope.open .seal { opacity: 0; transform: scale(0); }
-#envelope.open .letter {
-  opacity: 1;
-  top: -200px;
-  transform: scale(1) rotate(2deg);
-  z-index: 100;
-  height: 500px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
 
 .instruction-click {
@@ -1080,6 +976,151 @@ h1, h2, h3 {
   letter-spacing: 1px;
 }
 
+/* --- AMPLOP 3D --- */
+.envelope-wrapper {
+  position: relative;
+  height: 240px;
+  width: 350px;
+  margin-bottom: 20px;
+  perspective: 1000px;
+  z-index: 10;
+}
+
+#envelope {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #2c0b0b; /* Warna dasar amplop */
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+
+#envelope:hover {
+  transform: translateY(-10px) rotate(2deg);
+  box-shadow: 0 30px 60px rgba(197, 160, 89, 0.2);
+}
+
+/* Kantong Bawah (Pocket) */
+.pocket {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  
+  /* Segitiga Bawah */
+  border-left: 175px solid transparent;  
+  border-right: 175px solid transparent; 
+  border-bottom: 140px solid #852d2d;    
+  border-top: 0;
+  
+  border-radius: 0 0 10px 10px;
+  z-index: 30;
+  pointer-events: none;
+}
+
+/* Tutup Atas (Flap) */
+.flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  
+  /* Segitiga Atas */
+  border-left: 175px solid transparent;
+  border-right: 175px solid transparent;
+  border-top: 130px solid #a33232; 
+  border-bottom: 0;
+  
+  transform-origin: top;
+  transition: transform 0.6s ease 0.2s, z-index 0.2s;
+  z-index: 40;
+  pointer-events: none;
+}
+
+/* Segel (Seal) */
+.seal {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45px;
+  height: 45px;
+  background: radial-gradient(circle, #ffd700, #c5a059);
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #5a3e12;
+  font-weight: bold;
+  border: 2px solid rgba(255,255,255,0.3);
+  transition: opacity 0.4s;
+}
+
+/* Surat (Letter) - PERBAIKAN UTAMA DI SINI */
+.letter {
+  position: absolute;
+  bottom: 0; 
+  left: 50%;
+  transform: translateX(-50%);
+  
+  width: 90%; 
+  /* KUNCI: Set height 0 dan opacity 0 agar benar-benar hilang saat tertutup */
+  height: 0;    
+  opacity: 0;   
+  
+  background: #fff;
+  border-radius: 5px;
+  /* KUNCI: Padding 0 saat tertutup agar tidak ada "baris kosong" yang terlihat */
+  padding: 0 25px; 
+  
+  box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+  z-index: 20; 
+  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  overflow: hidden;
+  background-image: linear-gradient(#eee 1px, transparent 1px);
+  background-size: 100% 1.5rem;
+}
+
+.letter-content p {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  line-height: 1.5rem;
+  color: #444;
+  margin-top: 0;
+  white-space: pre-line; /* Agar enter terbaca */
+}
+
+/* Animasi Buka Surat */
+#envelope.open .flap {
+  transform: rotateX(180deg);
+  z-index: 10; 
+}
+
+#envelope.open .seal {
+  opacity: 0;
+  transform: translateX(-50%) scale(0);
+}
+
+#envelope.open .letter {
+  bottom: 80px; 
+  height: 450px; /* Surat memanjang saat dibuka */
+  width: 300px;
+  opacity: 1;    /* Surat muncul */
+  padding: 25px; /* Padding kembali normal */
+  z-index: 100; 
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  transform: translateX(-50%) rotate(-2deg); 
+  overflow-y: auto; 
+}
+
+/* --- POLAROID STACK --- */
 .polaroid-stack {
   flex: 1;
   min-width: 400px;
@@ -1126,7 +1167,7 @@ h1, h2, h3 {
 
 @media (max-width: 768px) {
   .message-layout { flex-direction: column; text-align: center; }
-  .envelope-wrapper { display: flex; justify-content: center; }
+  .envelope-wrapper { display: flex; justify-content: center; width: 350px; }
   .polaroid-stack { width: 100%; height: 400px; margin-top: -50px; }
   .polaroid { width: 140px; padding: 8px 8px 30px 8px; }
   .polaroid img { height: 160px; }

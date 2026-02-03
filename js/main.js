@@ -8,14 +8,14 @@ function checkPassword() {
   const errorMsg = document.getElementById("error-msg");
   const overlay = document.getElementById("login-overlay");
   
-  // Ganti sesuai tanggal lahir (DDMMYYYY)
+  // Password (DDMMYYYY)
   const correctPassword = "13022006"; 
 
   if (input === correctPassword) {
-    // 1. Tambahkan efek WARP (Hyperspace Jump)
+    // 1. Efek Warp (Hyperspace)
     overlay.classList.add("warp-effect");
 
-    // 2. Play Music
+    // 2. Mainkan Musik
     bgMusic.play()
       .then(() => {
         isPlaying = true;
@@ -24,18 +24,27 @@ function checkPassword() {
       })
       .catch(console.error);
 
-    // 3. Hapus overlay setelah animasi selesai (1.5 detik)
+    // 3. Tunggu animasi selesai (1.5 detik), lalu masuk
     setTimeout(() => {
       overlay.style.display = "none";
-      // Trigger animasi masuk elemen Hero (jika ada yang dipause)
+      
+      // === AUTO SCROLL KE SECTION 1 (HERO) ===
+      const heroSection = document.getElementById("hero");
+      if (heroSection) {
+        // Scroll halus ke atas
+        heroSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      // Mulai animasi teks Hero
       const heroTitle = document.querySelector('.hero-content h1');
       if(heroTitle) heroTitle.style.animationPlayState = 'running';
+      
     }, 1500); 
     
   } else {
+    // Jika Salah Password
     errorMsg.classList.remove("hidden");
     input.value = "";
-    // Animasi Shake jika salah
     const box = document.querySelector(".login-box");
     box.style.animation = "shake 0.5s";
     setTimeout(() => (box.style.animation = ""), 500);
