@@ -75,7 +75,11 @@ body {
 
 /* --- HERO TEXT ANIMATION --- */
 .hero-content h1 {
-  font-size: 6rem;
+  font-size: 4rem;      /* Diperkecil dari 4.5rem */
+  line-height: 1.3;     /* PENTING: Agar ekor huruf tidak kepotong */
+  margin-top: 10px;     /* Memberi jarak dari tulisan "A Special Day For" */
+  margin-bottom: 10px;  /* Jarak ke tanggal */
+  padding-bottom: 10px; /* Ruang ekstra untuk ekor font di bawah */
   background: linear-gradient(45deg, #c5a059, #fff, #c5a059);
   -webkit-background-clip: text;
   background-clip: text;
@@ -1478,10 +1482,10 @@ body::before {
 /* Ubah Hero agar lebih masif di Desktop */
 @media (min-width: 1024px) {
   .hero-content h1 {
-    font-size: 12vw; /* Mengikuti lebar layar, SANGAT BESAR */
-    line-height: 0.8;
-    margin-left: -50px; /* Sedikit offset agar asimetris */
-    mix-blend-mode: overlay; /* Menyatu dengan background */
+    font-size: 8vw;    /* Diperkecil dari 9vw/12vw agar tidak raksasa */
+    margin-top: 0px;   /* Posisi netral, tidak terlalu nempel ke atas */
+    line-height: 1.2;  /* Menjaga kerapian */
+    mix-blend-mode: overlay; 
   }
 
   /* Teks Outline Dekoratif di Background (Tambahkan di HTML nanti) */
