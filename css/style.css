@@ -1445,3 +1445,89 @@ h1, h2, h3 {
   border: 2px solid #0f0c29;
 }
 ::-webkit-scrollbar-thumb:hover { background: #ffd700; }
+
+/* --- 1. ATMOSPHERE UPGRADE: NOISE & VIGNETTE --- */
+/* Overlay Grainy agar terlihat seperti Film Sci-Fi jadul/retro */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg"); /* Atau gunakan base64 noise */
+  opacity: 0.07;
+  z-index: 99999;
+  pointer-events: none;
+}
+
+/* Vignette Cinematic */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 40%, #000 120%);
+  z-index: 99998;
+  pointer-events: none;
+}
+
+/* --- 2. TYPOGRAPHY: GIANT & OUTLINE --- */
+/* Ubah Hero agar lebih masif di Desktop */
+@media (min-width: 1024px) {
+  .hero-content h1 {
+    font-size: 12vw; /* Mengikuti lebar layar, SANGAT BESAR */
+    line-height: 0.8;
+    margin-left: -50px; /* Sedikit offset agar asimetris */
+    mix-blend-mode: overlay; /* Menyatu dengan background */
+  }
+
+  /* Teks Outline Dekoratif di Background (Tambahkan di HTML nanti) */
+  .bg-text-outline {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20vw;
+    font-family: var(--font-serif);
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+    z-index: -1;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+}
+
+/* ORBS DEKORATIF */
+.cosmic-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  z-index: 0;
+  animation: floatOrb 20s infinite alternate;
+}
+
+.orb-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(#ffd700, transparent);
+  top: 10%;
+  left: -100px;
+}
+
+.orb-2 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(#3a0ca3, transparent);
+  bottom: 10%;
+  right: -200px;
+  animation-delay: -5s;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(50px, 100px) scale(1.2); }
+}

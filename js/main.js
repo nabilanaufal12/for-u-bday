@@ -356,3 +356,41 @@ revealElements.forEach(el => {
   el.style.transform = 'translateY(50px) scale(0.95)';
   revealObserver.observe(el);
 });
+
+// --- 8. MAGNETIC BUTTON EFFECT (Desktop Only) ---
+if (window.innerWidth > 992) {
+  const magnets = document.querySelectorAll('.btn, .login-box button, #music-control');
+
+  magnets.forEach((magnet) => {
+    magnet.addEventListener('mousemove', function(e) {
+      const position = magnet.getBoundingClientRect();
+      const x = e.pageX - position.left - position.width / 2;
+      const y = e.pageY - position.top - position.height / 2;
+
+      // Elemen bergerak sedikit mengikuti mouse (Magnetic)
+      magnet.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px) scale(1.1)`;
+      // Kursor (lingkaran kuning) juga membesar
+      const cursor = document.getElementById('cursor');
+      if(cursor) {
+        cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+        cursor.style.background = 'transparent';
+        cursor.style.border = '1px solid #ffd700';
+      }
+    });
+
+    magnet.addEventListener('mouseleave', function(e) {
+      magnet.style.transform = 'translate(0px, 0px) scale(1)';
+      magnet.style.transition = 'all 0.3s ease';
+      
+      const cursor = document.getElementById('cursor');
+      if(cursor) {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        cursor.style.background = 'transparent'; // Kembalikan ke style awal
+      }
+      
+      setTimeout(() => {
+        magnet.style.transition = ''; // Hapus transisi agar mousemove responsif lagi
+      }, 300);
+    });
+  });
+}
