@@ -14,7 +14,16 @@ document.addEventListener("DOMContentLoaded", () => {
     0.1,
     1000,
   );
-  camera.position.set(0, 14, 30);
+
+  // Deteksi apakah mobile?
+  const isMobile = window.innerWidth < 768;
+
+  // Jika mobile, kamera mundur (Z lebih besar) dan naik sedikit (Y)
+  // Desktop: (0, 14, 30) -> Mobile: (0, 20, 55)
+  const camY = isMobile ? 20 : 14;
+  const camZ = isMobile ? 55 : 30;
+
+  camera.position.set(0, camY, camZ);
 
   const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setSize(container.clientWidth, container.clientHeight);
@@ -223,8 +232,16 @@ document.addEventListener("DOMContentLoaded", () => {
   animate();
 
   window.addEventListener("resize", () => {
+    // Update aspect ratio
     camera.aspect = container.clientWidth / container.clientHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(container.clientWidth, container.clientHeight);
+
+    // Update posisi kamera saat resize (opsional, biar mulus rotate screen)
+    const isMobileNow = container.clientWidth < 768;
+    const newY = isMobileNow ? 20 : 14;
+    const newZ = isMobileNow ? 55 : 30;
+    // Gunakan gsap atau lerp jika ingin halus, tapi set langsung juga oke
+    camera.position.set(0, newY, newZ);
   });
 });

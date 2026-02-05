@@ -7,16 +7,17 @@ function checkPassword() {
   const input = document.getElementById("pass-input").value;
   const errorMsg = document.getElementById("error-msg");
   const overlay = document.getElementById("login-overlay");
-  
+
   // Password (DDMMYYYY)
-  const correctPassword = "13022006"; 
+  const correctPassword = "13022006";
 
   if (input === correctPassword) {
     // 1. Efek Warp (Hyperspace)
     overlay.classList.add("warp-effect");
 
     // 2. Mainkan Musik
-    bgMusic.play()
+    bgMusic
+      .play()
       .then(() => {
         isPlaying = true;
         musicBtn.innerHTML = "🔊 Pause Music";
@@ -27,7 +28,7 @@ function checkPassword() {
     // 3. Tunggu animasi selesai (1.5 detik), lalu masuk
     setTimeout(() => {
       overlay.style.display = "none";
-      
+
       // === AUTO SCROLL KE SECTION 1 (HERO) ===
       const heroSection = document.getElementById("hero");
       if (heroSection) {
@@ -36,11 +37,9 @@ function checkPassword() {
       }
 
       // Mulai animasi teks Hero
-      const heroTitle = document.querySelector('.hero-content h1');
-      if(heroTitle) heroTitle.style.animationPlayState = 'running';
-      
-    }, 1500); 
-    
+      const heroTitle = document.querySelector(".hero-content h1");
+      if (heroTitle) heroTitle.style.animationPlayState = "running";
+    }, 1500);
   } else {
     // Jika Salah Password
     errorMsg.classList.remove("hidden");
@@ -75,11 +74,14 @@ function makeDraggable(element) {
   function dragMouseDown(e) {
     e = e || window.event;
 
+    // PENTING: Mencegah scroll layar saat menyentuh objek draggable
     if (e.type === "touchstart") {
+      // Jangan gunakan preventDefault di sini agar klik/tap tetap jalan
+      // tapi kita atur touch-action di CSS (lihat poin tambahan di bawah)
       pos3 = e.touches[0].clientX;
       pos4 = e.touches[0].clientY;
     } else {
-      e.preventDefault(); 
+      e.preventDefault();
       pos3 = e.clientX;
       pos4 = e.clientY;
     }
@@ -94,10 +96,10 @@ function makeDraggable(element) {
 
   function elementDrag(e) {
     e = e || window.event;
-    if (e.cancelable) e.preventDefault();
 
-    let clientX, clientY;
+    // PENTING: Prevent default saat MOVE agar layar tidak ikut scroll
     if (e.type === "touchmove") {
+      e.preventDefault(); // INI KUNCINYA AGAR LAYAR TIDAK GERAK
       clientX = e.touches[0].clientX;
       clientY = e.touches[0].clientY;
     } else {
@@ -241,7 +243,9 @@ if (typeof VanillaTilt !== "undefined") {
 }
 window.onscroll = function () {
   let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  let height =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
   let scrolled = (winScroll / height) * 100;
   document.getElementById("myBar").style.width = scrolled + "%";
 };
@@ -291,78 +295,86 @@ function sendToWA() {
   link.download = "Reaction-Birthday.png";
   link.click();
   const phoneNumber = "628xxxxxxxxxx"; // Ganti dengan nomor WA kamu
-  const message = "Makasih ya websitenya bagus banget! Ini pap reaksiku hehe ✨";
+  const message =
+    "Makasih ya websitenya bagus banget! Ini pap reaksiku hehe ✨";
   const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   setTimeout(() => window.open(waUrl, "_blank"), 1000);
 }
 
 // --- 5. MAGIC CURSOR ---
-const cursor = document.createElement('div');
-cursor.id = 'cursor';
+const cursor = document.createElement("div");
+cursor.id = "cursor";
 document.body.appendChild(cursor);
 
-const cursorBlur = document.createElement('div');
-cursorBlur.id = 'cursor-blur';
+const cursorBlur = document.createElement("div");
+cursorBlur.id = "cursor-blur";
 document.body.appendChild(cursorBlur);
 
-document.addEventListener('mousemove', (e) => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-  cursorBlur.style.left = e.clientX + 'px';
-  cursorBlur.style.top = e.clientY + 'px';
+document.addEventListener("mousemove", (e) => {
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+  cursorBlur.style.left = e.clientX + "px";
+  cursorBlur.style.top = e.clientY + "px";
 });
 
-const clickables = document.querySelectorAll('a, button, .polaroid, #envelope');
-clickables.forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-    cursor.style.backgroundColor = 'rgba(197, 160, 89, 0.2)';
+const clickables = document.querySelectorAll("a, button, .polaroid, #envelope");
+clickables.forEach((el) => {
+  el.addEventListener("mouseenter", () => {
+    cursor.style.transform = "translate(-50%, -50%) scale(1.5)";
+    cursor.style.backgroundColor = "rgba(197, 160, 89, 0.2)";
   });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-    cursor.style.backgroundColor = 'transparent';
+  el.addEventListener("mouseleave", () => {
+    cursor.style.transform = "translate(-50%, -50%) scale(1)";
+    cursor.style.backgroundColor = "transparent";
   });
 });
 
 // --- 6. FLOATING HEARTS ANIMATION ---
 function createHeart() {
-  const heart = document.createElement('div');
-  heart.classList.add('floating-heart');
-  heart.innerHTML = '❤';
-  heart.style.left = Math.random() * 100 + 'vw';
-  
-  const size = Math.random() * 20 + 10; 
-  heart.style.fontSize = size + 'px';
-  heart.style.animationDuration = Math.random() * 5 + 10 + 's';
-  
+  const heart = document.createElement("div");
+  heart.classList.add("floating-heart");
+  heart.innerHTML = "❤";
+  heart.style.left = Math.random() * 100 + "vw";
+
+  const size = Math.random() * 20 + 10;
+  heart.style.fontSize = size + "px";
+  heart.style.animationDuration = Math.random() * 5 + 10 + "s";
+
   document.body.appendChild(heart);
-  setTimeout(() => { heart.remove(); }, 15000);
+  setTimeout(() => {
+    heart.remove();
+  }, 15000);
 }
 setInterval(createHeart, 500);
 
 // --- 7. ENHANCED SCROLL REVEAL ---
-const revealElements = document.querySelectorAll('.fade-in');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      entry.target.style.transform = 'translateY(0) scale(1)';
-    }
-  });
-}, { threshold: 0.15 });
+const revealElements = document.querySelectorAll(".fade-in");
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        entry.target.style.transform = "translateY(0) scale(1)";
+      }
+    });
+  },
+  { threshold: 0.15 },
+);
 
-revealElements.forEach(el => {
-  el.style.transition = 'all 1s cubic-bezier(0.5, 0, 0, 1)';
-  el.style.transform = 'translateY(50px) scale(0.95)';
+revealElements.forEach((el) => {
+  el.style.transition = "all 1s cubic-bezier(0.5, 0, 0, 1)";
+  el.style.transform = "translateY(50px) scale(0.95)";
   revealObserver.observe(el);
 });
 
 // --- 8. MAGNETIC BUTTON EFFECT (Desktop Only) ---
 if (window.innerWidth > 992) {
-  const magnets = document.querySelectorAll('.btn, .login-box button, #music-control');
+  const magnets = document.querySelectorAll(
+    ".btn, .login-box button, #music-control",
+  );
 
   magnets.forEach((magnet) => {
-    magnet.addEventListener('mousemove', function(e) {
+    magnet.addEventListener("mousemove", function (e) {
       const position = magnet.getBoundingClientRect();
       const x = e.pageX - position.left - position.width / 2;
       const y = e.pageY - position.top - position.height / 2;
@@ -370,26 +382,26 @@ if (window.innerWidth > 992) {
       // Elemen bergerak sedikit mengikuti mouse (Magnetic)
       magnet.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px) scale(1.1)`;
       // Kursor (lingkaran kuning) juga membesar
-      const cursor = document.getElementById('cursor');
-      if(cursor) {
-        cursor.style.transform = 'translate(-50%, -50%) scale(2)';
-        cursor.style.background = 'transparent';
-        cursor.style.border = '1px solid #ffd700';
+      const cursor = document.getElementById("cursor");
+      if (cursor) {
+        cursor.style.transform = "translate(-50%, -50%) scale(2)";
+        cursor.style.background = "transparent";
+        cursor.style.border = "1px solid #ffd700";
       }
     });
 
-    magnet.addEventListener('mouseleave', function(e) {
-      magnet.style.transform = 'translate(0px, 0px) scale(1)';
-      magnet.style.transition = 'all 0.3s ease';
-      
-      const cursor = document.getElementById('cursor');
-      if(cursor) {
-        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-        cursor.style.background = 'transparent'; // Kembalikan ke style awal
+    magnet.addEventListener("mouseleave", function (e) {
+      magnet.style.transform = "translate(0px, 0px) scale(1)";
+      magnet.style.transition = "all 0.3s ease";
+
+      const cursor = document.getElementById("cursor");
+      if (cursor) {
+        cursor.style.transform = "translate(-50%, -50%) scale(1)";
+        cursor.style.background = "transparent"; // Kembalikan ke style awal
       }
-      
+
       setTimeout(() => {
-        magnet.style.transition = ''; // Hapus transisi agar mousemove responsif lagi
+        magnet.style.transition = ""; // Hapus transisi agar mousemove responsif lagi
       }, 300);
     });
   });
