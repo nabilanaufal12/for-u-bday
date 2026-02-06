@@ -34,7 +34,7 @@ html {
 body {
   background: linear-gradient(to bottom, rgba(15, 12, 41, 0.8), rgba(48, 43, 99, 0.8), rgba(36, 36, 62, 0.8));
   color: white; 
-  cursor: none;
+  cursor: default; /* Changed from none - no custom cursor for mobile */
   margin: 0;
   padding: 0;
   font-family: var(--font-sans);
@@ -45,34 +45,7 @@ body {
   max-width: 100vw;
 }
 
-/* --- CUSTOM CURSOR (MAGIC) --- */
-#cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--accent-gold);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s;
-  box-shadow: 0 0 10px var(--accent-gold);
-}
-#cursor-blur {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 300px;
-  height: 300px;
-  background: rgba(197, 160, 89, 0.15);
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 99998;
-  transform: translate(-50%, -50%);
-}
+/* Custom cursor removed - not needed for mobile */
 
 /* --- GLASSMORPHISM CLASS --- */
 .glass-box {
@@ -486,16 +459,8 @@ h1, h2, h3 {
     font-size: 1.3rem;
     letter-spacing: 6px;
   }
-  
-  /* Cursor - hide on mobile */
-  #cursor, #cursor-blur { 
-    display: none !important; 
-  }
-  
-  body { 
-    cursor: auto; 
-  }
 }
+
 
 /* --- SECTION 2: THE LIST (MARQUEE EDITION) --- */
 #the-list {
@@ -1567,63 +1532,10 @@ body::before {
   pointer-events: none;
 }
 
-/* --- 2. TYPOGRAPHY: GIANT & OUTLINE --- */
-/* Ubah Hero agar lebih masif di Desktop */
-@media (min-width: 1024px) {
-  .hero-content h1 {
-    font-size: 8vw;    /* Diperkecil dari 9vw/12vw agar tidak raksasa */
-    margin-top: 0px;   /* Posisi netral, tidak terlalu nempel ke atas */
-    line-height: 1.2;  /* Menjaga kerapian */
-    mix-blend-mode: overlay; 
-  }
+/* Desktop media query removed - mobile only */
 
-  /* Teks Outline Dekoratif di Background (Tambahkan di HTML nanti) */
-  .bg-text-outline {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 20vw;
-    font-family: var(--font-serif);
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
-    z-index: -1;
-    white-space: nowrap;
-    pointer-events: none;
-  }
-}
+/* Cosmic orbs removed for performance */
 
-/* ORBS DEKORATIF */
-.cosmic-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.4;
-  z-index: 0;
-  animation: floatOrb 20s infinite alternate;
-}
-
-.orb-1 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(#ffd700, transparent);
-  top: 10%;
-  left: -100px;
-}
-
-.orb-2 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(#3a0ca3, transparent);
-  bottom: 10%;
-  right: -200px;
-  animation-delay: -5s;
-}
-
-@keyframes floatOrb {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(50px, 100px) scale(1.2); }
-}
 
 @media (max-width: 768px) {
   /* 1. Global Typography Adjustment */

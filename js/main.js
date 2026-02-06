@@ -224,13 +224,12 @@ function createSparkle(x, y) {
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 1000);
 }
-document.addEventListener("mousemove", (e) => {
-  if (Math.random() < 0.1) createSparkle(e.clientX, e.clientY + window.scrollY);
-});
-document.addEventListener("touchmove", (e) => {
-  if (Math.random() < 0.1)
-    createSparkle(e.touches[0].clientX, e.touches[0].clientY + window.scrollY);
-});
+// Sparkle effect - DESKTOP ONLY (mobile too heavy)
+if (window.innerWidth > 768) {
+  document.addEventListener("mousemove", (e) => {
+    if (Math.random() < 0.1) createSparkle(e.clientX, e.clientY + window.scrollY);
+  });
+}
 
 // Tilt & Scroll Progress
 if (typeof VanillaTilt !== "undefined") {
@@ -301,51 +300,11 @@ function sendToWA() {
   setTimeout(() => window.open(waUrl, "_blank"), 1000);
 }
 
-// --- 5. MAGIC CURSOR ---
-const cursor = document.createElement("div");
-cursor.id = "cursor";
-document.body.appendChild(cursor);
+// --- 5. MAGIC CURSOR --- (DISABLED FOR MOBILE)
+// Cursor code removed for performance - not needed on touch devices
 
-const cursorBlur = document.createElement("div");
-cursorBlur.id = "cursor-blur";
-document.body.appendChild(cursorBlur);
-
-document.addEventListener("mousemove", (e) => {
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
-  cursorBlur.style.left = e.clientX + "px";
-  cursorBlur.style.top = e.clientY + "px";
-});
-
-const clickables = document.querySelectorAll("a, button, .polaroid, #envelope");
-clickables.forEach((el) => {
-  el.addEventListener("mouseenter", () => {
-    cursor.style.transform = "translate(-50%, -50%) scale(1.5)";
-    cursor.style.backgroundColor = "rgba(197, 160, 89, 0.2)";
-  });
-  el.addEventListener("mouseleave", () => {
-    cursor.style.transform = "translate(-50%, -50%) scale(1)";
-    cursor.style.backgroundColor = "transparent";
-  });
-});
-
-// --- 6. FLOATING HEARTS ANIMATION ---
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.classList.add("floating-heart");
-  heart.innerHTML = "❤";
-  heart.style.left = Math.random() * 100 + "vw";
-
-  const size = Math.random() * 20 + 10;
-  heart.style.fontSize = size + "px";
-  heart.style.animationDuration = Math.random() * 5 + 10 + "s";
-
-  document.body.appendChild(heart);
-  setTimeout(() => {
-    heart.remove();
-  }, 15000);
-}
-setInterval(createHeart, 500);
+// --- 6. FLOATING HEARTS ANIMATION --- (DISABLED FOR PERFORMANCE)
+// Hearts removed - was causing memory leak and performance issues
 
 // --- 7. ENHANCED SCROLL REVEAL ---
 const revealElements = document.querySelectorAll(".fade-in");
