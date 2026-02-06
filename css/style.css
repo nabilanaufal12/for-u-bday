@@ -20,17 +20,29 @@
   --font-sans: "Lato", sans-serif;
 }
 
+/* Global Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
 body {
-  /* Gradient transparan agar canvas bintang terlihat, tapi tetap ada warna dasar */
   background: linear-gradient(to bottom, rgba(15, 12, 41, 0.8), rgba(48, 43, 99, 0.8), rgba(36, 36, 62, 0.8));
   color: white; 
-  cursor: none; /* Hilangkan kursor asli */
+  cursor: none;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   font-family: var(--font-sans);
   overflow-x: hidden;
   line-height: 1.6;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
 }
 
 /* --- CUSTOM CURSOR (MAGIC) --- */
@@ -135,6 +147,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   background: radial-gradient(circle at center, #1b113a 0%, #000000 100%);
   z-index: 10000;
   display: flex;
@@ -142,7 +156,7 @@ body {
   align-items: center;
   transition: opacity 1.5s ease-in-out, visibility 1.5s ease-in-out;
   overflow: hidden;
-  transform-origin: center;
+  padding: 20px;
 }
 
 /* WARP EFFECT CLASS (JUMP TO HYPERSPACE) */
@@ -170,13 +184,13 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Login Box */
+/* Login Box - FIXED (no floating animation for mobile stability) */
 .login-box {
   position: relative;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 50px 40px;
+  padding: 40px 30px;
   border-radius: 20px;
   text-align: center;
   color: white;
@@ -184,16 +198,10 @@ body {
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   border-left: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.05);
-  max-width: 90%;
-  width: 380px;
-  transform: translateY(0);
-  animation: floatBox 6s ease-in-out infinite;
+  width: 90%;
+  max-width: 360px;
   z-index: 2;
-}
-
-@keyframes floatBox {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  /* NO ANIMATION - stable on mobile */
 }
 
 .login-box h2 {
@@ -336,14 +344,14 @@ h1, h2, h3 {
 /* --- SECTION 1: HERO --- */
 #hero {
   position: relative;
-  /* Gambar Galaxy background */
   background-image: 
     linear-gradient(to bottom, rgba(15, 12, 41, 0.6), rgba(15, 12, 41, 0.9)),
     url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -351,6 +359,7 @@ h1, h2, h3 {
   text-align: center;
   color: white;
   overflow: hidden;
+  padding: 20px;
 }
 
 .hero-content {
@@ -433,8 +442,59 @@ h1, h2, h3 {
 }
 
 @media (max-width: 768px) {
-  .hero-content h1 { font-size: 4rem; }
-  .hero-content .sub-title { font-size: 1rem; letter-spacing: 3px; }
+  /* Hero fixes for mobile */
+  #hero {
+    background-attachment: scroll; /* Fixed attachment doesn't work on mobile */
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    padding: 40px 15px;
+  }
+  
+  .hero-content h1 { 
+    font-size: 3.5rem; 
+    line-height: 1.1;
+  }
+  
+  .hero-content .sub-title { 
+    font-size: 0.9rem; 
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+  
+  .hero-content .date {
+    font-size: 0.85rem;
+    padding: 8px 20px;
+  }
+  
+  /* Login box mobile fix */
+  .login-box {
+    width: 92%;
+    max-width: 340px;
+    padding: 35px 25px;
+  }
+  
+  .login-box h2 {
+    font-size: 1.7rem;
+  }
+  
+  .login-box input {
+    font-size: 1.3rem;
+    letter-spacing: 6px;
+  }
+  
+  .login-box input::placeholder {
+    font-size: 1.3rem;
+    letter-spacing: 6px;
+  }
+  
+  /* Cursor - hide on mobile */
+  #cursor, #cursor-blur { 
+    display: none !important; 
+  }
+  
+  body { 
+    cursor: auto; 
+  }
 }
 
 /* --- SECTION 2: THE LIST (MARQUEE EDITION) --- */
@@ -600,19 +660,22 @@ h1, h2, h3 {
 /* --- RESPONSIVE HP --- */
 @media (max-width: 768px) {
   #the-list {
-    padding: 0;
+    padding: 60px 0;
+    min-height: 100vh;
+    overflow: visible; /* PENTING: Jangan sembunyikan foto */
   }
 
   .overlay-container {
     flex-direction: column;
-    padding: 30px 20px;
+    padding: 25px 20px;
     width: 85%;
-    gap: 10px;
-    background: rgba(15, 12, 41, 0.85); /* Lebih solid di HP */
+    gap: 8px;
+    background: rgba(15, 12, 41, 0.95);
+    z-index: 10;
   }
 
   .huge-number, .huge-cursive {
-    font-size: 5rem; /* Ukuran aman di HP */
+    font-size: 3.5rem;
     line-height: 1.1;
   }
   
@@ -620,21 +683,53 @@ h1, h2, h3 {
     border: none;
     border-top: 1px solid var(--accent-gold);
     border-bottom: 1px solid var(--accent-gold);
-    padding: 15px 0;
+    padding: 10px 0;
     width: 80%;
     height: auto;
-    margin: 10px 0;
+    margin: 8px 0;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
   }
 
-  /* Marquee HP Adjustment */
+  /* Marquee HP - POSISI BARU */
   .marquee-container {
-    gap: 15px;
-    transform: translate(-50%, -50%) rotate(0deg); /* Lurus di HP */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: none; /* Hapus transform translate */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Foto atas dan bawah */
+    align-items: center;
+    padding: 30px 0;
+    gap: 0;
+    opacity: 0.8; /* Lebih terang */
+    filter: grayscale(20%) brightness(0.85); /* Lebih terang */
+  }
+  
+  .marquee-row {
+    width: 100%;
+    overflow: visible;
   }
   
   .marquee-content img {
-    height: 140px; /* Foto lebih kecil di HP */
-    gap: 10px;
+    height: 80px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  }
+  
+  .marquee-content {
+    gap: 12px;
+  }
+  
+  /* Vignette lebih tipis di mobile */
+  #the-list::after {
+    background: radial-gradient(ellipse at center, transparent 40%, #0f0c29 85%);
+    z-index: 5; /* Di atas foto tapi di bawah overlay box */
   }
 }
 
@@ -1169,13 +1264,7 @@ h1, h2, h3 {
   100% { transform: translateY(0) rotate(var(--r, 0deg)); }
 }
 
-@media (max-width: 768px) {
-  .message-layout { flex-direction: column; text-align: center; }
-  .envelope-wrapper { display: flex; justify-content: center; width: 350px; }
-  .polaroid-stack { width: 100%; height: 400px; margin-top: -50px; }
-  .polaroid { width: 140px; padding: 8px 8px 30px 8px; }
-  .polaroid img { height: 160px; }
-}
+/* Media query duplikat dihapus - pindah ke section responsive bawah */
 
 /* --- SECTION 6: WISH --- */
 #wish {
@@ -1600,53 +1689,94 @@ body::before {
   }
 
   /* 5. Message Section (Amplop & Polaroid) */
-  #message { padding: 50px 0; }
+  #message { 
+    padding: 50px 0 30px 0;
+    min-height: auto;
+    margin-bottom: 0;
+    overflow: visible;
+    z-index: 5;
+  }
+  
+  .message-text {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .message-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 25px;
+  }
   
   .message-layout { 
     flex-direction: column; 
-    gap: 40px; 
+    gap: 30px; 
+    width: 95%;
   }
   
   /* Amplop Responsif */
   .envelope-wrapper {
-    width: 300px;
-    height: 200px;
+    width: 280px;
+    height: 180px;
     margin: 0 auto;
   }
   
   /* Surat saat dibuka (PENTING: Biar gak keluar layar HP) */
   #envelope.open .letter {
-    width: 90%; /* Jangan fixed pixel, pakai persen */
-    max-width: 280px;
-    height: 350px; /* Tinggi surat disesuaikan */
-    bottom: 60px;
+    width: 90%;
+    max-width: 260px;
+    height: 320px;
+    bottom: 55px;
   }
   
-  .letter-content p { font-size: 0.9rem; line-height: 1.3; }
-
-  /* Polaroid Stack - Beri ruang geser */
-  .polaroid-stack {
-    width: 100%;
-    height: 450px; /* Tinggi area main polaroid */
+  .letter-content p { font-size: 0.85rem; line-height: 1.3; }
+  
+  .instruction-click {
+    font-size: 0.8rem;
     margin-top: 20px;
   }
 
-  .polaroid {
-    width: 130px; /* Perkecil ukuran polaroid */
-    padding: 8px 8px 25px 8px;
+  /* Polaroid Stack - ORIGINAL SCATTERED LAYOUT (DIPERBAIKI) */
+  .polaroid-stack {
+    width: 100%;
+    height: 300px; /* Fixed height yang pas */
+    min-width: auto;
+    margin-top: 20px;
+    margin-bottom: 40px; /* Jarak ke section berikutnya */
+    position: relative;
+    /* overflow: visible agar polaroid terlihat */
   }
-  .polaroid img { height: 140px; }
+
+  .polaroid {
+    width: 100px;
+    padding: 5px 5px 18px 5px;
+    animation: none; /* Matikan floating agar stabil */
+    /* RESET semua posisi dari base CSS */
+    bottom: auto !important;
+    right: auto;
+  }
   
-  /* Reset posisi polaroid biar mencar tapi tetap di tengah */
-  .polaroid:nth-child(1) { top: 0; left: 10%; transform: rotate(-5deg); }
-  .polaroid:nth-child(2) { top: 20px; right: 10%; transform: rotate(5deg); }
-  .polaroid:nth-child(3) { top: 150px; left: 5%; transform: rotate(-10deg); }
-  .polaroid:nth-child(4) { top: 180px; right: 5%; transform: rotate(8deg); }
-  .polaroid:nth-child(5) { top: 100px; left: 30%; transform: rotate(0deg); }
+  .polaroid img { 
+    height: 100px;
+  }
+  
+  /* Posisi polaroid - RESET LENGKAP dengan bottom: auto */
+  .polaroid:nth-child(1) { top: 10px; left: 5%; bottom: auto; right: auto; transform: rotate(-8deg); }
+  .polaroid:nth-child(2) { top: 5px; left: auto; right: 5%; bottom: auto; transform: rotate(6deg); }
+  .polaroid:nth-child(3) { top: 140px; left: 2%; bottom: auto; right: auto; transform: rotate(-5deg); }
+  .polaroid:nth-child(4) { top: 135px; left: auto; right: 2%; bottom: auto; transform: rotate(7deg); }
+  .polaroid:nth-child(5) { top: 70px; left: 50%; margin-left: -50px; bottom: auto; right: auto; transform: rotate(2deg); z-index: 5; }
 
   /* 6. Wish Section */
-  .wish-content h2 { font-size: 5rem; }
-  .wish-content { width: 100%; padding: 30px 15px; }
+  #wish {
+    padding: 60px 0;
+    position: relative;
+  }
+  
+  .wish-content h2 { font-size: 4rem; }
+  .wish-content { 
+    width: 95%; 
+    padding: 30px 15px; 
+  }
 
   /* 7. Selfie Camera */
   .camera-frame { height: 300px; }
@@ -1659,12 +1789,476 @@ body::before {
   .planet-overlay h2 { font-size: 2rem; }
 
   .draggable, #envelope {
-  touch-action: none; /* Mematikan browser handling (scroll/zoom) pada elemen ini */
-  user-select: none;
+    touch-action: none;
+    user-select: none;
   }
 }
 
-@media (max-width: 768px) {
-  #cursor, #cursor-blur { display: none !important; }
-  body { cursor: auto; } /* Kembalikan kursor default */
+/* === MOBILE CHROME RESPONSIVE ENHANCEMENTS === */
+
+/* Small Mobile Devices (320px - 480px) */
+@media (max-width: 480px) {
+  html {
+    font-size: 13px;
+    -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape */
+  }
+  
+  body {
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+  }
+  
+  .container {
+    width: 92%;
+    padding: 20px 0;
+  }
+  
+  /* Hero Section - Better Mobile Fit */
+  .hero-content h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    padding: 0 10px;
+  }
+  
+  .hero-content .sub-title {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+  }
+  
+  .hero-content .date {
+    font-size: 0.85rem;
+    padding: 8px 18px;
+  }
+  
+  /* Login Box - Full Width Mobile */
+  .login-box {
+    width: 95%;
+    max-width: 320px;
+    padding: 35px 25px;
+  }
+  
+  .login-box h2 {
+    font-size: 1.6rem;
+  }
+  
+  .login-box p {
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .login-box input {
+    font-size: 1.2rem;
+    letter-spacing: 5px;
+    padding: 10px 0;
+  }
+  
+  .login-box input::placeholder {
+    font-size: 1.2rem;
+    letter-spacing: 5px;
+  }
+  
+  .login-box button {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+  
+  /* The List Section - Mobile Optimization */
+  #the-list {
+    min-height: 70vh;
+    padding: 40px 0;
+  }
+  
+  .overlay-container {
+    width: 95%;
+    padding: 20px 15px;
+    gap: 5px;
+    border-radius: 25px;
+  }
+  
+  .huge-number, .huge-cursive {
+    font-size: 3rem;
+    line-height: 1;
+  }
+  
+  .huge-cursive {
+    margin-right: 0;
+    padding-right: 0;
+  }
+  
+  .middle-text {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    padding: 8px 0;
+    width: 90%;
+  }
+  
+  .marquee-content img {
+    height: 100px;
+    border-radius: 10px;
+  }
+  
+  .marquee-container {
+    gap: 10px;
+  }
+  
+  /* UMRAH Section */
+  #umrah {
+    padding: 60px 0;
+  }
+  
+  .umrah-title {
+    font-size: 1.8rem;
+  }
+  
+  .umrah-title .big-number {
+    font-size: 3rem;
+  }
+  
+  .umrah-message {
+    padding: 20px 15px;
+  }
+  
+  .umrah-message h3 {
+    font-size: 1rem;
+  }
+  
+  .umrah-message p {
+    font-size: 0.95rem;
+  }
+  
+  .umrah-image img {
+    max-width: 90%;
+    transform: rotate(0deg);
+  }
+  
+  .campus-logo {
+    width: 50px;
+    top: 5px;
+    right: 5px;
+  }
+  
+  /* Achievement Section */
+  #achievement {
+    padding: 60px 0;
+  }
+  
+  .achievement-card {
+    padding: 25px 20px;
+  }
+  
+  .achievement-card h2 {
+    font-size: 1.8rem;
+  }
+  
+  .rank-number {
+    font-size: 2.5rem;
+  }
+  
+  .note-content {
+    font-size: 0.95rem;
+  }
+  
+  .photo-frame img {
+    max-width: 90%;
+  }
+  
+  /* Message Section - Improved Envelope */
+  #message {
+    padding: 40px 0;
+    min-height: auto;
+  }
+  
+  .message-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 25px;
+  }
+  
+  .envelope-wrapper {
+    width: 280px;
+    height: 180px;
+  }
+  
+  /* Fix envelope pocket and flap for smaller size */
+  .pocket {
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-bottom: 110px solid #852d2d;
+  }
+  
+  .flap {
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 100px solid #a33232;
+  }
+  
+  .seal {
+    top: 70px;
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+  
+  #envelope.open .letter {
+    width: 95%;
+    max-width: 260px;
+    height: 300px;
+    bottom: 50px;
+    padding: 20px 15px;
+  }
+  
+  .letter-content p {
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+  
+  .instruction-click {
+    font-size: 0.8rem;
+    margin-top: 30px;
+  }
+  
+  /* Polaroid Stack - Smaller & Tighter */
+  .polaroid-stack {
+    height: 280px;
+    min-width: auto;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .polaroid {
+    width: 90px;
+    padding: 4px 4px 15px 4px;
+    bottom: auto !important;
+  }
+  
+  .polaroid img {
+    height: 90px;
+  }
+  
+  /* RESET posisi dengan bottom: auto */
+  .polaroid:nth-child(1) { top: 5px; left: 3%; bottom: auto; right: auto; }
+  .polaroid:nth-child(2) { top: 5px; left: auto; right: 3%; bottom: auto; }
+  .polaroid:nth-child(3) { top: 130px; left: 0; bottom: auto; right: auto; }
+  .polaroid:nth-child(4) { top: 130px; left: auto; right: 0; bottom: auto; }
+  .polaroid:nth-child(5) { top: 65px; left: 50%; margin-left: -45px; bottom: auto; right: auto; }
+  
+  /* Wish Section */
+  #wish {
+    padding: 80px 0;
+  }
+  
+  .wish-content {
+    padding: 30px 15px;
+  }
+  
+  .wish-content h2 {
+    font-size: 4rem;
+  }
+  
+  .wish-content p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  
+  .wish-signature {
+    font-size: 1.2rem;
+    margin-top: 25px;
+  }
+  
+  /* Selfie Section */
+  #selfie-section {
+    padding: 60px 0 100px 0;
+  }
+  
+  #selfie-section h2 {
+    font-size: 2rem;
+    padding: 0 10px;
+  }
+  
+  #selfie-section p {
+    font-size: 0.95rem;
+    padding: 0 15px;
+    margin-bottom: 25px;
+  }
+  
+  .camera-container {
+    width: 95%;
+    padding: 15px;
+    border-radius: 20px;
+  }
+  
+  .camera-frame {
+    height: 250px;
+    border-radius: 12px;
+  }
+  
+  .controls {
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+  }
+  
+  /* Planet Gallery */
+  .planet-overlay {
+    width: 95%;
+    top: 8%;
+  }
+  
+  .planet-overlay h2 {
+    font-size: 1.6rem;
+  }
+  
+  .planet-overlay p {
+    font-size: 0.85rem;
+  }
+  
+  /* Music Control Button */
+  #music-control {
+    bottom: 15px;
+    right: 15px;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+  }
+  
+  /* Progress Bar */
+  .progress-container {
+    height: 3px;
+  }
+}
+
+/* Extra Small Mobile (under 360px - very small phones) */
+@media (max-width: 360px) {
+  html {
+    font-size: 12px;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  
+  .huge-number, .huge-cursive {
+    font-size: 2.5rem;
+  }
+  
+  .overlay-container {
+    padding: 15px 10px;
+  }
+  
+  .envelope-wrapper {
+    width: 250px;
+    height: 160px;
+  }
+  
+  .pocket {
+    border-left: 125px solid transparent;
+    border-right: 125px solid transparent;
+    border-bottom: 100px solid #852d2d;
+  }
+  
+  .flap {
+    border-left: 125px solid transparent;
+    border-right: 125px solid transparent;
+    border-top: 90px solid #a33232;
+  }
+  
+  .seal {
+    top: 60px;
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+  
+  #envelope.open .letter {
+    max-width: 230px;
+    height: 280px;
+    bottom: 45px;
+  }
+  
+  .polaroid {
+    width: 95px;
+    padding: 5px 5px 18px 5px;
+  }
+  
+  .polaroid img {
+    height: 95px;
+  }
+  
+  .wish-content h2 {
+    font-size: 3.5rem;
+  }
+  
+  .message-text h2 {
+    font-size: 2rem;
+  }
+}
+
+/* Fix for Chrome Mobile landscape orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+  #hero {
+    height: auto;
+    min-height: 100vh;
+    padding: 40px 0;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  #login-overlay {
+    padding: 20px;
+  }
+  
+  .login-box {
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 25px 20px;
+  }
+  
+  .camera-frame {
+    height: 200px;
+  }
+}
+
+/* Touch-friendly improvements for all mobile */
+@media (hover: none) and (pointer: coarse) {
+  /* Bigger touch targets */
+  .login-box button,
+  .btn,
+  #music-control {
+    min-height: 44px; /* Apple's recommended touch target */
+  }
+  
+  #envelope {
+    touch-action: manipulation;
+  }
+  
+  .draggable {
+    touch-action: none;
+  }
+  
+  /* Remove hover states on touch devices */
+  .login-box button:hover,
+  .btn:hover,
+  #music-control:hover,
+  #envelope:hover {
+    transform: none;
+  }
+  
+  /* Add active states for visual feedback */
+  .login-box button:active {
+    transform: scale(0.98);
+    background: linear-gradient(45deg, #e6c88b, #c5a059);
+  }
+  
+  .btn:active {
+    transform: scale(0.98);
+  }
+  
+  #envelope:active {
+    transform: scale(0.98);
+  }
 }
